@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/05 13:00:36 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/05 13:29:43 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -37,20 +37,19 @@ OBJS = $(addprefix $(ODIR), $(OBJ))
 
 all: $(LIB) $(NAME)
 
-$(NAME) : objects
+$(NAME) : $(OBJS)
 	@$(BLU)
 	@echo "Making $(NAME)..."
-	@$(CC) -shared -o $(NAME) $(addprefix $(ODIR), $(OBJ))
+	@$(CC) -shared -o $(NAME) $^ 
 	@ln -s $(NAME) $(LS)
 	@$(GRN)
 	@echo "Done !"
 	@$(RESET)
 
-objects:
+$(OBJS)%.o: $(SRC)
 	@$(BLU)
 	@echo "making objects..."
-	@$(CC) $(CFLAGS) -c $(OBJS) $(INC) -o $(SRC)
-	@mkdir -p $(ODIR)
+	@$(CC) $(CFLAGS) -c $^ $(INC) -o $@
 	@mv $(OBJ) $(ODIR)
 	@$(GRN)
 	@echo "Done !"
@@ -59,6 +58,7 @@ objects:
 $(LIB):
 	@$(BLU)
 	@echo "Compiling libft..."
+	@mkdir -p $(ODIR)
 	@make -C libft
 	@$(GRN)
 	@echo "Done !"
@@ -69,11 +69,12 @@ clean:
 	make -C ./libft clean
 
 fclean:
-	/bin/rm -f $(LS)
+	/bin/rm -rf $(LS)
 	make -C ./libft fclean
-	/bin/rm -f $(NAME)
+	/bin/rm -rf $(NAME)
+	/bin/rm -rf test
 
 re: fclean all
 
 test: re
-	gcc $(CFLAGS) -o test test.c -L . $(NAME) $(INC) -g
+	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
