@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/05 13:46:06 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/05 15:21:03 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -40,13 +40,14 @@ all: $(LIB) $(NAME)
 $(NAME) : $(OBJS)
 	@$(BLU)
 	@echo "Making $(NAME)..."
-	@$(CC) -shared -o $(NAME) $^ 
+	@$(CC) -shared -o $(NAME) $^ $(LINK) 
 	@ln -s $(NAME) $(LS)
 	@$(GRN)
 	@echo "Done !"
 	@$(RESET)
 
-$(OBJS)%.o: $(SRC)
+$(OBJS): $(SRC)
+	@mkdir -p $(ODIR)
 	@$(BLU)
 	@echo "making objects..."
 	@$(CC) $(CFLAGS) -c $^ $(INC) -o $@
@@ -58,7 +59,6 @@ $(OBJS)%.o: $(SRC)
 $(LIB):
 	@$(BLU)
 	@echo "Compiling libft..."
-	@mkdir -p $(ODIR)
 	@make -C libft
 	@$(GRN)
 	@echo "Done !"
@@ -78,3 +78,4 @@ re: fclean all
 
 test: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
+	./test

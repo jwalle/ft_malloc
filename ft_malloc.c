@@ -6,12 +6,12 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/05 13:22:26 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/05 15:18:47 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "libft.h"
+#include "libft/libft.h"
 
 int	ft_malloc(char *str)
 {
