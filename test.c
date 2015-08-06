@@ -6,12 +6,11 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/05 15:32:12 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/06 10:38:51 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
-#include <sys/mman.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -28,7 +27,7 @@ int main(int ac, char **av)
 	(void)ac;
 	nb = atoi(av[2]);
 	c = av[1][0];
-	str = (char*)mmap(0, nb + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	str = (char*)ft_malloc(nb);
 	i = 0;
 	while (i < nb)
 	{
