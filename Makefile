@@ -6,12 +6,12 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/06 13:25:29 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/06 16:24:02 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
 ifeq ($(HOSTTYPE),)
-	HOSTTYPE := $(shell uname -m)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
 NAME = libft_malloc_$(HOSTTYPE).so
@@ -19,7 +19,7 @@ LS = libft_malloc.so
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-SRCDIR = .
+SRCDIR = ./
 SRCO = $(SRC:.c=.o)
 ODIR = ./objs/
 LIB = ./libft/libft.a
@@ -30,7 +30,8 @@ GRN = tput setaf 2
 WHT = tput setaf 7
 RESET = tput sgr 0
 
-SRC = ft_malloc.c
+SRC =	ft_malloc.c \
+		ft_atoi_hex.c \
 
 OBJ = $(SRC:.c=.o)
 OBJS = $(addprefix $(ODIR), $(OBJ))
@@ -40,17 +41,17 @@ all: $(LIB) $(NAME)
 $(NAME) : $(OBJS)
 	@$(BLU)
 	@echo "Making $(NAME)..."
-	@$(CC) -shared -o $(NAME) $^ $(LINK) 
-	@ln -s $(NAME) $(LS)
+	$(CC) -shared -o $(NAME) $^ $(LINK) 
+	ln -s $(NAME) $(LS)
 	@$(GRN)
 	@echo "Done !"
 	@$(RESET)
 
-$(OBJS): $(SRC)
-	@mkdir -p $(ODIR)
+$(ODIR)%.o : $(SRCDIR)%.c
+	mkdir -p $(ODIR)
 	@$(BLU)
 	@echo "making objects..."
-	@$(CC) $(CFLAGS) -c $^ $(INC) -o $@
+	$(CC) $(CFLAGS) -c $^ $(INC) -o $@
 	@$(GRN)
 	@echo "Done !"
 	@$(RESET)

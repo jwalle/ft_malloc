@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/06 13:49:19 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/06 16:28:37 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@ void	get_limit(void)
 {
 	struct rlimit	rlp;
 	int				limit;
+	char			*str;
 
+
+	str = strdup("plop\n");
+	ft_putstr("my adress = ");
+	ft_atoi_hex((void*)str);
+	ft_putstr("\n");
+	printf("");
 	limit = getrlimit(RLIMIT_FSIZE, &rlp);
 	printf("limit = %d\n", limit);
 	printf("current max is = %d\n", (int)rlp.rlim_cur);
