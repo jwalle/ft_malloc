@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/06 16:24:02 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/06 17:25:42 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -78,3 +78,4 @@ re: fclean all
 
 test: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
+	./test X 42
