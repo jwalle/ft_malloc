@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/06 13:23:21 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/06 13:49:19 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@ void	get_limit(void)
 	struct rlimit	rlp;
 	int				limit;
 
-	limit = getrlimit(RLIMIT_DATA, &rlp);
+	limit = getrlimit(RLIMIT_FSIZE, &rlp);
 	printf("limit = %d\n", limit);
 	printf("current max is = %d\n", (int)rlp.rlim_cur);
 	printf("current hard is = %d\n", (int)rlp.rlim_max);
+	printf("pagesize = %d\n", getpagesize());
 }
 
 void	*get_tiny(size_t size)
 {
 	void *ret;
 
+	printf("TINY\n");
 	ret = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	get_limit();
 	return (ret);	
@@ -39,6 +41,7 @@ void	*get_small(size_t size)
 {
 	void *ret;
 
+	printf("SMALL\n");
 	ret = mmap(0, (SMALL * size) + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	get_limit();
 	return (ret);	
@@ -48,6 +51,7 @@ void	*get_large(size_t size)
 {
 	void *ret;
 
+	printf("LARGE\n");
 	ret = mmap(0, (LARGE * size + 1), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	get_limit();
 	return (ret);	

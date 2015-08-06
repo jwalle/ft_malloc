@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/05 15:32:35 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/06 13:25:29 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -51,7 +51,6 @@ $(OBJS): $(SRC)
 	@$(BLU)
 	@echo "making objects..."
 	@$(CC) $(CFLAGS) -c $^ $(INC) -o $@
-	@mv $(OBJ) $(ODIR)
 	@$(GRN)
 	@echo "Done !"
 	@$(RESET)
@@ -68,7 +67,7 @@ clean:
 	/bin/rm -f $(addprefix $(ODIR), $(OBJ)) 
 	make -C ./libft clean
 
-fclean:
+fclean: clean
 	/bin/rm -rf $(LS)
 	make -C ./libft fclean
 	/bin/rm -rf $(NAME)
