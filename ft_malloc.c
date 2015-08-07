@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/06 18:53:59 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/07 14:34:32 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,28 @@ void	get_limit(void)
 	struct rlimit	rlp;
 	int				limit;
 	char			*str;
+	int				*tab;
 
 
+	tab = malloc(sizeof(int) * 3);
+	tab[0] = 12;
+	tab[1] = 1;
 	str = strdup("plop\n");
-	ft_putstr("my adress = ");
-
-	ft_atoi_hex((void*)&str, 0);
+	ft_putstr("my char adress = ");
+	ft_atoi_hex((void*)&str);
 	ft_putstr("\n");
-	printf("printf adress = %p\n", (void*)&str);
+	printf("printf char adress = %p\n", (void*)&str);
 	limit = getrlimit(RLIMIT_FSIZE, &rlp);
-	printf("limit = %d\n", limit);
-	printf("current max is = %d\n", (int)rlp.rlim_cur);
-	printf("current hard is = %d\n", (int)rlp.rlim_max);
-	printf("pagesize = %d\n", getpagesize());
+	//printf("limit = %d\n", limit);
+	//printf("current max is = %d\n", (int)rlp.rlim_cur);
+	//printf("current hard is = %d\n", (int)rlp.rlim_max);
+	//printf("pagesize = %d\n", getpagesize());
+	ft_putstr("my int  adress = ");
+	ft_atoi_hex((void*)&tab);
+	ft_putstr("\n");
+	printf("printf int adress = %p\n", (void*)&tab);
+
+	
 }
 
 void	*get_tiny(size_t size)
@@ -67,7 +76,7 @@ void	*get_large(size_t size)
 
 void	*ft_malloc(size_t size)
 {
-	get_limit();
+	//get_limit();
 	if (size < TINY)
 		return (NULL);
 	if (size >= TINY && size <= SMALL)

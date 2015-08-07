@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:39:17 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/06 18:36:21 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/07 14:34:13 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 # define LARGE 100
 
 void *ft_malloc(size_t size);
-void ft_atoi_hex(void *ptr, unsigned long long address);
+void ft_atoi_hex(void *ptr);
 
 #endif
