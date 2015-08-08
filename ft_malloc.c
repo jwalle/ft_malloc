@@ -44,15 +44,15 @@ void	init_global(void)
 
 void	*get_tiny(size_t size)
 {
-	//void *ret;
+	void *ret;
 
-	(void)size;
 	printf("TATATATATATTATATATATTAn\n");
 	if (!g_env.tiny->start)
 		tiny_init(TINY_SIZE, g_env.tiny);
-	//ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	get_limit();
-	return (g_env.tiny->start);	
+	return (ret);	
+	//return (g_env.tiny->start);	
 }
 
 void	*get_small(size_t size)
@@ -99,13 +99,12 @@ void	*ft_malloc(size_t size)
 	//tiny_init(TINY_SIZE, g_env.tiny);
 	//printf("test tiny = %zu\n", g_env.tiny->size);
 	ft_putstr(g_env.jkaptekedal);
-	if (size < TINY)
-		return (NULL);
-	if (size >= TINY && size <= SMALL)
+	if (size < SMALL_SIZE)
 		return (get_tiny(size));
-	if (size >= SMALL && size <= LARGE)
+	if (size >= SMALL_SIZE && size <= LARGE_SIZE)
 		return (get_small(size));
 	if (size >= LARGE)
 		return (get_large(size));
+	printf("NULL\n");
 	return (NULL);
 }

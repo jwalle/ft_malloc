@@ -29,6 +29,7 @@ int main(int ac, char **av)
 	c = av[1][0];
 	str = (char*)ft_malloc(nb);
 	i = 0;
+	ft_putstr("post_malloc\n");
 	while (i < nb)
 	{
 		str[i] = c;
