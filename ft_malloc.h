@@ -25,9 +25,16 @@
 #define FLAGS_PROT PROT_READ | PROT_WRITE
 #define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 
-#define TINY_SIZE	511 * TINY
-#define SMALL_SIZE	10240 * SMALL
-#define LARGE_SIZE	200000 * LARGE
+#define TINY_SIZE	512
+#define SMALL_SIZE	10240
+#define LARGE_SIZE	200000
+
+typedef struct			s_block
+{
+	size_t				size;
+	void				*start;
+	struct s_block		*next;
+}						t_block;
 
 typedef struct			s_tiny
 {

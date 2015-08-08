@@ -21,14 +21,7 @@ void	get_limit(void)
 {
 	struct rlimit	rlp;
 	int				limit;
-	//char			*str;
 
-
-	//str = strdup("plop\n");
-	//ft_putstr("my char adress = ");
-	// ft_atoi_hex((void*)&str);
-	// ft_putstr("\n");
-	// printf("printf char adress = %p\n", (void*)&str);
 	limit = getrlimit(RLIMIT_AS, &rlp);
 	printf("limit = %d\n", limit);
 	printf("current max is = %d\n", (int)rlp.rlim_cur);
@@ -46,12 +39,12 @@ void	*get_tiny(size_t size)
 {
 	void *ret;
 
-	printf("TATATATATATTATATATATTAn\n");
-	if (!g_env.tiny->start)
+	printf("TINY\n");
+	if (!g_env.tiny)
 		tiny_init(TINY_SIZE, g_env.tiny);
 	ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	get_limit();
-	return (ret);	
+	return (ret);
 	//return (g_env.tiny->start);	
 }
 
@@ -62,7 +55,7 @@ void	*get_small(size_t size)
 	printf("SMALL\n");
 	ret = mmap(0, (SMALL * size) + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	get_limit();
-	return (ret);	
+	return (ret);
 }
 
 void	*get_large(size_t size)
@@ -82,10 +75,9 @@ void	tiny_init(size_t size, void *ptr)
 	tiny = NULL;
 	if (!ptr)
 	{
-		printf("PLPLPLPOPLPLPLPOPLPLPLPOPLPLPLPOPLPLPLPOPLPLPLPOPL\n");
 		tiny = (t_tiny *)malloc(sizeof(tiny));
 		tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tiny->start = mmap(0, TINY_SIZE + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		g_env.tiny = tiny;
 		tiny->size = size;
 		tiny->next = NULL;
