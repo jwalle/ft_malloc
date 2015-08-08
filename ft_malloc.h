@@ -14,6 +14,7 @@
 # define FT_MALLOC_H
 #include <stdlib.h>
 #include <sys/resource.h>
+#include <sys/mman.h>
 #include "libft.h"
 #include <stdio.h> // PRINTF A RETIRER
 
@@ -21,8 +22,12 @@
 # define SMALL 10
 # define LARGE 100
 
-#define TINY_SIZE	512
+#define FLAGS_PROT PROT_READ | PROT_WRITE
+#define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 
+#define TINY_SIZE	512 * TINY
+#define SMALL_SIZE	10240 * SMALL
+#define LARGE_SIZE	200000 * LARGE
 
 typedef struct			s_tiny
 {

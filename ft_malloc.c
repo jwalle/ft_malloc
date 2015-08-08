@@ -21,27 +21,19 @@ void	get_limit(void)
 {
 	struct rlimit	rlp;
 	int				limit;
-	char			*str;
-	int				*tab;
+	//char			*str;
 
 
-	tab = malloc(sizeof(int) * 3);
-	tab[0] = 12;
-	tab[1] = 1;
-	str = strdup("plop\n");
-	ft_putstr("my char adress = ");
-	ft_atoi_hex((void*)&str);
-	ft_putstr("\n");
-	printf("printf char adress = %p\n", (void*)&str);
+	//str = strdup("plop\n");
+	//ft_putstr("my char adress = ");
+	// ft_atoi_hex((void*)&str);
+	// ft_putstr("\n");
+	// printf("printf char adress = %p\n", (void*)&str);
 	limit = getrlimit(RLIMIT_FSIZE, &rlp);
-	//printf("limit = %d\n", limit);
-	//printf("current max is = %d\n", (int)rlp.rlim_cur);
-	//printf("current hard is = %d\n", (int)rlp.rlim_max);
-	//printf("pagesize = %d\n", getpagesize());
-	ft_putstr("my int  adress = ");
-	ft_atoi_hex((void*)&tab);
-	ft_putstr("\n");
-	printf("printf int adress = %p\n", (void*)&tab);	
+	printf("limit = %d\n", limit);
+	printf("current max is = %d\n", (int)rlp.rlim_cur);
+	printf("current hard is = %d\n", (int)rlp.rlim_max);
+	printf("pagesize = %d\n", getpagesize());
 }
 
 void	init_global(void)
@@ -55,7 +47,7 @@ void	*get_tiny(size_t size)
 	void *ret;
 
 	printf("TINY\n");
-	ret = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	get_limit();
 	return (ret);	
 }
@@ -87,7 +79,8 @@ void	*tiny_init(size_t size, void *ptr)
 	tiny = NULL;
 	if (!ptr)
 	{
-		tiny = (t_tiny *)malloc(sizeof(tiny));
+		//tiny = (t_tiny *)malloc(sizeof(tiny));
+		tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		tiny->tiny_start = get_tiny(size);
 		g_env.tiny = tiny;
 		tiny->tiny_size = size;

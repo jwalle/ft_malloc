@@ -38,5 +38,6 @@ int main(int ac, char **av)
 	//printf("%s\n" ,str);
 	//ft_malloc("testestest");
 	show_alloc_mem();
+	munmap(str, TINY);
 	return (0);
 }
