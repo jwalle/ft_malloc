@@ -17,9 +17,9 @@ void	show_alloc_mem(void)
 	if (g_env.tiny)
 	{
 		ft_putstr("TINY :\n");
-		ft_atoi_hex(g_env.tiny->tiny_start);
+		ft_atoi_hex(g_env.tiny->start);
 		ft_putstr(" - ");
-		ft_atoi_hex(g_env.tiny->tiny_start + TINY_SIZE);
+		ft_atoi_hex(g_env.tiny->start + TINY_SIZE);
 		ft_putstr(" : ");
 		ft_putnbr(TINY_SIZE);
 		ft_putstr(" octets.\n");

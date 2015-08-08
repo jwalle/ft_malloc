@@ -29,7 +29,7 @@ void	get_limit(void)
 	// ft_atoi_hex((void*)&str);
 	// ft_putstr("\n");
 	// printf("printf char adress = %p\n", (void*)&str);
-	limit = getrlimit(RLIMIT_FSIZE, &rlp);
+	limit = getrlimit(RLIMIT_AS, &rlp);
 	printf("limit = %d\n", limit);
 	printf("current max is = %d\n", (int)rlp.rlim_cur);
 	printf("current hard is = %d\n", (int)rlp.rlim_max);
@@ -44,12 +44,15 @@ void	init_global(void)
 
 void	*get_tiny(size_t size)
 {
-	void *ret;
+	//void *ret;
 
-	printf("TINY\n");
-	ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	(void)size;
+	printf("TATATATATATTATATATATTAn\n");
+	if (!g_env.tiny->start)
+		tiny_init(TINY_SIZE, g_env.tiny);
+	//ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	get_limit();
-	return (ret);	
+	return (g_env.tiny->start);	
 }
 
 void	*get_small(size_t size)
@@ -72,29 +75,29 @@ void	*get_large(size_t size)
 	return (ret);	
 }
 
-void	*tiny_init(size_t size, void *ptr)
+void	tiny_init(size_t size, void *ptr)
 {
 	t_tiny	*tiny;
 
 	tiny = NULL;
 	if (!ptr)
 	{
-		//tiny = (t_tiny *)malloc(sizeof(tiny));
+		printf("PLPLPLPOPLPLPLPOPLPLPLPOPLPLPLPOPLPLPLPOPLPLPLPOPL\n");
+		tiny = (t_tiny *)malloc(sizeof(tiny));
 		tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tiny->tiny_start = get_tiny(size);
+		tiny->start = mmap(0, TINY_SIZE + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		g_env.tiny = tiny;
-		tiny->tiny_size = size;
+		tiny->size = size;
 		tiny->next = NULL;
 	}
-	return (tiny);
 }
 
 void	*ft_malloc(size_t size)
 {
 	//get_limit();
 	init_global();
-	tiny_init(TINY_SIZE, g_env.tiny);
-	printf("test tiny = %zu\n", g_env.tiny->tiny_size);
+	//tiny_init(TINY_SIZE, g_env.tiny);
+	//printf("test tiny = %zu\n", g_env.tiny->size);
 	ft_putstr(g_env.jkaptekedal);
 	if (size < TINY)
 		return (NULL);

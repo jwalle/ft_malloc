@@ -25,14 +25,14 @@
 #define FLAGS_PROT PROT_READ | PROT_WRITE
 #define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 
-#define TINY_SIZE	512 * TINY
+#define TINY_SIZE	511 * TINY
 #define SMALL_SIZE	10240 * SMALL
 #define LARGE_SIZE	200000 * LARGE
 
 typedef struct			s_tiny
 {
-	size_t				tiny_size;
-	void				*tiny_start;
+	size_t				size;
+	void				*start;
 	struct s_tiny		*next;
 }						t_tiny;
 
@@ -41,6 +41,7 @@ typedef struct			s_env
 	t_tiny				*tiny;
 	int					plop;
 	char				*jkaptekedal;
+	long long unsigned	total;
 }						t_env;
 
 extern t_env			g_env;
@@ -48,5 +49,6 @@ extern t_env			g_env;
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
+void	tiny_init(size_t size, void *ptr);
 
 #endif
