@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/07 14:34:32 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/08 10:57:51 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <sys/mman.h>
 #include "libft/libft.h"
 #include "ft_malloc.h"
+
+t_env		g_env;
 
 void	get_limit(void)
 {
@@ -39,9 +41,13 @@ void	get_limit(void)
 	ft_putstr("my int  adress = ");
 	ft_atoi_hex((void*)&tab);
 	ft_putstr("\n");
-	printf("printf int adress = %p\n", (void*)&tab);
+	printf("printf int adress = %p\n", (void*)&tab);	
+}
 
-	
+void	init_global(void)
+{
+	g_env.tiny = NULL;
+	g_env.jkaptekedal = "plop\n";
 }
 
 void	*get_tiny(size_t size)
@@ -74,9 +80,29 @@ void	*get_large(size_t size)
 	return (ret);	
 }
 
+void	*tiny_init(size_t size, void *ptr)
+{
+	t_tiny	*tiny;
+
+	tiny = NULL;
+	if (!ptr)
+	{
+		tiny = (t_tiny *)malloc(sizeof(tiny));
+		tiny->tiny_start = get_tiny(size);
+		g_env.tiny = tiny;
+		tiny->tiny_size = size;
+		tiny->next = NULL;
+	}
+	return (tiny);
+}
+
 void	*ft_malloc(size_t size)
 {
 	//get_limit();
+	init_global();
+	tiny_init(TINY_SIZE, g_env.tiny);
+	printf("test tiny = %zu\n", g_env.tiny->tiny_size);
+	ft_putstr(g_env.jkaptekedal);
 	if (size < TINY)
 		return (NULL);
 	if (size >= TINY && size <= SMALL)

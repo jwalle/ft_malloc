@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/06 18:57:56 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/08 10:49:22 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int main(int ac, char **av)
 	str[i] = 0;
 	//printf("%s\n" ,str);
 	//ft_malloc("testestest");
+	show_alloc_mem();
 	return (0);
 }

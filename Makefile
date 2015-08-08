@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/06 17:25:42 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/08 10:48:49 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -32,6 +32,7 @@ RESET = tput sgr 0
 
 SRC =	ft_malloc.c \
 		ft_atoi_hex.c \
+		ft_show_alloc.c \
 
 OBJ = $(SRC:.c=.o)
 OBJS = $(addprefix $(ODIR), $(OBJ))
