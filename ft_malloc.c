@@ -24,9 +24,9 @@ void	get_limit(void)
 
 	limit = getrlimit(RLIMIT_AS, &rlp);
 	printf("limit = %d\n", limit);
-	printf("current max is = %d\n", (int)rlp.rlim_cur);
-	printf("current hard is = %d\n", (int)rlp.rlim_max);
-	printf("pagesize = %d\n", getpagesize());
+	printf("current max is = %llu\n", rlp.rlim_cur);
+	printf("curren hard is = %llu\n", rlp.rlim_max);
+	printf("pagesize = %d\n", PAGE_SIZE);
 }
 
 void	init_global(void)
@@ -37,15 +37,19 @@ void	init_global(void)
 
 void	*get_tiny(size_t size)
 {
-	void *ret;
+	//void *ret;
 
 	printf("TINY\n");
 	if (!g_env.tiny)
-		tiny_init(TINY_SIZE, g_env.tiny);
-	ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tiny_init();
 	get_limit();
-	return (ret);
-	//return (g_env.tiny->start);	
+	printf("size = %zu, genv size = %zu\n", size, g_env.tiny->size);
+	if (g_env.tiny->size >= size)
+		g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	//ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	get_limit();
+	//return (ret);
+	return (g_env.tiny->start);	
 }
 
 void	*get_small(size_t size)
@@ -68,20 +72,17 @@ void	*get_large(size_t size)
 	return (ret);	
 }
 
-void	tiny_init(size_t size, void *ptr)
+void	tiny_init(void)
 {
 	t_tiny	*tiny;
 
 	tiny = NULL;
-	if (!ptr)
-	{
-		tiny = (t_tiny *)malloc(sizeof(tiny));
-		tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		g_env.tiny = tiny;
-		tiny->size = size;
-		tiny->next = NULL;
-	}
+	tiny = (t_tiny *)malloc(sizeof(tiny));
+	tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	//tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	tiny->size = TINY_SIZE * 100;
+	tiny->next = NULL;
+	g_env.tiny = tiny;
 }
 
 void	*ft_malloc(size_t size)
@@ -91,9 +92,9 @@ void	*ft_malloc(size_t size)
 	//tiny_init(TINY_SIZE, g_env.tiny);
 	//printf("test tiny = %zu\n", g_env.tiny->size);
 	ft_putstr(g_env.jkaptekedal);
-	if (size < SMALL_SIZE)
+	if (size < TINY_SIZE)
 		return (get_tiny(size));
-	if (size >= SMALL_SIZE && size <= LARGE_SIZE)
+	if (size >= SMALL_SIZE && size < LARGE_SIZE)
 		return (get_small(size));
 	if (size >= LARGE)
 		return (get_large(size));

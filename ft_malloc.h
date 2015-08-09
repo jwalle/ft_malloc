@@ -21,6 +21,7 @@
 # define TINY 1
 # define SMALL 10
 # define LARGE 100
+# define PAGE_SIZE getpagesize()
 
 #define FLAGS_PROT PROT_READ | PROT_WRITE
 #define FLAGS_MAP MAP_ANON | MAP_PRIVATE
@@ -56,6 +57,6 @@ extern t_env			g_env;
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
-void	tiny_init(size_t size, void *ptr);
+void	tiny_init(void);
 
 #endif
