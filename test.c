@@ -24,6 +24,7 @@ int main(int ac, char **av)
 	char c;
 	char *str;
 	char *str2;
+	char **str3;
 
 	(void)ac;
 	nb = atoi(av[2]);
@@ -48,6 +49,13 @@ int main(int ac, char **av)
 	str2[i] = 0;
 	//printf("%s\n" ,str);
 	//ft_malloc("testestest");
+
+	str3 = malloc(10000);
+	while (i < 2000)
+	{
+		str3[i] = (char*)ft_malloc(nb);
+		i++;
+	}
 	show_alloc_mem();
 	//munmap(str, sizeof(str));
 
