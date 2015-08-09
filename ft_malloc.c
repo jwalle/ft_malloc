@@ -46,7 +46,7 @@ void	*get_tiny(size_t size)
 	printf("size = %zu, genv size = %zu\n", size, g_env.tiny->size);
 	if (g_env.tiny->size >= size)
 		g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	//ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+	ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	get_limit();
 	//return (ret);
 	return (g_env.tiny->start);	
