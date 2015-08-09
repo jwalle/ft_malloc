@@ -41,6 +41,7 @@ typedef struct			s_tiny
 {
 	size_t				size;
 	void				*start;
+	t_block				*block;
 	struct s_tiny		*next;
 }						t_tiny;
 
@@ -60,3 +61,30 @@ void	show_alloc_mem(void);
 void	tiny_init(void);
 
 #endif
+
+
+//		
+//		g_env
+//		  |
+//		  |
+//		  |
+//		 \ /
+//
+/*   /--------\  */
+//	 |	      |
+//	 |  pages | --> ...
+//	 |	  	  |
+//	 \--------/
+//		|
+//		|
+//		|
+//		o---->    /--------\  		/--------\
+//     X 100      |        |  		|		 |
+//                |  block | --->   |  block | --> ...
+//                |        |  		|		 |
+//	 			  \--------/		\--------/
+//
+//
+//
+//
+//
