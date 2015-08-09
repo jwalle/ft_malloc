@@ -57,7 +57,7 @@ void	*get_tiny(size_t size)
 
 	if ((g_env.tiny->size + size < TINY_SIZE * 100))
 	{
-		g_env.tiny->next =
+		g_env.tiny =
 	}
 	g_env.tiny->block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
 	g_env.tiny->block->size = size;
