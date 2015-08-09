@@ -58,7 +58,7 @@ extern t_env			g_env;
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
-void	tiny_init(void);
+t_tiny	*tiny_init(void);
 
 #endif
 
