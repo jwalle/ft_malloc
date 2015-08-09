@@ -37,32 +37,39 @@ void	init_global(void)
 
 void	*get_tiny(size_t size)
 {
-	//void *ret;
-
 	printf("TINY\n");
 	if (!g_env.tiny)
 		tiny_init();
 	get_limit();
 	printf("size = %zu, genv size = %zu\n", size, g_env.tiny->size);
+
 	while (g_env.tiny->next != NULL)
 		g_env.tiny = g_env.tiny->next;
-	if (g_env.tiny->size + size < TINY_SIZE * 100)
-	{
-		g_env.tiny->size += size;
+
+	while(g_env.tiny->block != NULL)
+		g_env.tiny->block = g_env.tiny->block->next;
+
+	if (!g_env.tiny->start)
 		g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+
+	if ((g_env.tiny->size + size < TINY_SIZE * 100))
+	{
+		//g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		g_env.tiny->block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
 		g_env.tiny->block->size = size;
 		g_env.tiny->block->start = g_env.tiny->start + g_env.tiny->size;
+		g_env.tiny->size += size;
 		g_env.tiny->block->next = NULL;
+		printf("page start = %p ; block start = %p\n", g_env.tiny->start, g_env.tiny->block->start);
 		return(g_env.tiny->block->start);
 	}
 	// else
 	// {
+	//	g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 
 	// }
-	//ret = mmap(0, size + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	get_limit();
-	//return (ret);
+	//ret = mmap(0, size + 1, FLAGS_-PROT, FLAGS_MAP , -1, 0);
+	//get_limit();
 	return (g_env.tiny->start);	
 }
 

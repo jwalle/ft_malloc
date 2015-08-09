@@ -23,6 +23,7 @@ int main(int ac, char **av)
 	int i;
 	char c;
 	char *str;
+	char *str2;
 
 	(void)ac;
 	nb = atoi(av[2]);
@@ -35,6 +36,16 @@ int main(int ac, char **av)
 		i++;
 	}
 	str[i] = 0;
+
+
+	str2 = (char*)ft_malloc(nb);
+	i = 0;
+	while (i < nb)
+	{
+		str2[i] = c;
+		i++;
+	}
+	str2[i] = 0;
 	//printf("%s\n" ,str);
 	//ft_malloc("testestest");
 	show_alloc_mem();
