@@ -12,36 +12,6 @@
 
 #include "ft_malloc.h"
 
-
-
-
-t_tiny	*tiny_init(void)
-{
-	t_tiny	*tiny;
-
-	tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	tiny->size = 0;
-	tiny->block = NULL;
-	tiny->next = NULL;
-	return (tiny);
-}
-
-t_tiny	*tiny_fill(t_tiny *head)
-{
-	t_tiny	*tiny;
-
-	tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	head->next = tiny;
-	tiny->size = 0;
-	tiny->block = NULL;
-	tiny->next = NULL;
-	return (tiny);
-}
-
-
-
 t_tiny	*page_push(t_tiny *first)
 {
 
@@ -75,7 +45,6 @@ t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 
 	if (!first)
 	{
-		printf("!push\n");
 		first = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
 		first->next = NULL;
 		first->size = size;
@@ -83,7 +52,6 @@ t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 	}
 	else
 	{
-		//printf("plop\n");
 		tmp = first;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -98,39 +66,24 @@ t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 
 void	*get_tiny(size_t size)
 {
-	//printf("TINY\n");
 	t_tiny	*tiny;
 	t_block	*block;
 
 	if (!g_env.tiny)
 		g_env.tiny = page_push(g_env.tiny);
-
 	tiny = g_env.tiny;
-
 	while (tiny->next != NULL)
 		tiny = tiny->next;
-
 	if ((tiny->size + size > TINY_SIZE * 100))
 	{
 		g_env.tiny = page_push(g_env.tiny);
-		//tiny = tiny_fill(tiny);
-		//block = block_push(size, tiny->start, tiny->size, block);
-		//return(block->start);
-	}
-
-	tiny = g_env.tiny;
-
-	while (tiny->next != NULL)
 		tiny = tiny->next;
-
+	}
 	tiny->block = block_push(size, tiny->start, tiny->size, tiny->block);
 	tiny->size += size;
-
 	block = tiny->block;
-
 	while (block->next != NULL)
 		block = block->next;
-
 	return(block->start);
 }
 
