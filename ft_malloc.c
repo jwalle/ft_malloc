@@ -37,7 +37,7 @@ void	init_global(void)
 	//g_env.tiny->next = NULL;
 	g_env.jkaptekedal = "plop\n";
 }
-
+/*
 t_block	*tiny_block_init(void)
 {
 	g_env.tiny->block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
@@ -45,7 +45,7 @@ t_block	*tiny_block_init(void)
 	g_env.tiny->block->start = g_env.tiny->start + g_env.tiny->size;
 	g_env.tiny->size += size;
 	g_env.tiny->block->next = NULL;
-}
+}*/
 
 void	*get_tiny(size_t size)
 {
