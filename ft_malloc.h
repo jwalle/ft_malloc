@@ -33,6 +33,7 @@
 typedef struct			s_block
 {
 	size_t				size;
+	int					free;
 	void				*start;
 	struct s_block		*next;
 }						t_block;
@@ -61,6 +62,7 @@ void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
 void	*get_tiny(size_t size);
 t_tiny	*tiny_init(void);
+void	free_tiny(void *ptr);
 
 #endif
 

@@ -34,13 +34,16 @@ void	show_alloc_mem(void)
 			ft_putchar('\n');
 			while (g_env.tiny->block)
 			{
-				ft_atoi_hex(g_env.tiny->block->start);
-				ft_putstr(" - ");
-				ft_atoi_hex(g_env.tiny->block->start + g_env.tiny->block->size);
-				ft_putstr(" : ");
-				ft_putnbr(g_env.tiny->block->size);
-				ft_putstr(" octets\n");
-				g_env.tiny->block = g_env.tiny->block->next;
+				if (g_env.tiny->block->start)
+				{
+					ft_atoi_hex(g_env.tiny->block->start);
+					ft_putstr(" - ");
+					ft_atoi_hex(g_env.tiny->block->start + g_env.tiny->block->size);
+					ft_putstr(" : ");
+					ft_putnbr(g_env.tiny->block->size);
+					ft_putstr(" octets\n");
+					g_env.tiny->block = g_env.tiny->block->next;
+				}
 			}
 			g_env.tiny = g_env.tiny->next;
 		}	

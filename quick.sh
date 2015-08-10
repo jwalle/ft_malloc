@@ -1,1 +1,1 @@
-git add -A ; git commit -m "quick push" ; git push origin master
+git add -A ; git commit -m "free tiny" ; git push origin master

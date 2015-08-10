@@ -12,9 +12,36 @@
 
 #include "ft_malloc.h"
 
-t_tiny	*page_push(t_tiny *first)
-{
 
+void	free_tiny(void *ptr)
+{
+	t_tiny	*tiny;
+	t_block	*block;
+
+	if (!g_env.tiny)
+		return ;
+	tiny = g_env.tiny;
+	while (tiny)
+	{
+		block = tiny->block;
+		while (block)
+		{
+			if (block->start == ptr)
+			{
+				//munmap(block->start, block->size);
+				printf("FREEEEEEEE");
+				block->start = NULL;
+				block->free = 1;
+				return ;
+			}
+			block = block->next;
+		}
+		tiny = tiny->next;
+	}
+}
+
+t_tiny	*page_push_tiny(t_tiny *first)
+{
 	t_tiny	*tmp;
 
 	if (!first)
@@ -39,7 +66,7 @@ t_tiny	*page_push(t_tiny *first)
 	return (first);
 }
 
-t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
+t_block	*block_push_tiny(size_t size, void *ptr, size_t size_total, t_block *first)
 {
 	t_block *tmp;
 
@@ -48,6 +75,7 @@ t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 		first = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
 		first->next = NULL;
 		first->size = size;
+		first->free = 0;
 		first->start = ptr + size_total;
 	}
 	else
@@ -57,6 +85,7 @@ t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
 		tmp->next->size = size;
+		tmp->next->free = 0;
 		tmp->next->start = ptr + size_total;
 		tmp->next->next = NULL;
 	}
@@ -70,16 +99,16 @@ void	*get_tiny(size_t size)
 	t_block	*block;
 
 	if (!g_env.tiny)
-		g_env.tiny = page_push(g_env.tiny);
+		g_env.tiny = page_push_tiny(g_env.tiny);
 	tiny = g_env.tiny;
 	while (tiny->next != NULL)
 		tiny = tiny->next;
 	if ((tiny->size + size > TINY_SIZE * 100))
 	{
-		g_env.tiny = page_push(g_env.tiny);
+		g_env.tiny = page_push_tiny(g_env.tiny);
 		tiny = tiny->next;
 	}
-	tiny->block = block_push(size, tiny->start, tiny->size, tiny->block);
+	tiny->block = block_push_tiny(size, tiny->start, tiny->size, tiny->block);
 	tiny->size += size;
 	block = tiny->block;
 	while (block->next != NULL)

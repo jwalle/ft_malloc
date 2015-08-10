@@ -49,11 +49,14 @@ int main(int ac, char **av)
 	//ft_malloc("testestest");
 
 	str3 = malloc(10000);
-	while (i < 2000)
+	while (i < 2)
 	{
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
 	}
+	show_alloc_mem();
+	free_tiny(str2);
+	printf("FREE\n");
 	show_alloc_mem();
 	//munmap(str, sizeof(str));
 
