@@ -63,33 +63,36 @@ t_block	*tiny_block_fill(size_t size, void *ptr, size_t size_total, t_block *hea
 void	*get_tiny(size_t size)
 {
 	//printf("TINY\n");
-	if (!g_env.tiny)
+	t_tiny	*tiny;
+	//t_block	*block;
+
+	tiny = g_env.tiny;
+	
+	if (!tiny)
+		tiny = tiny_init();
+
+	while (tiny->next != NULL)
+		tiny = tiny->next;
+
+	//block = tiny->block;
+
+	if ((tiny->size + size > TINY_SIZE * 100))
 	{
-		g_env.tiny = tiny_init();
-		g_env.tiny->block = tiny_block_init(size, g_env.tiny->start, g_env.tiny->size);
-		return(g_env.tiny->block->start);
+		tiny = tiny_fill(tiny);
+		tiny->block = tiny_block_init(size, tiny->start, tiny->size);
+		return(tiny->block->start);	
 	}
 
-	while (g_env.tiny->next != NULL)
-		g_env.tiny = g_env.tiny->next;
+	while(tiny->block->next != NULL)
+		tiny->block = tiny->block->next;
 
-	if ((g_env.tiny->size + size > TINY_SIZE * 100))
-	{
-		g_env.tiny = tiny_fill(g_env.tiny);
-		g_env.tiny->block = tiny_block_init(size, g_env.tiny->start, g_env.tiny->size);
-		return(g_env.tiny->block->start);	
-	}
+	if (!tiny->start)
+		tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 
-	while(g_env.tiny->block->next != NULL)
-		g_env.tiny->block = g_env.tiny->block->next;
+	tiny->block = tiny_block_fill(size, tiny->start, tiny->size, tiny->block);
+	tiny->size += size;
 
-	if (!g_env.tiny->start)
-		g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-
-	g_env.tiny->block = tiny_block_fill(size, g_env.tiny->start, g_env.tiny->size, g_env.tiny->block);
-	g_env.tiny->size += size;
-
-	return(g_env.tiny->block->start);
+	return(tiny->block->start);
 }
 
 
