@@ -111,14 +111,14 @@ void	*get_tiny(size_t size)
 	while (tiny->next != NULL)
 		tiny = tiny->next;
 
-	//block = NULL;
+	block = NULL;
 	block = tiny->block;
 
 	if ((tiny->size + size > TINY_SIZE * 100))
 	{
 		tiny = page_push(tiny);
 		//tiny = tiny_fill(tiny);
-		//block = block_init(size, tiny->start, tiny->size, block);
+		//block = block_push(size, tiny->start, tiny->size, block);
 		//return(block->start);
 	}
 	while (tiny->next != NULL)
@@ -129,7 +129,6 @@ void	*get_tiny(size_t size)
 
 	while (block->next != NULL)
 		block = block->next;
-
 
 	return(block->start);
 }
