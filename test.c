@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 // av[1] = le char
 // av[2] = le nombre

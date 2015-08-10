@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <sys/mman.h>
-#include "libft/libft.h"
 #include "ft_malloc.h"
 
 t_env		g_env;
@@ -59,8 +56,6 @@ void	*get_large(size_t size)
 	get_limit();
 	return (ret);	
 }
-
-
 
 void	*ft_malloc(size_t size)
 {

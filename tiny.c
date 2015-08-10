@@ -37,33 +37,33 @@ t_tiny	*tiny_fill(t_tiny *head)
 	return (tiny);
 }
 
-t_block	*block_init(size_t size, void *ptr, size_t size_total, t_block *head)
+t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 {
-	t_block *block;
+	t_block *tmp;
 
-	block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-	block->next = head;
-	head = block;
-	block->size = size;
-	block->start = ptr + size_total;
-	return (block);
+	if (!first)
+	{
+		first = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first->next = NULL;
+		first->size = size;
+		first->start = ptr + size_total;
+	}
+	else
+	{
+		tmp = first;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->size = size;
+		tmp->next->start = ptr + size_total;
+	}
+	return (first);
 }
 
-t_block	*block_fill(size_t size, void *ptr, size_t size_total, t_block *cur)
-{
-	t_block *block;
-
-	block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-	cur->next = block;
-	block->next = NULL;
-	block->size = size;
-	block->start = ptr + size_total;
-	return (block);
-}
 
 void	*get_tiny(size_t size)
 {
-	printf("TINY\n");
+	//printf("TINY\n");
 	t_tiny	*tiny;
 	t_block	*block;
 
@@ -75,25 +75,18 @@ void	*get_tiny(size_t size)
 	while (tiny->next != NULL)
 		tiny = tiny->next;
 
+	block = NULL;
 	block = tiny->block;
 
 	if ((tiny->size + size > TINY_SIZE * 100))
 	{
 		tiny = tiny_fill(tiny);
-		block = block_init(size, tiny->start, tiny->size, block);
-		return(block->start);	
+		//block = block_init(size, tiny->start, tiny->size, block);
+		//return(block->start);
 	}
 
-	while (block && block->next != NULL)
-		block = block->next;
-
-	printf("post next\n");
-
-	block = block_fill(size, tiny->start, tiny->size, block);
+	block = block_push(size, tiny->start, tiny->size, block);
 	tiny->size += size;
-
-	printf("PLPOPLOP\n");
-
 
 	return(block->start);
 }
