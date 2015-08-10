@@ -80,7 +80,7 @@ re: fclean all
 
 test: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
-	./test X 42
+	./test X 420
 
 valtest: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g

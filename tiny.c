@@ -14,34 +14,6 @@
 
 
 
-t_tiny	*page_push(t_tiny *first)
-{
-
-	t_tiny	*tmp;
-
-	if (!first)
-	{
-		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->size = 0;
-		first->block = NULL;
-		first->next = NULL;
-	}
-	else
-	{
-		tmp = first;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->size = 0;
-		tmp->next->block = NULL;
-		tmp->next->next = NULL;
-	}
-	return (first);
-}
-
-
 
 t_tiny	*tiny_init(void)
 {
@@ -70,13 +42,40 @@ t_tiny	*tiny_fill(t_tiny *head)
 
 
 
+t_tiny	*page_push(t_tiny *first)
+{
+
+	t_tiny	*tmp;
+
+	if (!first)
+	{
+		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first->size = 0;
+		first->block = NULL;
+		first->next = NULL;
+	}
+	else
+	{
+		tmp = first;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->size = 0;
+		tmp->next->block = NULL;
+		tmp->next->next = NULL;
+	}
+	return (first);
+}
+
 t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 {
 	t_block *tmp;
 
 	if (!first)
 	{
-		//printf("!push\n");
+		printf("!push\n");
 		first = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
 		first->next = NULL;
 		first->size = size;
@@ -84,7 +83,7 @@ t_block	*block_push(size_t size, void *ptr, size_t size_total, t_block *first)
 	}
 	else
 	{
-		printf("plop\n");
+		//printf("plop\n");
 		tmp = first;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -111,21 +110,23 @@ void	*get_tiny(size_t size)
 	while (tiny->next != NULL)
 		tiny = tiny->next;
 
-	block = NULL;
-	block = tiny->block;
-
 	if ((tiny->size + size > TINY_SIZE * 100))
 	{
-		tiny = page_push(tiny);
+		g_env.tiny = page_push(g_env.tiny);
 		//tiny = tiny_fill(tiny);
 		//block = block_push(size, tiny->start, tiny->size, block);
 		//return(block->start);
 	}
+
+	tiny = g_env.tiny;
+
 	while (tiny->next != NULL)
 		tiny = tiny->next;
 
-	block = block_push(size, tiny->start, tiny->size, block);
+	tiny->block = block_push(size, tiny->start, tiny->size, tiny->block);
 	tiny->size += size;
+
+	block = tiny->block;
 
 	while (block->next != NULL)
 		block = block->next;
