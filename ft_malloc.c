@@ -29,18 +29,7 @@ void	get_limit(void)
 	printf("pagesize = %d\n", PAGE_SIZE);
 }
 
-t_tiny	*tiny_fill(t_tiny *head)
-{
-	t_tiny	*tiny;
 
-	tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	head->next = tiny;
-	tiny->size = 0;
-	tiny->block = NULL;
-	tiny->next = NULL;
-	return (tiny);
-}
 
 void	init_global(void)
 {
@@ -49,58 +38,6 @@ void	init_global(void)
 	//g_env.tiny->start = NULL;
 	//g_env.tiny->next = NULL;
 	g_env.jkaptekedal = "plop\n";
-}
-
-t_block	*tiny_block_fill(t_block *head, size_t size, void *ptr, size_t size_total)
-{
-	t_block *block;
-
-	block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-	block->size = size;
-	block->start = ptr + size_total;
-	block->next = NULL;
-	head->next = block;
-
-	return (block);
-}
-
-t_block	*tiny_block_init(size_t size, void *ptr, size_t size_total)
-{
-	t_block *block;
-
-	block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-	block->size = size;
-	block->start = ptr + size_total;
-	block->next = NULL;
-
-	return (block);
-}
-
-void	*get_tiny(size_t size)
-{
-	//printf("TINY\n");
-	if (!g_env.tiny)
-		g_env.tiny = tiny_init();
-	while (g_env.tiny->next != NULL)
-		g_env.tiny = g_env.tiny->next;
-	if ((g_env.tiny->size + size > TINY_SIZE * 100))
-	{
-		g_env.tiny = tiny_fill(g_env.tiny);
-	}
-	while(g_env.tiny->block != NULL)
-		g_env.tiny->block = g_env.tiny->block->next;
-
-	if (!g_env.tiny->start)
-		g_env.tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-
-	g_env.tiny->block = tiny_block_init(size, g_env.tiny->start, g_env.tiny->size);
-	g_env.tiny->size += size;
-	//g_env.tiny->block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-	//g_env.tiny->block->size = size;
-	//g_env.tiny->block->start = g_env.tiny->start + g_env.tiny->size;
-	//g_env.tiny->block->next = NULL;
-	//printf("page start = %p ; block start = %p\n", g_env.tiny->start, g_env.tiny->block->start);
-	return(g_env.tiny->block->start);
 }
 
 void	*get_small(size_t size)
@@ -123,17 +60,7 @@ void	*get_large(size_t size)
 	return (ret);	
 }
 
-t_tiny	*tiny_init(void)
-{
-	t_tiny	*tiny;
 
-	tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-	tiny->size = 0;
-	tiny->block = NULL;
-	tiny->next = NULL;
-	return (tiny);
-}
 
 void	*ft_malloc(size_t size)
 {
