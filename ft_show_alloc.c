@@ -12,17 +12,34 @@
 
 #include "ft_malloc.h"
 
+void show_tiny(void)
+{
+	ft_atoi_hex(g_env.tiny->start);
+	ft_putstr(" - ");
+	ft_atoi_hex(g_env.tiny->start + TINY_SIZE);
+	ft_putstr(" : ");
+	ft_putnbr(TINY_SIZE);
+	ft_putstr(" octets.\n");
+	ft_putchar('\n');
+}
+
 void	show_alloc_mem(void)
 {
 	if (g_env.tiny)
 	{
-		ft_putstr("TINY :\n");
-		ft_atoi_hex(g_env.tiny->start);
-		ft_putstr(" - ");
-		ft_atoi_hex(g_env.tiny->start + TINY_SIZE);
-		ft_putstr(" : ");
-		ft_putnbr(TINY_SIZE);
-		ft_putstr(" octets.\n");
-		ft_putchar('\n');
+		while (g_env.tiny)
+		{
+			ft_putstr("TINY :\n");
+			ft_atoi_hex(g_env.tiny->start);
+			while (g_env.tiny->block)
+			{
+				ft_atoi_hex(g_env.tiny->block->start);
+				ft_putstr(" - ");
+				ft_atoi_hex(g_env.tiny->block->start + g_env.tiny->block->size);
+				g_env.tiny->block = g_env.tiny->block->next;
+			}
+			g_env.tiny = g_env.tiny->next;
+		}
+		
 	}
 }

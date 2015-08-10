@@ -51,7 +51,7 @@ int main(int ac, char **av)
 	//ft_malloc("testestest");
 
 	str3 = malloc(10000);
-	while (i < 20000)
+	while (i < 2000)
 	{
 		str3[i] = (char*)ft_malloc(nb);
 		i++;

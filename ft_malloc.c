@@ -38,23 +38,27 @@ void	init_global(void)
 	g_env.jkaptekedal = "plop\n";
 }
 
+t_block	*tiny_block_init(void)
+{
+	g_env.tiny->block = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
+	g_env.tiny->block->size = size;
+	g_env.tiny->block->start = g_env.tiny->start + g_env.tiny->size;
+	g_env.tiny->size += size;
+	g_env.tiny->block->next = NULL;
+}
+
 void	*get_tiny(size_t size)
 {
 	printf("TINY\n");
 	if (!g_env.tiny)
 		g_env.tiny = tiny_init();
-	//get_limit();
-	printf("size = %zu, genv size = %zu\n", size, g_env.tiny->size);
-
 	while (g_env.tiny->next != NULL)
 		g_env.tiny = g_env.tiny->next;
-
 	if ((g_env.tiny->size + size > TINY_SIZE * 100))
 	{
 		g_env.tiny = g_env.tiny->next;
 		g_env.tiny = tiny_init();
 	}
-	
 	while(g_env.tiny->block != NULL)
 		g_env.tiny->block = g_env.tiny->block->next;
 
@@ -68,7 +72,6 @@ void	*get_tiny(size_t size)
 	g_env.tiny->block->next = NULL;
 	printf("page start = %p ; block start = %p\n", g_env.tiny->start, g_env.tiny->block->start);
 	return(g_env.tiny->block->start);
-
 }
 
 void	*get_small(size_t size)
@@ -91,11 +94,6 @@ void	*get_large(size_t size)
 	return (ret);	
 }
 
-void	tiny_page_init(void)
-{
-
-}
-
 t_tiny	*tiny_init(void)
 {
 	t_tiny	*tiny;
@@ -104,8 +102,8 @@ t_tiny	*tiny_init(void)
 	tiny = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	tiny->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 	tiny->size = 0;
+	tiny->block = NULL;
 	tiny->next = NULL;
-	//g_env.tiny = tiny;
 	return (tiny);
 }
 
