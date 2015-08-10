@@ -49,7 +49,7 @@ t_block	*tiny_block_init(void)
 
 void	*get_tiny(size_t size)
 {
-	printf("TINY\n");
+	//printf("TINY\n");
 	if (!g_env.tiny)
 		g_env.tiny = tiny_init();
 	while (g_env.tiny->next != NULL)
@@ -70,7 +70,7 @@ void	*get_tiny(size_t size)
 	g_env.tiny->block->start = g_env.tiny->start + g_env.tiny->size;
 	g_env.tiny->size += size;
 	g_env.tiny->block->next = NULL;
-	printf("page start = %p ; block start = %p\n", g_env.tiny->start, g_env.tiny->block->start);
+	//printf("page start = %p ; block start = %p\n", g_env.tiny->start, g_env.tiny->block->start);
 	return(g_env.tiny->block->start);
 }
 
