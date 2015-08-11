@@ -94,9 +94,9 @@ t_block	*block_push_tiny(size_t size, void *ptr, size_t size_total, t_block *fir
 
 void	*find_last(void *ptr)
 {
-	if (ptr == NULL)
+	if (&ptr == NULL)
 		return (0);
-	return (find_last(ptr));
+	return (find_last(&ptr));
 }
 
 void	*get_next(void *ptr)
@@ -110,7 +110,10 @@ void	*block_init(void *ptr, int size)
 	//void	*tmp2;
 
 	tmp = find_last(ptr);
+	printf("PLOPPLPOPOPLPO\n");
+
 	//tmp = tmp2;
+	tmp = ptr + 16 + size;
 	tmp = (ptr + (int)sizeof(*ptr));
 	*(int*)tmp = size;
 	tmp = tmp + (int)sizeof(int);
@@ -122,7 +125,7 @@ void	*block_init(void *ptr, int size)
 void	*get_tiny(size_t size)
 {
 	t_tiny	*tiny;
-	t_block	*block;
+	//t_block	*block;
 
 	if (!g_env.tiny)
 		g_env.tiny = page_push_tiny(g_env.tiny);
@@ -133,15 +136,18 @@ void	*get_tiny(size_t size)
 	{
 		g_env.tiny = page_push_tiny(g_env.tiny);
 		tiny = tiny->next;
-	}
-	tiny->block = block_push_tiny(size, tiny->start, tiny->size, tiny->block);
+	}	
+	block_init(tiny->start, (int)size);	
+	tiny->size += size;
+	return (find_last(tiny->start + 16));
+	/*tiny->block = block_push_tiny(size, tiny->start, tiny->size, tiny->block);
 
 	//fill_tiny_block();
 	tiny->size += size;
 	block = tiny->block;
 	while (block->next != NULL)
 		block = block->next;
-	return(block->start);
+	return(block->start);*/
 }
 
 
