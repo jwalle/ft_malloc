@@ -25,6 +25,11 @@ void show_tiny(void)
 
 void	show_alloc_mem(void)
 {
+	//void	**ptr_mem;
+	void	*ptr_head;
+	void	*ptr;
+
+
 	if (g_env.tiny)
 	{
 		while (g_env.tiny)
@@ -32,18 +37,19 @@ void	show_alloc_mem(void)
 			ft_putstr("TINY : ");
 			ft_atoi_hex(g_env.tiny->start);
 			ft_putchar('\n');
-			while (g_env.tiny->block)
+			ptr_head = g_env.tiny->start;
+			while (ptr_head != NULL)
 			{
-				if (!g_env.tiny->block->free)
+				ptr = (void*)ptr_head;
 				{
-					ft_atoi_hex(g_env.tiny->block->start);
+					ft_atoi_hex(ptr);
 					ft_putstr(" - ");
-					ft_atoi_hex(g_env.tiny->block->start + g_env.tiny->block->size);
+					ft_atoi_hex(ptr + get_mem_size(ptr));
 					ft_putstr(" : ");
-					ft_putnbr(g_env.tiny->block->size);
+					ft_putnbr(get_mem_size(ptr));
 					ft_putstr(" octets\n");
-					g_env.tiny->block = g_env.tiny->block->next;
 				}
+				ptr_head = get_next(ptr_head);
 			}
 			g_env.tiny = g_env.tiny->next;
 		}	

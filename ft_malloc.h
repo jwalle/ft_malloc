@@ -56,13 +56,15 @@ typedef struct			s_env
 
 extern t_env			g_env;
 
-
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
 void	*get_tiny(size_t size);
 t_tiny	*tiny_init(void);
 void	free_tiny(void *ptr);
+void	*get_next(void *ptr);
+int		get_mem_size(void *ptr);
+void	**get_ptr(void *ptr);
 
 #endif
 

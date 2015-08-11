@@ -48,6 +48,7 @@ t_tiny	*page_push_tiny(t_tiny *first)
 	{
 		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		first->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		ft_bzero(first->start, TINY_SIZE * 100);
 		first->size = 0;
 		first->block = NULL;
 		first->next = NULL;
@@ -59,34 +60,9 @@ t_tiny	*page_push_tiny(t_tiny *first)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		ft_bzero(tmp->next->start, TINY_SIZE * 100);
 		tmp->next->size = 0;
 		tmp->next->block = NULL;
-		tmp->next->next = NULL;
-	}
-	return (first);
-}
-
-t_block	*block_push_tiny(size_t size, void *ptr, size_t size_total, t_block *first)
-{
-	t_block *tmp;
-
-	if (!first)
-	{
-		first = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->next = NULL;
-		first->size = size;
-		first->free = 0;
-		first->start = ptr + size_total;
-	}
-	else
-	{
-		tmp = first;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = mmap(0, sizeof(t_block), FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->size = size;
-		tmp->next->free = 0;
-		tmp->next->start = ptr + size_total;
 		tmp->next->next = NULL;
 	}
 	return (first);
@@ -95,7 +71,6 @@ t_block	*block_push_tiny(size_t size, void *ptr, size_t size_total, t_block *fir
 void	*find_last(void *ptr)
 {
 	void **ptr_mem;
-
 
 	while (ptr)
 	{
@@ -106,7 +81,20 @@ void	*find_last(void *ptr)
 
 void	*get_next(void *ptr)
 {
-	return (ptr);
+	void **ptr_mem;
+
+	ptr_mem = (void *)ptr;
+	return ((void*)ptr_mem);
+}
+
+void	**get_ptr(void *ptr)
+{
+	return (ptr + 16);
+}
+
+int		get_mem_size(void *ptr)
+{
+	return (((int*)(ptr + 8))[0]);
 }
 
 void	*block_init(void *ptr, int size)
@@ -115,16 +103,9 @@ void	*block_init(void *ptr, int size)
 	int		*free_mem;
 	void	**ptr_mem;
 
-	//void	*tmp2;
-
-	//tmp = find_last(ptr);
-
-	//tmp = tmp2;
-	//tmp = ptr + 16 + size;
-	//tmp = (ptr + 8);
 	ptr_mem = (void *)ptr;
-	ptr_mem[0] = (void *)ptr + size;
-	size_mem  = (int *)(ptr + 8);
+	ptr_mem[0] = (void *)(ptr + size + 16);
+	size_mem = (int *)(ptr + 8);
 	size_mem[0] = size;
 	printf("size mem = %d\n", size_mem[0]);
 	free_mem = (int *)(ptr + 12);
