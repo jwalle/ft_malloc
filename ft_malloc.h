@@ -65,7 +65,6 @@ t_tiny	*tiny_init(void);
 void	free_tiny(void *ptr);
 
 #endif
-i
 
 //		
 //		g_env

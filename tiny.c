@@ -92,30 +92,30 @@ t_block	*block_push_tiny(size_t size, void *ptr, size_t size_total, t_block *fir
 	return (first);
 }
 
+void	*find_last(void *ptr)
+{
+	if (ptr == NULL)
+		return (0);
+	return (find_last(ptr));
+}
+
+void	*get_next(void *ptr)
+{
+	return (ptr);
+}
+
 void	*block_init(void *ptr, int size)
 {
 	void	*tmp;
+	//void	*tmp2;
 
-	ptr = ptr + size;
-	tmp = *ptr + sizeof(*ptr);
-	tmp = size;
-	tmp = *tmp + sizeof(int);
-	tmp = 0;
-	tmp = *tmp + sizeof(int);
-	return (tmp);
-}
-
-void	*block_fill(void *ptr, int size)
-{
-	void	*tmp;
-
-	ptr - 16 = ptr + (ptr - 8);
-	ptr = ptr + size;
-	tmp = *ptr + sizeof(*ptr);
-	tmp = size;
-	tmp = *tmp + sizeof(int);
-	tmp = 0;
-	tmp = *tmp + sizeof(int);
+	tmp = find_last(ptr);
+	//tmp = tmp2;
+	tmp = (ptr + (int)sizeof(*ptr));
+	*(int*)tmp = size;
+	tmp = tmp + (int)sizeof(int);
+	*(int*)tmp = 0;
+	tmp = tmp + (int)sizeof(int);
 	return (tmp);
 }
 
