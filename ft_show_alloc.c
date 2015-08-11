@@ -29,7 +29,7 @@ void	show_alloc_mem(void)
 			ptr_head = g_env.tiny->start;
 			while (ptr_head)
 			{
-				ptr = (void*)ptr_head[0];
+				ptr = (void*)ptr_head;
 				{
 					ft_atoi_hex(ptr);
 					ft_putstr(" - ");
