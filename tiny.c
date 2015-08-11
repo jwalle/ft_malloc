@@ -84,7 +84,7 @@ void	*get_next(void *ptr)
 	void **ptr_mem;
 
 	ptr_mem = (void *)ptr;
-	return ((void*)ptr_mem);
+	return (ptr_mem);
 }
 
 void	**get_ptr(void *ptr)
