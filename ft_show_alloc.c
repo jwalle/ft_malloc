@@ -34,7 +34,7 @@ void	show_alloc_mem(void)
 			ft_putchar('\n');
 			while (g_env.tiny->block)
 			{
-				if (g_env.tiny->block->start)
+				if (!g_env.tiny->block->free)
 				{
 					ft_atoi_hex(g_env.tiny->block->start);
 					ft_putstr(" - ");

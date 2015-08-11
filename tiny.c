@@ -92,6 +92,32 @@ t_block	*block_push_tiny(size_t size, void *ptr, size_t size_total, t_block *fir
 	return (first);
 }
 
+void	*block_init(void *ptr, int size)
+{
+	void	*tmp;
+
+	ptr = ptr + size;
+	tmp = *ptr + sizeof(*ptr);
+	tmp = size;
+	tmp = *tmp + sizeof(int);
+	tmp = 0;
+	tmp = *tmp + sizeof(int);
+	return (tmp);
+}
+
+void	*block_fill(void *ptr, int size)
+{
+	void	*tmp;
+
+	ptr - 16 = ptr + (ptr - 8);
+	ptr = ptr + size;
+	tmp = *ptr + sizeof(*ptr);
+	tmp = size;
+	tmp = *tmp + sizeof(int);
+	tmp = 0;
+	tmp = *tmp + sizeof(int);
+	return (tmp);
+}
 
 void	*get_tiny(size_t size)
 {
@@ -109,6 +135,8 @@ void	*get_tiny(size_t size)
 		tiny = tiny->next;
 	}
 	tiny->block = block_push_tiny(size, tiny->start, tiny->size, tiny->block);
+
+	//fill_tiny_block();
 	tiny->size += size;
 	block = tiny->block;
 	while (block->next != NULL)

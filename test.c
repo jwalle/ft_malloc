@@ -55,7 +55,7 @@ int main(int ac, char **av)
 		i++;
 	}
 	show_alloc_mem();
-	free_tiny(str2);
+	free_tiny(str);
 	printf("FREE\n");
 	show_alloc_mem();
 	//munmap(str, sizeof(str));
