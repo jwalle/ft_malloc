@@ -72,11 +72,12 @@ void	*find_last(void *ptr)
 {
 	void **ptr_mem;
 
-	while (ptr)
+	ptr_mem = &ptr;
+	while (ptr_mem)
 	{
-		ptr_mem = (void *)ptr;
+		ptr_mem = (void *)ptr_mem[0];
 	}
-	return ((void*)ptr_mem);
+	return ((void*)ptr_mem[0]);
 }
 
 void	*get_next(void *ptr)
@@ -103,6 +104,7 @@ void	*block_init(void *ptr, int size)
 	int		*free_mem;
 	void	**ptr_mem;
 
+	ptr = find_last(ptr);
 	ptr_mem = (void *)ptr;
 	ptr_mem[0] = (void *)(ptr + size + 16);
 	size_mem = (int *)(ptr + 8);
@@ -118,7 +120,6 @@ void	*get_tiny(size_t size)
 {
 	t_tiny	*tiny;
 	void	*ptr;
-	//t_block	*block;
 
 	if (!g_env.tiny)
 		g_env.tiny = page_push_tiny(g_env.tiny);
