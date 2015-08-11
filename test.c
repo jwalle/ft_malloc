@@ -36,7 +36,6 @@ int main(int ac, char **av)
 	}
 	str[i] = 0;
 
-
 	str2 = (char*)ft_malloc(nb);
 	i = 0;
 	while (i < nb)
