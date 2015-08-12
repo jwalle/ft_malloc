@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:39:17 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/08 10:55:02 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 21:21:32 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 
 #define TINY_SIZE	512
-#define TINY_SIZE_MAX	512 * 100
+#define TINY_SIZE_MAX	51200
 #define SMALL_SIZE	10240
 #define LARGE_SIZE	200000
 
@@ -57,6 +57,7 @@ typedef struct			s_env
 
 extern t_env			g_env;
 
+void	get_limit();
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);

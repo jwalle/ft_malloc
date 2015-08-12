@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/08 10:57:51 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 21:21:59 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	get_limit(void)
 
 	limit = getrlimit(RLIMIT_AS, &rlp);
 	printf("limit = %d\n", limit);
-	printf("current max is = %llu\n", rlp.rlim_cur);
-	printf("curren hard is = %llu\n", rlp.rlim_max);
+	printf("current max is = %d\n", (int)rlp.rlim_cur);
+	printf("curren hard is = %d\n", (int)rlp.rlim_max);
 	printf("pagesize = %d\n", PAGE_SIZE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/10 14:21:41 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/10 14:21:55 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 21:19:54 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 t_tiny	*page_push_tiny(t_tiny *first)
 {
 	t_tiny	*tmp;
-
+	
+	get_limit();
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		//first->start = (void *)mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->start = malloc(TINY_SIZE_MAX);
-		ft_bzero(first->start, TINY_SIZE * 100);
+		first->start = (void *)mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		//first->start = malloc(TINY_SIZE_MAX);
+		ft_bzero(first->start, TINY_SIZE_MAX);
 		first->size = 0;
 		first->block = NULL;
 		first->next = NULL;
@@ -32,9 +33,9 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		//tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->start = malloc(TINY_SIZE_MAX);
-		ft_bzero(tmp->next->start, TINY_SIZE * 100);
+		tmp->next->start = mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		//tmp->next->start = malloc(TINY_SIZE_MAX);
+		ft_bzero(tmp->next->start, TINY_SIZE_MAX);
 		tmp->next->size = 0;
 		tmp->next->block = NULL;
 		tmp->next->next = NULL;
@@ -115,7 +116,7 @@ void	*get_tiny(int size)
 	while (tiny->next != NULL)
 		tiny = tiny->next;
 	//printf("actual = %d, MAX = %d\n", tiny->size + size + 16, TINY_SIZE_MAX);
-	if ((tiny->size + size + 16 > (TINY_SIZE * 100)))
+	if ((tiny->size + size + 16 > (TINY_SIZE_MAX)))
 	{
 		printf("NEXT PAGE\n");
 		g_env.tiny = page_push_tiny(g_env.tiny);

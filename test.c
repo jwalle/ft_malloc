@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 17:17:25 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 21:20:50 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int main(int ac, char **av)
 
 	str3 = malloc(10000);
 	i = 0;
-	while (i < 130)
+	get_limit();
+	while (i < 100)
 	{
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
@@ -65,7 +66,7 @@ int main(int ac, char **av)
 	//free_tiny(str);
 	printf("FREE\n");
 	free(str3);
-	//show_alloc_mem();
+		//show_alloc_mem();
 	//munmap(str, sizeof(str));
 
 	return (0);
