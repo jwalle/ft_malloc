@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/10 14:21:41 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 21:19:54 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 21:51:02 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ t_tiny	*page_push_tiny(t_tiny *first)
 {
 	t_tiny	*tmp;
 	
-	get_limit();
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		first->start = (void *)mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		if (first->start == MAP_FAILED)
+			printf("MAP FAILED\n");
 		//first->start = malloc(TINY_SIZE_MAX);
 		ft_bzero(first->start, TINY_SIZE_MAX);
 		first->size = 0;
@@ -34,6 +35,8 @@ t_tiny	*page_push_tiny(t_tiny *first)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		tmp->next->start = mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		if (tmp->next->start == MAP_FAILED)
+			printf("MAP FAILED\n");
 		//tmp->next->start = malloc(TINY_SIZE_MAX);
 		ft_bzero(tmp->next->start, TINY_SIZE_MAX);
 		tmp->next->size = 0;
