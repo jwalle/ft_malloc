@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 22:01:06 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 22:13:03 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int main(int ac, char **av)
 		i++;
 	}
 	str2[i] = 0;
-	//printf("%s\n" ,str);
-	//ft_malloc("testestest");
 
 	str3 = malloc(1000);
 	i = 0;
@@ -63,11 +61,8 @@ int main(int ac, char **av)
 	}
 	printf("test string = %s\n",str3[1]);*/
 	show_alloc_mem();
-	//free_tiny(str);
 	printf("FREE\n");
 	free(str3);
-		//show_alloc_mem();
-	//munmap(str, sizeof(str));
 
 	return (0);
 }

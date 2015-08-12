@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:39:17 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 21:47:04 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 22:14:27 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 
 #define TINY_SIZE	512
-#define TINY_SIZE_MAX	512000
+#define TINY_SIZE_MAX PAGE_SIZE * 16
 #define SMALL_SIZE	10240
 #define LARGE_SIZE	200000
 
