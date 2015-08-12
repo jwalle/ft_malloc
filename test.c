@@ -54,7 +54,7 @@ int main(int ac, char **av)
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
 	}
-	/*i = 0;
+	/*i = 0;./q	
 	while (i < nb)
 	{
 		str3[1][i] = c;
