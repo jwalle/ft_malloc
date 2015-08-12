@@ -49,7 +49,7 @@ int main(int ac, char **av)
 
 	str3 = malloc(10000);
 	i = 0;
-	while (i < 100)
+	while (i < 20)
 	{
 		str3[i] = (char*)ft_malloc(nb);
 		i++;

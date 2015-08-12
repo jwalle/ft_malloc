@@ -41,7 +41,7 @@ typedef struct			s_block
 
 typedef struct			s_tiny
 {
-	size_t				size;
+	int					size;
 	void				**start;
 	t_block				*block;
 	struct s_tiny		*next;
@@ -60,7 +60,7 @@ extern t_env			g_env;
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
-void	*get_tiny(size_t size);
+void	*get_tiny(int size);
 t_tiny	*tiny_init(void);
 void	free_tiny(void *ptr);
 void	*get_next(void *ptr);

@@ -62,11 +62,14 @@ void	*ft_malloc(size_t size)
 	//get_limit();
 	if( g_env.plop != 42)
 		init_global();
+	static int i = 1;
+
+	printf("nb of malloc = %i\n", i++);
 	//tiny_init(TINY_SIZE, g_env.tiny);
 	//printf("test tiny = %zu\n", g_env.tiny->size);
 	//ft_putstr(g_env.jkaptekedal);
 	if (size < TINY_SIZE)
-		return (get_tiny(size));
+		return (get_tiny((int)size));
 	if (size >= SMALL_SIZE && size < LARGE_SIZE)
 		return (get_small(size));
 	if (size >= LARGE)

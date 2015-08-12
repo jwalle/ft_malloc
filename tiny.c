@@ -94,6 +94,8 @@ void	*find_last(void *ptr, int size)
 
 int		get_mem_size(void **ptr)
 {
+	printf("size_mem = %i\n", ((int *)(ptr + 8))[0]);
+	printf("ptr_mem = %p\n", ((void *)(ptr + 16)));
 	return (((int *)(ptr + 8))[0]);
 }
 
@@ -104,8 +106,8 @@ void	*block_init(void **ptr, int size)
 	void	**ptr_mem;
 
 	//ptr = find_last(ptr, size);
-
 	//printf("TEST INIT\n");
+	
 	if (get_mem_size(ptr))
 	{
 		while (get_mem_size(ptr))
@@ -121,7 +123,7 @@ void	*block_init(void **ptr, int size)
 	return ((void *)(ptr + 16));
 }
 
-void	*get_tiny(size_t size)
+void	*get_tiny(int size)
 {
 	t_tiny	*tiny;
 	void	*ptr;
@@ -132,13 +134,14 @@ void	*get_tiny(size_t size)
 	tiny = g_env.tiny;
 	while (tiny->next != NULL)
 		tiny = tiny->next;
-	if ((tiny->size + size > TINY_SIZE * 100))
+	if ((tiny->size + size + 16 > TINY_SIZE * 100))
 	{
 		printf("NEXT PAGE\n");
 		g_env.tiny = page_push_tiny(g_env.tiny);
 		tiny = tiny->next;
-	}	
+	}
 	ptr = block_init(tiny->start, (int)size);
 	tiny->size += size + 16;
+	printf("total size = %i\n", (int)tiny->size);
 	return (ptr);
 }
