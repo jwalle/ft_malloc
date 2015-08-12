@@ -84,4 +84,4 @@ test: re
 
 valtest: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
-	valgrind ./test X 42
+	valgrind ./test X 420
