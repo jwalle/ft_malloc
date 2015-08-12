@@ -49,11 +49,18 @@ int main(int ac, char **av)
 
 	str3 = malloc(10000);
 	i = 0;
-	while (i < 20)
+	while (i < 113)
 	{
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
 	}
+	/*i = 0;
+	while (i < nb)
+	{
+		str3[1][i] = c;
+		i++;
+	}
+	printf("test string = %s\n",str3[1]);*/
 	show_alloc_mem();
 	//free_tiny(str);
 	printf("FREE\n");
