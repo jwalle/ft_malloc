@@ -38,7 +38,7 @@ void	show_alloc_mem(void)
 					ft_putnbr(get_mem_size(ptr_head));
 					ft_putstr(" octets\n");
 				}
-				ptr_head = (void * )(ptr_head + get_mem_size(ptr) + 16)[0];
+				ptr_head = *ptr_head;
 			}
 			g_env.tiny = g_env.tiny->next;
 		}

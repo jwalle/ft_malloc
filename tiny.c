@@ -60,7 +60,7 @@ t_tiny	*page_push_tiny(t_tiny *first)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		ft_bzero(tmp->next->start, TINY_SIZE * 100);
+		//ft_bzero(tmp->next->start, TINY_SIZE * 100);
 		tmp->next->size = 0;
 		tmp->next->block = NULL;
 		tmp->next->next = NULL;
@@ -92,40 +92,29 @@ void	*find_last(void *ptr, int size)
 	return (ptr);
 }
 
-void	*get_next(void *ptr)
+int		get_mem_size(void **ptr)
 {
-	//void **ptr_mem;
-
-	//ptr_mem = (void *)ptr;
-	//ptr_mem[0] = (void *)(ptr + (int *)(ptr + 8) + 16);
-	return ((void *)(ptr + ((int *)(ptr + 8)) + 16));
-	//if (get_mem_size(ptr_mem))
-	//	return (ptr_mem);
-	//return (NULL);
+	return (((int *)(ptr + 8))[0]);
 }
 
-void	*get_ptr(void *ptr)
-{
-	return (ptr + 16);
-}
-
-int		get_mem_size(void *ptr)
-{
-	return (((int*)(ptr + 8))[0]);
-}
-
-void	*block_init(void *ptr, int size)
+void	*block_init(void **ptr, int size)
 {
 	int		*size_mem;
 	int		*free_mem;
 	void	**ptr_mem;
 
-	ptr = find_last(ptr, size);
+	//ptr = find_last(ptr, size);
+
+	//printf("TEST INIT\n");
+	if (get_mem_size(ptr))
+	{
+		while (get_mem_size(ptr))
+			ptr = *ptr;
+	}
 	ptr_mem = (void *)ptr;
 	ptr_mem[0] = (void *)(ptr + size + 16);
 	size_mem = (int *)(ptr + 8);
 	size_mem[0] = size;
-	printf("size mem = %d\n", size_mem[0]);
 	free_mem = (int *)(ptr + 12);
 	free_mem[0] = 0;
 	printf("test = %d\n", ((int*)(ptr + 8))[0]);
@@ -136,6 +125,7 @@ void	*get_tiny(size_t size)
 {
 	t_tiny	*tiny;
 	void	*ptr;
+	//printf("TEST GET TINY\n");
 
 	if (!g_env.tiny)
 		g_env.tiny = page_push_tiny(g_env.tiny);
@@ -144,24 +134,11 @@ void	*get_tiny(size_t size)
 		tiny = tiny->next;
 	if ((tiny->size + size > TINY_SIZE * 100))
 	{
+		printf("NEXT PAGE\n");
 		g_env.tiny = page_push_tiny(g_env.tiny);
 		tiny = tiny->next;
 	}	
 	ptr = block_init(tiny->start, (int)size);
-	tiny->size += size;
+	tiny->size += size + 16;
 	return (ptr);
-
-
-
-	/*tiny->block = block_push_tiny(size, tiny->start, tiny->size, tiny->block);
-
-	//fill_tiny_block();
-	tiny->size += size;
-	block = tiny->block;
-	while (block->next != NULL)
-		block = block->next;
-	return(block->start);*/
 }
-
-
-

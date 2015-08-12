@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/12 14:37:59 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 16:06:55 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/12 17:18:24 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int main(void)
 	free_mem[0] = 0;
 	strcpy((char *)(mem + 16), str1);
 
-	printf("first copy\n");
-	mem = (void *)(mem + 16 + 10);
+	mem = *mem;
 
 	ptr_mem = ptr_mem + 26;
 	ptr_mem = (void *)mem;
@@ -51,12 +50,11 @@ int main(void)
 	free_mem[0] = 0;
 	strcpy((char *)(mem + 16), str2);
 
-	printf("second copy\n");
-	mem = (void *)(mem - 16 - 10);
+	mem = first;
 
 	printf("pointeur = %p, size = %i, free = %d, first str = %s|\n",(void *)(mem)[0],  (int)(mem + 8)[0], (int)(mem + 12)[0], (char *)(mem + 16));
 	
-	mem = (void *)(mem + 16 + 10);
+	mem = *mem;
 
 	printf("pointeur = %p, size = %i, free = %d, first str = %s|\n",(void *)(mem)[0],  (int)(mem + 8)[0], (int)(mem + 12)[0], (char *)(mem + 16));
 	
