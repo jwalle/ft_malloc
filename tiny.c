@@ -12,34 +12,6 @@
 
 #include "ft_malloc.h"
 
-
-void	free_tiny(void *ptr)
-{
-	t_tiny	*tiny;
-	t_block	*block;
-
-	if (!g_env.tiny)
-		return ;
-	tiny = g_env.tiny;
-	while (tiny)
-	{
-		block = tiny->block;
-		while (block)
-		{
-			if (block->start == ptr)
-			{
-				//munmap(block->start, block->size);
-				printf("FREEEEEEEE");
-				block->start = NULL;
-				block->free = 1;
-				return ;
-			}
-			block = block->next;
-		}
-		tiny = tiny->next;
-	}
-}
-
 t_tiny	*page_push_tiny(t_tiny *first)
 {
 	t_tiny	*tmp;
@@ -47,7 +19,8 @@ t_tiny	*page_push_tiny(t_tiny *first)
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->start = mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		//first->start = (void *)mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first->start = malloc(TINY_SIZE_MAX);
 		ft_bzero(first->start, TINY_SIZE * 100);
 		first->size = 0;
 		first->block = NULL;
@@ -59,7 +32,8 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		//tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->start = malloc(TINY_SIZE_MAX);
 		ft_bzero(tmp->next->start, TINY_SIZE * 100);
 		tmp->next->size = 0;
 		tmp->next->block = NULL;
@@ -78,7 +52,7 @@ void	*find_last(void *ptr, int size)
 	printf("post while last\n");
 	while (i < (TINY_SIZE_MAX - size))
 	{
-	printf("post if last\n");
+		printf("post if last\n");
 		int_mem = (int *)(ptr + i);
 		if (*int_mem == 0)
 		{
@@ -96,7 +70,13 @@ int		get_mem_size(void **ptr)
 {
 	//printf("size_mem = %i\n", ((int *)(ptr + 8))[0]);
 	//printf("ptr_mem = %p\n", ((void *)(ptr + 16)));
-	return (((int *)(ptr + 8))[0]);
+	int		*size_mem;
+
+	size_mem = (int *)(ptr + 8);
+	if (size_mem)
+		return (size_mem[0]);
+	//	return (((int *)(ptr + 8))[0]);
+	return (0);
 }
 
 void	*block_init(void **ptr, int size)
@@ -134,6 +114,7 @@ void	*get_tiny(int size)
 	tiny = g_env.tiny;
 	while (tiny->next != NULL)
 		tiny = tiny->next;
+	//printf("actual = %d, MAX = %d\n", tiny->size + size + 16, TINY_SIZE_MAX);
 	if ((tiny->size + size + 16 > (TINY_SIZE * 100)))
 	{
 		printf("NEXT PAGE\n");
