@@ -31,10 +31,19 @@
 #define SMALL_SIZE	10240
 #define LARGE_SIZE	200000
 
+typedef struct			s_block
+{
+	size_t				size;
+	int					free;
+	void				*start;
+	struct s_block		*next;
+}						t_block;
+
 typedef struct			s_tiny
 {
 	size_t				size;
 	void				*start;
+	t_block				*block;
 	struct s_tiny		*next;
 }						t_tiny;
 
@@ -54,10 +63,10 @@ void	show_alloc_mem(void);
 void	*get_tiny(size_t size);
 t_tiny	*tiny_init(void);
 void	free_tiny(void *ptr);
-void	*get_next(void **ptr);
+void	*get_next(void *ptr);
 int		get_mem_size(void *ptr);
 void	*get_ptr(void *ptr);
-void	**find_last(void **ptr_head, int size);
+void	*find_last(void *ptr, int size);
 
 #endif
 
