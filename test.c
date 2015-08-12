@@ -53,10 +53,10 @@ int main(int ac, char **av)
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
 	}
-	show_alloc_mem();
-	free_tiny(str);
+	//show_alloc_mem();
+	//free_tiny(str);
 	printf("FREE\n");
-	show_alloc_mem();
+	//show_alloc_mem();
 	//munmap(str, sizeof(str));
 
 	return (0);
