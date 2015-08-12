@@ -72,10 +72,11 @@ void	*find_last(void *ptr, int size)
 {
 	int	i;
 	int	*int_mem;
+	//void **ptr_mem;
 
 	i = 9;
 	printf("post while last\n");
-	while (i < (TINY_SIZE - size))
+	while (i < (TINY_SIZE_MAX - size))
 	{
 	printf("post if last\n");
 		int_mem = (int *)(ptr + i);
@@ -93,12 +94,14 @@ void	*find_last(void *ptr, int size)
 
 void	*get_next(void *ptr)
 {
-	void **ptr_mem;
+	//void **ptr_mem;
 
-	ptr_mem = (void *)ptr;
-	if (get_mem_size(ptr_mem))
-		return (ptr_mem);
-	return (NULL);
+	//ptr_mem = (void *)ptr;
+	//ptr_mem[0] = (void *)(ptr + (int *)(ptr + 8) + 16);
+	return ((void *)(ptr + ((int *)(ptr + 8)) + 16));
+	//if (get_mem_size(ptr_mem))
+	//	return (ptr_mem);
+	//return (NULL);
 }
 
 void	*get_ptr(void *ptr)
