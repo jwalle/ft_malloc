@@ -13,33 +13,6 @@
 #include "ft_malloc.h"
 
 
-void	free_tiny(void *ptr)
-{
-	t_tiny	*tiny;
-	t_block	*block;
-
-	if (!g_env.tiny)
-		return ;
-	tiny = g_env.tiny;
-	while (tiny)
-	{
-		block = tiny->block;
-		while (block)
-		{
-			if (block->start == ptr)
-			{
-				//munmap(block->start, block->size);
-				printf("FREEEEEEEE");
-				block->start = NULL;
-				block->free = 1;
-				return ;
-			}
-			block = block->next;
-		}
-		tiny = tiny->next;
-	}
-}
-
 t_tiny	*page_push_tiny(t_tiny *first)
 {
 	t_tiny	*tmp;
@@ -50,7 +23,6 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		first->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		ft_bzero(first->start, TINY_SIZE * 100);
 		first->size = 0;
-		first->block = NULL;
 		first->next = NULL;
 	}
 	else
@@ -62,13 +34,12 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		tmp->next->start = mmap(0, TINY_SIZE * 100, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		ft_bzero(tmp->next->start, TINY_SIZE * 100);
 		tmp->next->size = 0;
-		tmp->next->block = NULL;
 		tmp->next->next = NULL;
 	}
 	return (first);
 }
 
-void	*find_last(void *ptr, int size)
+void	**find_last(void **ptr_head, int size)
 {
 	int	i;
 	int	*int_mem;
@@ -79,29 +50,23 @@ void	*find_last(void *ptr, int size)
 	while (i < (TINY_SIZE_MAX - size))
 	{
 	printf("post if last\n");
-		int_mem = (int *)(ptr + i);
+		int_mem = (int *)(ptr_head + i);
 		if (*int_mem == 0)
 		{
 			int_mem[0] = size;
 			printf("plodffdsfp\n");
-			return (int_mem + i + 8);
+			ptr_head = (void *)(int_mem + i + 8);
+			return (ptr_head);
 		}
 		i += *int_mem;
 		i += 8;
 	}
-	return (ptr);
+	return (ptr_head);
 }
 
-void	*get_next(void *ptr)
+void	*get_next(void **ptr)
 {
-	//void **ptr_mem;
-
-	//ptr_mem = (void *)ptr;
-	//ptr_mem[0] = (void *)(ptr + (int *)(ptr + 8) + 16);
-	return ((void *)(ptr + ((int *)(ptr + 8)) + 16));
-	//if (get_mem_size(ptr_mem))
-	//	return (ptr_mem);
-	//return (NULL);
+	return (*ptr);
 }
 
 void	*get_ptr(void *ptr)
@@ -111,25 +76,26 @@ void	*get_ptr(void *ptr)
 
 int		get_mem_size(void *ptr)
 {
+	//printf("get mem size = %d\n", ((int*)(ptr + 8))[0]);
 	return (((int*)(ptr + 8))[0]);
 }
 
-void	*block_init(void *ptr, int size)
+void	*block_init(void **ptr_head, int size)
 {
 	int		*size_mem;
 	int		*free_mem;
-	void	**ptr_mem;
+	void	*ptr_mem;
 
-	ptr = find_last(ptr, size);
-	ptr_mem = (void *)ptr;
-	ptr_mem[0] = (void *)(ptr + size + 16);
-	size_mem = (int *)(ptr + 8);
+	ptr_head = find_last(ptr_head, size);
+	ptr_mem = *ptr_head;
+	ptr_mem = (void *)(ptr_mem + size + 16);
+	size_mem = (int *)(ptr_mem + 8);
 	size_mem[0] = size;
 	printf("size mem = %d\n", size_mem[0]);
-	free_mem = (int *)(ptr + 12);
+	free_mem = (int *)(ptr_head + 12);
 	free_mem[0] = 0;
-	printf("test = %d\n", ((int*)(ptr + 8))[0]);
-	return ((void *)(ptr + 16));
+	printf("test = %d\n", ((int*)(ptr_head + 8))[0]);
+	return ((void *)(ptr_head + 16));
 }
 
 void	*get_tiny(size_t size)
@@ -150,17 +116,6 @@ void	*get_tiny(size_t size)
 	ptr = block_init(tiny->start, (int)size);
 	tiny->size += size;
 	return (ptr);
-
-
-
-	/*tiny->block = block_push_tiny(size, tiny->start, tiny->size, tiny->block);
-
-	//fill_tiny_block();
-	tiny->size += size;
-	block = tiny->block;
-	while (block->next != NULL)
-		block = block->next;
-	return(block->start);*/
 }
 
 
