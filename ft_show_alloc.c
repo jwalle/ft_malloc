@@ -27,19 +27,18 @@ void	show_alloc_mem(void)
 			ft_atoi_hex(g_env.tiny->start);
 			ft_putchar('\n');
 			ptr_head = g_env.tiny->start;
-			while (ptr_head)
+			while (get_mem_size(ptr_head))
 			{
-				ptr = (void*)ptr_head;
+				ptr = (void *)(ptr_head + 16);
 				{
 					ft_atoi_hex(ptr);
 					ft_putstr(" - ");
-					ft_atoi_hex(ptr + get_mem_size(ptr));
+					ft_atoi_hex(ptr + get_mem_size(ptr_head));
 					ft_putstr(" : ");
-					ft_putnbr(get_mem_size(ptr));
+					ft_putnbr(get_mem_size(ptr_head));
 					ft_putstr(" octets\n");
 				}
-				//ptr_head = get_next(ptr);
-				ptr_head = (void *)ptr_head[0];
+				ptr_head = ptr_head + get_mem_size(ptr) + 16;
 			}
 			g_env.tiny = g_env.tiny->next;
 		}

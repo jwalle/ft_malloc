@@ -64,7 +64,8 @@ t_tiny	*tiny_init(void);
 void	free_tiny(void *ptr);
 void	*get_next(void *ptr);
 int		get_mem_size(void *ptr);
-void	**get_ptr(void *ptr);
+void	*get_ptr(void *ptr);
+void	*find_last(void *ptr, int size);
 
 #endif
 

@@ -74,13 +74,16 @@ void	*find_last(void *ptr, int size)
 	int	*int_mem;
 
 	i = 9;
+	printf("post while last\n");
 	while (i < (TINY_SIZE - size))
 	{
+	printf("post if last\n");
 		int_mem = (int *)(ptr + i);
 		if (*int_mem == 0)
 		{
-			int_mem[0] = int(size);
-			return (mem + i + 8);
+			int_mem[0] = size;
+			printf("plodffdsfp\n");
+			return (int_mem + i + 8);
 		}
 		i += *int_mem;
 		i += 8;
@@ -93,10 +96,12 @@ void	*get_next(void *ptr)
 	void **ptr_mem;
 
 	ptr_mem = (void *)ptr;
-	return (ptr_mem);
+	if (get_mem_size(ptr_mem))
+		return (ptr_mem);
+	return (NULL);
 }
 
-void	**get_ptr(void *ptr)
+void	*get_ptr(void *ptr)
 {
 	return (ptr + 16);
 }
@@ -139,7 +144,7 @@ void	*get_tiny(size_t size)
 		g_env.tiny = page_push_tiny(g_env.tiny);
 		tiny = tiny->next;
 	}	
-	ptr = block_init(tiny->start, (int)size);	
+	ptr = block_init(tiny->start, (int)size);
 	tiny->size += size;
 	return (ptr);
 
