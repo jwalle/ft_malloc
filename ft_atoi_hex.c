@@ -19,7 +19,7 @@ void ft_atoi_hex(void *ptr)
 	char			hex[10];
 	int					i;
 
-	base = "0123456789ABCDEF";
+	base = "0123456789abcdef";
 	address = (unsigned long long)ptr;	
 	ft_bzero(hex, 10);
 	i = 8;

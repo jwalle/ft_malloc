@@ -22,8 +22,7 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		first->start = (void *)mmap(0, TINY_SIZE_MAX * 16, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (first->start == MAP_FAILED)
 			printf("MAP FAILED\n");
-		//first->start = malloc(TINY_SIZE_MAX);
-		ft_bzero(first->start, TINY_SIZE_MAX);
+		ft_bzero(first->start, TINY_SIZE_MAX * 16);
 		first->size = 0;
 		first->block = NULL;
 		first->next = NULL;
@@ -37,8 +36,7 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		tmp->next->start = mmap(0, TINY_SIZE_MAX * 16, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (tmp->next->start == MAP_FAILED)
 			printf("MAP FAILED\n");
-		//tmp->next->start = malloc(TINY_SIZE_MAX);
-		ft_bzero(tmp->next->start, TINY_SIZE_MAX);
+		ft_bzero(tmp->next->start, TINY_SIZE_MAX * 16);
 		tmp->next->size = 0;
 		tmp->next->block = NULL;
 		tmp->next->next = NULL;
@@ -46,40 +44,33 @@ t_tiny	*page_push_tiny(t_tiny *first)
 	return (first);
 }
 
-void	*find_last(void *ptr, int size)
+void	**find_previous(void **ptr_head)
 {
-	int	i;
-	int	*int_mem;
-	//void **ptr_mem;
+	void	**previous;
 
-	i = 9;
-	printf("post while last\n");
-	while (i < (TINY_SIZE_MAX - size))
-	{
-		printf("post if last\n");
-		int_mem = (int *)(ptr + i);
-		if (*int_mem == 0)
-		{
-			int_mem[0] = size;
-			printf("plodffdsfp\n");
-			return (int_mem + i + 8);
-		}
-		i += *int_mem;
-		i += 8;
-	}
-	return (ptr);
+	
+}
+
+void	free_tiny(void *ptr)
+{
+	void	**ptr_head;
+	int		size;
+	int		*free_mem;
+
+	ptr_head = ptr - 16;
+	size = get_mem_size(ptr_head);
+	free_mem = (int *)(ptr + 12);
+	free_mem[0] = 1;
+
 }
 
 int		get_mem_size(void **ptr)
 {
-	//printf("size_mem = %i\n", ((int *)(ptr + 8))[0]);
-	//printf("ptr_mem = %p\n", ((void *)(ptr + 16)));
 	int		*size_mem;
 
 	size_mem = (int *)(ptr + 8);
 	if (size_mem)
 		return (size_mem[0]);
-	//	return (((int *)(ptr + 8))[0]);
 	return (0);
 }
 
@@ -89,21 +80,14 @@ void	*block_init(void **ptr, int size)
 	int		*free_mem;
 	void	**ptr_mem;
 
-	//ptr = find_last(ptr, size);
-	//printf("TEST INIT\n");
-	
-	//if (get_mem_size(ptr))
-	//{
-		while (get_mem_size(ptr))
-			ptr = *ptr;
-//	}
+	while (get_mem_size(ptr))
+		ptr = *ptr;
 	ptr_mem = (void *)ptr;
 	ptr_mem[0] = (void *)(ptr + size + 16);
 	size_mem = (int *)(ptr + 8);
 	size_mem[0] = size;
 	free_mem = (int *)(ptr + 12);
 	free_mem[0] = 0;
-	printf("test = %d\n", ((int*)(ptr + 8))[0]);
 	return ((void *)(ptr + 16));
 }
 
@@ -111,17 +95,14 @@ void	*get_tiny(int size)
 {
 	t_tiny	*tiny;
 	void	*ptr;
-	//printf("TEST GET TINY\n");
 
 	if (!g_env.tiny)
 		g_env.tiny = page_push_tiny(g_env.tiny);
 	tiny = g_env.tiny;
 	while (tiny->next != NULL)
 		tiny = tiny->next;
-	//printf("actual = %d, MAX = %d\n", tiny->size + size + 16, TINY_SIZE_MAX);
 	if ((tiny->size + size + 16 > (TINY_SIZE_MAX)))
 	{
-		printf("NEXT PAGE\n");
 		g_env.tiny = page_push_tiny(g_env.tiny);
 		tiny = tiny->next;
 	}

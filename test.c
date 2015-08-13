@@ -53,13 +53,13 @@ int main(int ac, char **av)
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
 	}
-	/*i = 0;	
+	i = 0;	
 	while (i < nb)
 	{
-		str3[1][i] = c;
+		str3[179][i] = c;
 		i++;
 	}
-	printf("test string = %s\n",str3[1]);*/
+	printf("test string = %s\n",str3[179]);
 	show_alloc_mem();
 	printf("FREE\n");
 	free(str3);
