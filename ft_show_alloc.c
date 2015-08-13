@@ -20,6 +20,23 @@ int		is_free(void **ptr_head)
 	return (free_mem[0]);
 }
 
+void	print_mem(void *ptr)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = (char *)ptr;
+	while (i++ < 16)
+	{
+		if ((str[i]) > 33 && (int)(str[i]) < 255)
+			ft_putchar(str[i]);
+		else
+			ft_putchar('.');
+		ft_putchar(' ');
+	}
+}
+
 void	show_alloc_mem(void)
 {
 	//void	**ptr_mem;
@@ -49,7 +66,12 @@ void	show_alloc_mem(void)
 						ft_atoi_hex(ptr + get_mem_size(ptr_head));
 						ft_putstr(" : ");
 						ft_putnbr(get_mem_size(ptr_head));
-						ft_putstr(" octets\n");
+						ft_putstr(" octets");
+						//ft_putstr("       ");
+						//print_mem(*ptr_head);
+						ft_putstr("       ");
+						print_mem(ptr);
+						ft_putchar('\n');
 					}
 				}
 				ptr_head = *ptr_head;
