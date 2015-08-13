@@ -12,35 +12,49 @@
 
 #include "ft_malloc.h"
 
+int		is_free(void **ptr_head)
+{
+	int	*free_mem;
+
+	free_mem = (int *)(ptr_head + 12);
+	return (free_mem[0]);
+}
+
 void	show_alloc_mem(void)
 {
 	//void	**ptr_mem;
 	void	**ptr_head;
 	void	*ptr;
-
+	t_tiny	*tiny;
 
 	if (g_env.tiny)
 	{
-		while (g_env.tiny)
+		tiny = g_env.tiny;
+		printf("PLELKSJSLKJ\n");
+
+		while (tiny)
 		{
 			ft_putstr("TINY : ");
-			ft_atoi_hex(g_env.tiny->start);
+			ft_atoi_hex(tiny->start);
 			ft_putchar('\n');
-			ptr_head = g_env.tiny->start;
+			ptr_head = tiny->start;
 			while (get_mem_size(ptr_head))
 			{
-				ptr = (void *)(ptr_head + 16);
+				if (!is_free(ptr_head))
 				{
-					ft_atoi_hex(ptr);
-					ft_putstr(" - ");
-					ft_atoi_hex(ptr + get_mem_size(ptr_head));
-					ft_putstr(" : ");
-					ft_putnbr(get_mem_size(ptr_head));
-					ft_putstr(" octets\n");
+					ptr = (void *)(ptr_head + 16);
+					{
+						ft_atoi_hex(ptr);
+						ft_putstr(" - ");
+						ft_atoi_hex(ptr + get_mem_size(ptr_head));
+						ft_putstr(" : ");
+						ft_putnbr(get_mem_size(ptr_head));
+						ft_putstr(" octets\n");
+					}
 				}
 				ptr_head = *ptr_head;
 			}
-			g_env.tiny = g_env.tiny->next;
+			tiny = tiny->next;
 		}
 	}
 }

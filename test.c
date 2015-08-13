@@ -36,6 +36,9 @@ int main(int ac, char **av)
 	}
 	str[i] = 0;
 
+	//show_alloc_mem();
+
+
 	str2 = (char*)ft_malloc(nb);
 	i = 0;
 	while (i < nb)
@@ -48,21 +51,25 @@ int main(int ac, char **av)
 	str3 = malloc(1000);
 	i = 0;
 	get_limit();
-	while (i < 180)
+	while (i < 3)
 	{
 		str3[i] = (char*)ft_malloc(nb);
 		i++;
 	}
 	i = 0;	
-	while (i < nb)
+	/*while (i < nb)
 	{
 		str3[179][i] = c;
 		i++;
 	}
-	printf("test string = %s\n",str3[179]);
+	printf("test string = %s\n",str3[179]);*/
 	show_alloc_mem();
-	free_tiny(str3[178]);
+	
+	free_tiny(str3[2]);
 	printf("FREE\n");
+	
+	show_alloc_mem();
+	
 	//printf("test string = %s\n",str3[179]);
 	free(str3);
 

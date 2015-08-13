@@ -64,28 +64,36 @@ void	**find_last_not_free(void **ptr_head)
 void	free_tiny(void *ptr)
 {
 	//void	**ptr_last;
-	void	*ptr_head;
-	int		*size;
+	void	**ptr_head;
+	int		size;
 	int		*free_mem;
 
 	//ptr_head = (void *)ptr;
-	ptr_head = (void **)(ptr - 16);
+	ptr_head = (ptr - 16 * 8);
 
-
-	printf("ptr = %p\n", ptr);
-	printf("ptr_head = %p\n", ptr_head);
+	printf("ptr = %p\n", ptr); // PTR
+	printf("ptr_head = %p\n", ptr_head); // HEAD
+	printf("ptr 0f ptr_head = %p\n", *ptr_head); // NEXT
 
 	//size = get_mem_size(ptr_head);
 	//size = (int *)(&ptr_head + 8);
-	size = get_mem_size((void **)(ptr - 16));
 
-	printf("size = %d\n", size[0]);
+//	while (i <= 20)
+	{
+		//ptr_head = (void **)(ptri);
+		size = get_mem_size((ptr_head));
+		//size = (int*)(ptr - 8);
+		printf("size = %d\n", size);
+	}
 
 	free_mem = (int *)(ptr_head + 12);
 
 	printf("free = %d\n", free_mem[0]);
-	z
+
 	free_mem[0] = 1;
+
+	//printf("free = %d\n", (int)(ptr_head + 12)[0]);
+
 	//ft_bzero(ptr, size);
 	//ptr_last = find_next_not_free(ptr_head);
 	//ft_bzero((void *)ptr_head[0], size + 16);
