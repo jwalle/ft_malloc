@@ -61,8 +61,11 @@ int main(int ac, char **av)
 	}
 	printf("test string = %s\n",str3[179]);
 	show_alloc_mem();
+	free_tiny(str3[179]);
 	printf("FREE\n");
+	//printf("test string = %s\n",str3[179]);
 	free(str3);
+
 
 	return (0);
 }

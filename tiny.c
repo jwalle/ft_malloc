@@ -43,24 +43,40 @@ t_tiny	*page_push_tiny(t_tiny *first)
 	}
 	return (first);
 }
+/*
+void	**find_next_not_free(void **ptr_head)
+{
+	while (get_mem_size(ptr_head) && (int)(ptr_head + 12)[0] == 1)
+		ptr_head = *ptr_head;
+	return (ptr_head);
+}
 
 void	**find_previous(void **ptr_head)
 {
 	void	**previous;
-
-	
 }
+
+void	**find_last_not_free(void **ptr_head)
+{
+
+}*/
 
 void	free_tiny(void *ptr)
 {
+	//void	**ptr_last;
 	void	**ptr_head;
 	int		size;
 	int		*free_mem;
 
-	ptr_head = ptr - 16;
+	ptr_head = (ptr - 16)[0];
 	size = get_mem_size(ptr_head);
-	free_mem = (int *)(ptr + 12);
+	printf("size = %d\n", size);
+	free_mem = (int *)(ptr_head + 12);
 	free_mem[0] = 1;
+	ft_bzero(ptr, size);
+	//ptr_last = find_next_not_free(ptr_head);
+	//ft_bzero((void *)ptr_head[0], size + 16);
+	//ptr_head[0] = (void *)ptr_last;
 
 }
 
