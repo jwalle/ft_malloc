@@ -57,7 +57,7 @@ int main(int ac, char **av)
 	get_limit();
 	while (i < 10)
 	{
-		str3[i] = (char*)ft_malloc(nb);
+		str3[i] = (char*)ft_malloc((rand() % 200) + 100);
 		i++;
 	}
 	i = 0;

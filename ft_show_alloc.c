@@ -47,8 +47,6 @@ void	show_alloc_mem(void)
 	if (g_env.tiny)
 	{
 		tiny = g_env.tiny;
-		printf("PLELKSJSLKJ\n");
-
 		while (tiny)
 		{
 			ft_putstr("TINY : ");
