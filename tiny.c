@@ -74,16 +74,17 @@ void	free_tiny(void *ptr)
 
 	printf("ptr = %p\n", ptr);
 	printf("ptr_head = %p\n", ptr_head);
-	//size = get_mem_size(ptr_head);
 
-	size = (int *)(&ptr_head + 8);
+	//size = get_mem_size(ptr_head);
+	//size = (int *)(&ptr_head + 8);
+	size = get_mem_size((void **)(ptr - 16));
 
 	printf("size = %d\n", size[0]);
 
 	free_mem = (int *)(ptr_head + 12);
 
 	printf("free = %d\n", free_mem[0]);
-	
+	z
 	free_mem[0] = 1;
 	//ft_bzero(ptr, size);
 	//ptr_last = find_next_not_free(ptr_head);
