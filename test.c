@@ -62,7 +62,7 @@ int main(int ac, char **av)
 	}
 	i = 0;
 	j = 0;	
-	while (i < 5)
+	while (i < 10)
 	{
 		j = 0;
 		while (j < 16)
@@ -78,8 +78,21 @@ int main(int ac, char **av)
 	show_alloc_mem();
 	
 	free_tiny(str3[2]);
+	
+	printf("BEFORE ft_realloc : ");
+	i = 0;
+	while (i++ < 16)
+		ft_putchar(str3[0][i]);
+	ft_putchar('\n');
 
-	ft_realloc(str3[0], 420);
+	str3[0] = ft_realloc(str3[0], 420);
+	
+	printf("AFTER ft_realloc : ");
+	i = 0;
+	while (i++ < 16)
+		ft_putchar(str3[0][i]);
+	ft_putchar('\n');
+
 	printf("FREE\n");
 	
 	show_alloc_mem();

@@ -77,23 +77,21 @@ void	*ft_realloc(void *ptr, size_t size)
 	if (get_mem_size(*ptr_head))
 	{
 		tmp = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-		ft_memcpy(ptr, tmp, size_mem);
+		ft_memcpy(tmp, ptr, size_mem);
 		ft_bzero(ptr, size);
 		ptr = get_tiny(size);
-		ft_memcpy(tmp, ptr, size_mem);
+		ft_memcpy(ptr, tmp, size_mem);
+		munmap(tmp, size + 1);
 		return (ptr);
 	}
 	else
 	{
 		tmp = get_tiny(size);
-		//tmp = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-		ft_memcpy(tmp, ptr, size_mem);
+		ft_memcpy(tmp, ptr, size);
 		free_tiny(ptr);
 		return (tmp);
 	}
 	return (NULL);
-	//if ((ptr + size) != '\0')
-
 }
 
 void	free_tiny(void *ptr)
