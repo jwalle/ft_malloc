@@ -66,6 +66,8 @@ int main(int ac, char **av)
 	show_alloc_mem();
 	
 	free_tiny(str3[2]);
+
+	ft_realloc(str3[0], 420);
 	printf("FREE\n");
 	
 	show_alloc_mem();

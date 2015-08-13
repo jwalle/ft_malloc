@@ -61,6 +61,41 @@ void	**find_last_not_free(void **ptr_head)
 
 }*/
 
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	**ptr_head;
+	void	*tmp;
+	int		size_mem;
+
+	if (!size && ptr)
+		return (get_tiny(16));
+	if (!ptr)
+		return(get_tiny(size));
+	ptr_head = (ptr - 16 * 8);
+	size_mem = get_mem_size(ptr_head);
+
+	if (get_mem_size(*ptr_head))
+	{
+		tmp = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+		ft_memcpy(ptr, tmp, size_mem);
+		ft_bzero(ptr, size);
+		ptr = get_tiny(size);
+		ft_memcpy(tmp, ptr, size_mem);
+		return (ptr);
+	}
+	else
+	{
+		tmp = get_tiny(size);
+		//tmp = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+		ft_memcpy(tmp, ptr, size_mem);
+		free_tiny(ptr);
+		return (tmp);
+	}
+	return (NULL);
+	//if ((ptr + size) != '\0')
+
+}
+
 void	free_tiny(void *ptr)
 {
 	void	**ptr_head;

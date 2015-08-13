@@ -69,6 +69,7 @@ int		get_mem_size(void **ptr);
 void	*get_ptr(void *ptr);
 void	*find_last(void *ptr, int size);
 void	free_tiny(void *ptr);
+void	*ft_realloc(void *ptr, size_t size);
 #endif
 
 //		
