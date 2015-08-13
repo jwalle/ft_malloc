@@ -19,7 +19,7 @@ t_tiny	*page_push_tiny(t_tiny *first)
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->start = (void *)mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first->start = (void *)mmap(0, TINY_SIZE_MAX * 16, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (first->start == MAP_FAILED)
 			printf("MAP FAILED\n");
 		//first->start = malloc(TINY_SIZE_MAX);
@@ -34,7 +34,7 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->start = mmap(0, TINY_SIZE_MAX, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->start = mmap(0, TINY_SIZE_MAX * 16, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (tmp->next->start == MAP_FAILED)
 			printf("MAP FAILED\n");
 		//tmp->next->start = malloc(TINY_SIZE_MAX);
