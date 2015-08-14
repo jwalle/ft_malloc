@@ -30,9 +30,6 @@ void	init_global(void)
 {
 	g_env.page = NULL;
 	g_env.plop = 42;
-	//g_env.tiny->start = NULL;
-	//g_env.tiny->next = NULL;
-	g_env.jkaptekedal = "plop\n";
 }
 
 void	*get_small(size_t size)
@@ -57,8 +54,9 @@ void	*get_large(size_t size)
 
 void	*ft_malloc(size_t size)
 {
+	static int i = 0;
 	if( g_env.plop != 42)
 		init_global();
-
+	printf("nb de malloc = %d\n", i++);
 	return (get_malloc((int)size));
 }

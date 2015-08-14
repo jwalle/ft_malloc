@@ -24,16 +24,23 @@ int		get_max_size(char type)
 	return (0);
 }
 
+void	print_error(char *str)
+{
+	ft_putendl(str);
+	exit(1);
+}
+
 t_page	*page_push(t_page *first, char type)
 {
 	t_page	*tmp;
 	
+	printf("NEW PAGE\n");
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_page) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		first->start = (void *)mmap(0, get_max_size(type) * 16 , FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (first->start == MAP_FAILED)
-			printf("MAPPING FAILED\n");
+			print_error("MAPPING FAILED");
 		ft_bzero(first->start, TINY_SIZE_MAX * 16);
 		first->size = 0;
 		first->type = type;
@@ -47,7 +54,7 @@ t_page	*page_push(t_page *first, char type)
 		tmp->next = mmap(0, sizeof(t_page) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
 		tmp->next->start = mmap(0, get_max_size(type) * 16 , FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (tmp->next->start == MAP_FAILED)
-			printf("MAPPING FAILED\n");
+			print_error("MAPPING FAILED");
 		ft_bzero(tmp->next->start, TINY_SIZE_MAX * 16);
 		tmp->next->size = 0;
 		tmp->next->type = type;

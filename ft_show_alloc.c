@@ -29,7 +29,7 @@ void	print_mem(void *ptr)
 	str = (char *)ptr;
 	while (i++ < 16)
 	{
-		if ((str[i]) > 33 && (int)(str[i]) < 255)
+		if ((str[i]) > 33 && (int)(str[i]) < 127)
 			ft_putchar(str[i]);
 		else
 			ft_putchar('.');

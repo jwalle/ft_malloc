@@ -30,9 +30,9 @@
 #define SMALL_SIZE	10240
 #define LARGE_SIZE	200000
 
-#define TINY_SIZE_MAX TINY_SIZE * 16
-#define SMALL_SIZE_MAX SMALL_SIZE * 16
-#define LARGE_SIZE_MAX LARGE_SIZE * 16
+#define TINY_SIZE_MAX TINY_SIZE * 16 * PAGE_SIZE
+#define SMALL_SIZE_MAX SMALL_SIZE * 16 * PAGE_SIZE
+#define LARGE_SIZE_MAX LARGE_SIZE * 16 * PAGE_SIZE
 
 typedef struct			s_page
 {
@@ -52,43 +52,17 @@ typedef struct			s_env
 
 extern t_env			g_env;
 
-void	get_limit();
-void	*ft_malloc(size_t size);
-void	ft_atoi_hex(void *ptr);
-void	show_alloc_mem(void);
-void	*get_malloc(int size);
-t_page	*tiny_init(void);
-void	free_tiny(void *ptr);
-void	*get_next(void *ptr);
-int		get_mem_size(void **ptr);
-void	*get_ptr(void *ptr);
-void	*find_last(void *ptr, int size);
-void	free_tiny(void *ptr);
-void	*ft_realloc(void *ptr, size_t size);
+void					get_limit();
+void					*ft_malloc(size_t size);
+void					ft_atoi_hex(void *ptr);
+void					show_alloc_mem(void);
+void					*get_malloc(int size);
+t_page					*tiny_init(void);
+void					free_tiny(void *ptr);
+void					*get_next(void *ptr);
+int						get_mem_size(void **ptr);
+void					*get_ptr(void *ptr);
+void					*find_last(void *ptr, int size);
+void					free_tiny(void *ptr);
+void					*ft_realloc(void *ptr, size_t size);
 #endif
-
-//		
-//		g_env
-//		  |
-//		  |
-//		  |
-//		 \ /
-//
-/*   /--------\  */
-//	 |	      |
-//	 |  pages | --> ...
-//	 |	  	  |
-//	 \--------/
-//		|
-//		|
-//		|
-//		o---->    /--------\  		/--------\
-//     X 100      |        |  		|		 |
-//                |  block | --->   |  block | --> ...
-//                |        |  		|		 |
-//	 			  \--------/		\--------/
-//
-//					ptr
-//					size
-//					free
-//

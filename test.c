@@ -82,17 +82,17 @@ int main(int ac, char **av)
 
 	free_tiny(str3[2]);
 
-	puts(str3[2]);
-
 	printf("after free %s\n", str3[2]);
 
-	printf("FREE\n");
+	i = 0;
+	j = 0;	
+	while (i++ < 10)
+	{
+		j = 5000;
+		while (j < 100000)
+			ft_malloc(j++);
+	}
 
-	ft_malloc(50000);
-
-
-	ft_malloc(1000000);
-	
 	show_alloc_mem();
 
 
