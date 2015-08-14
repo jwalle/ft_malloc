@@ -60,7 +60,6 @@ void	print_type_name(char type)
 		ft_putstr("LARGE");
 }
 
-
 void	show_alloc_mem(void)
 {
 	void	**ptr_head;
