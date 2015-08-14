@@ -60,7 +60,7 @@ void	show_alloc_mem(void)
 					ptr = (void *)(ptr_head + 16);
 					{
 						ft_atoi_hex(ptr);
-						ft_putstr(" - ");
+						ft_putstr(" - "); // oh no
 						ft_atoi_hex(ptr + get_mem_size(ptr_head));
 						ft_putstr(" : ");
 						ft_putnbr(get_mem_size(ptr_head));
