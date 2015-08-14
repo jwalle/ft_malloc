@@ -12,6 +12,7 @@
 
 #include "ft_malloc.h"
 #include <time.h>
+#include <limits.h>
 
 // av[1] = le char
 // av[2] = le nombre
@@ -77,25 +78,33 @@ int main(int ac, char **av)
 	//printf("test string = %s\n",str3[179]);
 	show_alloc_mem();
 	
-	free_tiny(str3[2]);
-	
-	printf("BEFORE ft_realloc : ");
-	i = 0;
-	while (i++ < 16)
-		ft_putchar(str3[0][i]);
-	ft_putchar('\n');
+	strcpy(str3[2], "FREEEEEE");
 
-	str3[0] = ft_realloc(str3[0], 420);
-	
-	printf("AFTER ft_realloc : ");
-	i = 0;
-	while (i++ < 16)
-		ft_putchar(str3[0][i]);
-	ft_putchar('\n');
+	free_tiny(str3[2]);
+
+	puts(str3[2]);
+
+	printf("after free %s\n", str3[2]);
 
 	printf("FREE\n");
 	
 	show_alloc_mem();
+
+	char *real;
+
+	real = (char *)malloc(INT_MAX);
+
+	strcpy(real, "COUCOU");
+
+	printf("real 1 = %s\n", real);
+	
+	realloc(real, INT_MAX);
+
+
+	printf("real 1 = %s\n", real);
+
+
+
 	
 	//printf("test string = %s\n",str3[179]);
 	free(str3);

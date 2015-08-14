@@ -82,6 +82,7 @@ void	*ft_realloc(void *ptr, size_t size)
 		ptr = get_tiny(size);
 		ft_memcpy(ptr, tmp, size_mem);
 		munmap(tmp, size + 1);
+		
 		return (ptr);
 	}
 	else
@@ -105,6 +106,8 @@ void	free_tiny(void *ptr)
 	free_mem = (int *)(ptr_head + 12);
 	free_mem[0] = 1;
 	ft_bzero(ptr, size);
+	munmap(ptr, size);
+	ptr = NULL;
 }
 
 int		get_mem_size(void **ptr)

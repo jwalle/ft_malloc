@@ -37,11 +37,23 @@ void	print_mem(void *ptr)
 	}
 }
 
+void	print_stuff(void *ptr, int size)
+{
+	ft_atoi_hex(ptr);
+	ft_putstr(" - ");
+	ft_atoi_hex(ptr + size);
+	ft_putstr(" : ");
+	ft_putnbr(size);
+	ft_putstr(" octets");
+	ft_putstr("       ");
+	print_mem(ptr);
+	ft_putchar('\n');
+}
+
+
 void	show_alloc_mem(void)
 {
-	//void	**ptr_mem;
 	void	**ptr_head;
-	void	*ptr;
 	t_tiny	*tiny;
 
 	if (g_env.tiny)
@@ -56,22 +68,8 @@ void	show_alloc_mem(void)
 			while (get_mem_size(ptr_head))
 			{
 				if (!is_free(ptr_head))
-				{
-					ptr = (void *)(ptr_head + 16);
-					{
-						ft_atoi_hex(ptr);
-						ft_putstr(" - ");
-						ft_atoi_hex(ptr + get_mem_size(ptr_head));
-						ft_putstr(" : ");
-						ft_putnbr(get_mem_size(ptr_head));
-						ft_putstr(" octets");
-						//ft_putstr("       ");
-						//print_mem(*ptr_head);
-						ft_putstr("       ");
-						print_mem(ptr);
-						ft_putchar('\n');
-					}
-				}
+					print_stuff((void *)(ptr_head + 16),
+								get_mem_size(ptr_head));
 				ptr_head = *ptr_head;
 			}
 			tiny = tiny->next;
