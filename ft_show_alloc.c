@@ -50,21 +50,32 @@ void	print_stuff(void *ptr, int size)
 	ft_putchar('\n');
 }
 
+void	print_type_name(char type)
+{
+	if (type == TINY)
+		ft_putstr("TINY");
+	if (type == SMALL)
+		ft_putstr("SMALL");
+	if (type == LARGE)
+		ft_putstr("LARGE");
+}
+
 
 void	show_alloc_mem(void)
 {
 	void	**ptr_head;
-	t_tiny	*tiny;
+	t_page	*page;
 
-	if (g_env.tiny)
+	if (g_env.page)
 	{
-		tiny = g_env.tiny;
-		while (tiny)
+		page = g_env.page;
+		while (page)
 		{
-			ft_putstr("TINY : ");
-			ft_atoi_hex(tiny->start);
+			print_type_name(page->type);
+			ft_putstr(" : ");
+			ft_atoi_hex(page->start);
 			ft_putchar('\n');
-			ptr_head = tiny->start;
+			ptr_head = page->start;
 			while (get_mem_size(ptr_head))
 			{
 				if (!is_free(ptr_head))
@@ -72,7 +83,7 @@ void	show_alloc_mem(void)
 								get_mem_size(ptr_head));
 				ptr_head = *ptr_head;
 			}
-			tiny = tiny->next;
+			page = page->next;
 		}
 	}
 }

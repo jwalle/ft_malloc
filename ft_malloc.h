@@ -18,38 +18,33 @@
 #include "libft.h"
 #include <stdio.h> // PRINTF A RETIRER
 
-# define TINY 1
-# define SMALL 10
-# define LARGE 100
+# define TINY 84
+# define SMALL 83
+# define LARGE 76
 # define PAGE_SIZE getpagesize()
 
 #define FLAGS_PROT PROT_READ | PROT_WRITE
 #define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 
 #define TINY_SIZE	512
-#define TINY_SIZE_MAX PAGE_SIZE * 16
 #define SMALL_SIZE	10240
 #define LARGE_SIZE	200000
 
-typedef struct			s_block
-{
-	size_t				size;
-	int					free;
-	void				*start;
-	struct s_block		*next;
-}						t_block;
+#define TINY_SIZE_MAX TINY_SIZE * 16
+#define SMALL_SIZE_MAX SMALL_SIZE * 16
+#define LARGE_SIZE_MAX LARGE_SIZE * 16
 
-typedef struct			s_tiny
+typedef struct			s_page
 {
 	int					size;
 	void				**start;
-	t_block				*block;
-	struct s_tiny		*next;
-}						t_tiny;
+	char				type;
+	struct s_page		*next;
+}						t_page;
 
 typedef struct			s_env
 {
-	t_tiny				*tiny;
+	t_page				*page;
 	int					plop;
 	char				*jkaptekedal;
 	long long unsigned	total;
@@ -61,8 +56,8 @@ void	get_limit();
 void	*ft_malloc(size_t size);
 void	ft_atoi_hex(void *ptr);
 void	show_alloc_mem(void);
-void	*get_tiny(int size);
-t_tiny	*tiny_init(void);
+void	*get_malloc(int size);
+t_page	*tiny_init(void);
 void	free_tiny(void *ptr);
 void	*get_next(void *ptr);
 int		get_mem_size(void **ptr);

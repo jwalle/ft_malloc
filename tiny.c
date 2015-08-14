@@ -12,19 +12,31 @@
 
 #include "ft_malloc.h"
 
-t_tiny	*page_push_tiny(t_tiny *first)
+
+int		get_max_size(char type)
 {
-	t_tiny	*tmp;
+	if (type == TINY)
+		return (TINY_SIZE_MAX);
+	if (type == SMALL)
+		return (SMALL_SIZE_MAX);
+	if (type == LARGE)
+		return (LARGE_SIZE_MAX);
+	return (0);
+}
+
+t_page	*page_push(t_page *first, char type)
+{
+	t_page	*tmp;
 	
 	if (!first)
 	{
-		first = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		first->start = (void *)mmap(0, TINY_SIZE_MAX * 16, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first = mmap(0, sizeof(t_page) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		first->start = (void *)mmap(0, get_max_size(type) * 16 , FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (first->start == MAP_FAILED)
-			printf("MAP FAILED\n");
+			printf("MAPPING FAILED\n");
 		ft_bzero(first->start, TINY_SIZE_MAX * 16);
 		first->size = 0;
-		first->block = NULL;
+		first->type = type;
 		first->next = NULL;
 	}
 	else
@@ -32,13 +44,13 @@ t_tiny	*page_push_tiny(t_tiny *first)
 		tmp = first;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = mmap(0, sizeof(t_tiny) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->start = mmap(0, TINY_SIZE_MAX * 16, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next = mmap(0, sizeof(t_page) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->start = mmap(0, get_max_size(type) * 16 , FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (tmp->next->start == MAP_FAILED)
-			printf("MAP FAILED\n");
+			printf("MAPPING FAILED\n");
 		ft_bzero(tmp->next->start, TINY_SIZE_MAX * 16);
 		tmp->next->size = 0;
-		tmp->next->block = NULL;
+		tmp->next->type = type;
 		tmp->next->next = NULL;
 	}
 	return (first);
@@ -68,9 +80,9 @@ void	*ft_realloc(void *ptr, size_t size)
 	int		size_mem;
 
 	if (!size && ptr)
-		return (get_tiny(16));
+		return (get_malloc(16));
 	if (!ptr)
-		return(get_tiny(size));
+		return(get_malloc(size));
 	ptr_head = (ptr - 16 * 8);
 	size_mem = get_mem_size(ptr_head);
 
@@ -79,7 +91,7 @@ void	*ft_realloc(void *ptr, size_t size)
 		tmp = mmap(0, size + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 		ft_memcpy(tmp, ptr, size_mem);
 		ft_bzero(ptr, size);
-		ptr = get_tiny(size);
+		ptr = get_malloc(size);
 		ft_memcpy(ptr, tmp, size_mem);
 		munmap(tmp, size + 1);
 		
@@ -87,7 +99,7 @@ void	*ft_realloc(void *ptr, size_t size)
 	}
 	else
 	{
-		tmp = get_tiny(size);
+		tmp = get_malloc(size);
 		ft_memcpy(tmp, ptr, size);
 		free_tiny(ptr);
 		return (tmp);
@@ -137,23 +149,36 @@ void	*block_init(void **ptr, int size)
 	return ((void *)(ptr + 16));
 }
 
-void	*get_tiny(int size)
+char	ft_get_type(int size)
 {
-	t_tiny	*tiny;
-	void	*ptr;
+	if (size < TINY_SIZE)
+		return ('T');
+	if (size >= SMALL_SIZE && size < LARGE_SIZE)
+		return ('S');
+	if (size >= LARGE_SIZE)
+		return ('L');
+	return ('W');
+}
 
-	if (!g_env.tiny)
-		g_env.tiny = page_push_tiny(g_env.tiny);
-	tiny = g_env.tiny;
-	while (tiny->next != NULL)
-		tiny = tiny->next;
-	if ((tiny->size + size + 16 > (TINY_SIZE_MAX)))
+void	*get_malloc(int size)
+{
+	t_page	*page;
+	void	*ptr;
+	char	type;
+
+	type = ft_get_type(size);
+	if (!g_env.page)
+		g_env.page = page_push(g_env.page, type);
+	page = g_env.page;
+	while (page->next != NULL && page->type != type)
+		page = page->next;
+	if ((page->size + size + 16 > (TINY_SIZE_MAX)))
 	{
-		g_env.tiny = page_push_tiny(g_env.tiny);
-		tiny = tiny->next;
+		g_env.page = page_push(g_env.page, type);
+		page = page->next;
 	}
-	ptr = block_init(tiny->start, size);
-	tiny->size += size + 16;
-	printf("total size = %i\n", tiny->size);
+	ptr = block_init(page->start, size);
+	page->size += size + 16;
+	printf("total size = %i\n", page->size);
 	return (ptr);
 }

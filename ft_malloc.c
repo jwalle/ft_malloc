@@ -28,7 +28,7 @@ void	get_limit(void)
 
 void	init_global(void)
 {
-	g_env.tiny = NULL;
+	g_env.page = NULL;
 	g_env.plop = 42;
 	//g_env.tiny->start = NULL;
 	//g_env.tiny->next = NULL;
@@ -57,21 +57,8 @@ void	*get_large(size_t size)
 
 void	*ft_malloc(size_t size)
 {
-	//get_limit();
 	if( g_env.plop != 42)
 		init_global();
-	static int i = 1;
 
-	printf("nb of malloc = %i\n", i++);
-	//tiny_init(TINY_SIZE, g_env.tiny);
-	//printf("test tiny = %zu\n", g_env.tiny->size);
-	//ft_putstr(g_env.jkaptekedal);
-	if (size < TINY_SIZE)
-		return (get_tiny((int)size));
-	if (size >= SMALL_SIZE && size < LARGE_SIZE)
-		return (get_small(size));
-	if (size >= LARGE)
-		return (get_large(size));
-	printf("NULL\n");
-	return (NULL);
+	return (get_malloc((int)size));
 }

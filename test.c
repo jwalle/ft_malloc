@@ -87,21 +87,13 @@ int main(int ac, char **av)
 	printf("after free %s\n", str3[2]);
 
 	printf("FREE\n");
+
+	ft_malloc(50000);
+
+
+	ft_malloc(1000000);
 	
 	show_alloc_mem();
-
-	char *real;
-
-	real = (char *)malloc(INT_MAX);
-
-	strcpy(real, "COUCOU");
-
-	printf("real 1 = %s\n", real);
-	
-	realloc(real, INT_MAX);
-
-
-	printf("real 1 = %s\n", real);
 
 
 
