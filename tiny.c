@@ -12,7 +12,6 @@
 
 #include "ft_malloc.h"
 
-
 void	free_tiny(void *ptr)
 {
 	void	**ptr_head;
@@ -28,7 +27,6 @@ void	free_tiny(void *ptr)
 	ptr = NULL;
 }
 
-
 void	*block_init(void **ptr, int size)
 {
 	int		*size_mem;
@@ -43,37 +41,34 @@ void	*block_init(void **ptr, int size)
 	size_mem[0] = size;
 	free_mem = (int *)(ptr + 12);
 	free_mem[0] = 0;
-	return ((void *)(ptr - 8));
+	return ((void *)(ptr + 16));
 }
 
 void	*get_malloc(int size)
 {
 	t_page	*page;
-	void	*ptr;
-	char	type;
 
-	type = ft_get_type(size);
 	if (!g_env.page)
-		g_env.page = page_push(g_env.page, type);
+		g_env.page = page_push(g_env.page, ft_get_type(size));
 	page = g_env.page;
 	while (page->next != NULL)
 	{
-		if ((page->type != type) || page->full)
+		if ((page->type != ft_get_type(size)) || page->full)
 			page = page->next;
-		break;
+		break ;
 	}
-	if (page->type != type)
+	if (page->type != ft_get_type(size))
 	{
-		g_env.page = page_push(g_env.page, type);
+		g_env.page = page_push(g_env.page, ft_get_type(size));
 		page = page->next;
 	}
-	else if ((page->size + size + 16 > get_max_size(type)) || (type == 'L'))
+	else if ((page->size + size + 16 > get_max_size(ft_get_type(size)))
+		|| (ft_get_type(size) == 'L'))
 	{
 		page->full = 1;
-		g_env.page = page_push(g_env.page, type);
+		g_env.page = page_push(g_env.page, ft_get_type(size));
 		page = page->next;
 	}
-	ptr = block_init(page->start, size);
 	page->size += size + 16;
-	return (ptr);
+	return (block_init(page->start, size));
 }

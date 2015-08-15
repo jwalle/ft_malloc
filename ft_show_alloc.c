@@ -12,7 +12,6 @@
 
 #include "ft_malloc.h"
 
-
 void	print_mem(void *ptr)
 {
 	int		i;
@@ -20,13 +19,14 @@ void	print_mem(void *ptr)
 
 	i = 0;
 	str = (char *)ptr;
-	while (i++ < 16)
+	while (i < 16)
 	{
 		if ((str[i]) > 33 && (int)(str[i]) < 127)
 			ft_putchar(str[i]);
 		else
 			ft_putchar('.');
 		ft_putchar(' ');
+		i++;
 	}
 }
 

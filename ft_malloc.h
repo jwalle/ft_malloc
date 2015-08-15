@@ -12,28 +12,29 @@
 
 #ifndef FT_MALLOC_H
 # define FT_MALLOC_H
-#include <stdlib.h>
-#include <sys/resource.h>
-#include <sys/mman.h>
-#include "libft.h"
-#include <stdio.h> // PRINTF A RETIRER
-#include <errno.h>
+# include <stdlib.h>
+# include <sys/resource.h>
+# include <sys/mman.h>
+# include "libft.h"
+# include <stdio.h> // PRINTF A RETIRER
+# include <errno.h>
 
 # define TINY 84
 # define SMALL 83
 # define LARGE 76
 # define PAGE_SIZE getpagesize()
 
-#define FLAGS_PROT PROT_READ | PROT_WRITE
-#define FLAGS_MAP MAP_ANON | MAP_PRIVATE
+# define FLAGS_PROT PROT_READ | PROT_WRITE
+# define FLAGS_MAP MAP_ANON | MAP_PRIVATE
+# define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
 
-#define TINY_SIZE	512
-#define SMALL_SIZE	10240
-#define LARGE_SIZE	200 * PAGE_SIZE
+# define TINY_SIZE	512
+# define SMALL_SIZE	10240
+# define LARGE_SIZE	200 * PAGE_SIZE
 
-#define TINY_SIZE_MAX TINY_SIZE * PAGE_SIZE
-#define SMALL_SIZE_MAX SMALL_SIZE * PAGE_SIZE
-#define LARGE_SIZE_MAX LARGE_SIZE + 1
+# define TINY_SIZE_MAX TINY_SIZE * PAGE_SIZE
+# define SMALL_SIZE_MAX SMALL_SIZE * PAGE_SIZE
+# define LARGE_SIZE_MAX LARGE_SIZE + 1
 
 typedef struct			s_page
 {

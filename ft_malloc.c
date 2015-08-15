@@ -32,31 +32,9 @@ void	init_global(void)
 	g_env.plop = 42;
 }
 
-void	*get_small(size_t size)
-{
-	void *ret;
-
-	printf("SMALL\n");
-	ret = mmap(0, (SMALL * size) + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	get_limit();
-	return (ret);
-}
-
-void	*get_large(size_t size)
-{
-	void *ret;
-
-	printf("LARGE\n");
-	ret = mmap(0, (LARGE * size + 1), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	get_limit();
-	return (ret);	
-}
-
 void	*ft_malloc(size_t size)
 {
-	 static int i = 0;
-	if( g_env.plop != 42)
+	if (g_env.plop != 42)
 		init_global();
-	printf("nb de malloc = %d\n", i++);
 	return (get_malloc((int)size));
 }

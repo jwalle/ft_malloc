@@ -84,14 +84,30 @@ int main(int ac, char **av)
 
 	printf("after free %s\n", str3[2]);
 
-	i = 0;
+	/*i = 0;
 	j = 0;	
 	while (i++ < 10)
 	{
 		j = 500;
 		while (j < 1000)
 			ft_malloc(j = j + 50);
-	}
+	}*/
+
+	char *real;
+
+	real = ft_malloc(10);
+	ft_malloc(10);
+
+	ft_strcpy(real, "COUCOUCOU");
+
+	printf("real 1 = %s\n", real);
+
+	show_alloc_mem();
+
+
+	ft_realloc(real, 5);
+
+	printf("real 2 = %s\n", real);
 
 	show_alloc_mem();
 

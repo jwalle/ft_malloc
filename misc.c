@@ -23,13 +23,11 @@ int		get_max_size(char type)
 	return (0);
 }
 
-
 void	print_error(char *str)
 {
 	ft_putendl(str);
 	exit(1);
 }
-
 
 int		get_mem_size(void **ptr)
 {
