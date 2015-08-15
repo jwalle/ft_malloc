@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/12 21:03:56 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/15 22:50:29 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -82,7 +82,7 @@ fclean: clean
 re: fclean all
 
 test: re
-	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
+	gcc $(CFLAGS) -o test2 test2.c $(LINK) $(NAME) $(INC) -g
 	./test X 400
 
 valtest: re

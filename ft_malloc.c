@@ -32,7 +32,7 @@ void	init_global(void)
 	g_env.plop = 42;
 }
 
-void	*ft_malloc(size_t size)
+void	*malloc(size_t size)
 {
 	if (g_env.plop != 42)
 		init_global();

@@ -22,7 +22,7 @@ void	*smaller_realloc(int size, int size_mem, void *ptr, void **ptr_head)
 	return (ptr);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*realloc(void *ptr, size_t size)
 {
 	void	**ptr_head;
 	void	*tmp;

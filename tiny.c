@@ -12,7 +12,7 @@
 
 #include "ft_malloc.h"
 
-void	free_tiny(void *ptr)
+void	free(void *ptr)
 {
 	void	**ptr_head;
 	int		size;
