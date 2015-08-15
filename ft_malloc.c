@@ -54,7 +54,7 @@ void	*get_large(size_t size)
 
 void	*ft_malloc(size_t size)
 {
-	static int i = 0;
+	 static int i = 0;
 	if( g_env.plop != 42)
 		init_global();
 	printf("nb de malloc = %d\n", i++);

@@ -90,7 +90,7 @@ int main(int ac, char **av)
 	{
 		j = 5000;
 		while (j < 100000)
-			ft_malloc(j++);
+			ft_malloc(j = j + 1000);
 	}
 
 	show_alloc_mem();

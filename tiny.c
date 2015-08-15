@@ -34,7 +34,7 @@ t_page	*page_push(t_page *first, char type)
 {
 	t_page	*tmp;
 	
-	printf("NEW PAGE\n");
+	//printf("NEW PAGE\n");
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_page) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
@@ -52,7 +52,7 @@ t_page	*page_push(t_page *first, char type)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_page) + 1, FLAGS_PROT, FLAGS_MAP , -1, 0);
-		tmp->next->start = mmap(0, get_max_size(type) * 16 , FLAGS_PROT, FLAGS_MAP , -1, 0);
+		tmp->next->start = (void *)mmap(0, get_max_size(type) * 16 , FLAGS_PROT, FLAGS_MAP , -1, 0);
 		if (tmp->next->start == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		ft_bzero(tmp->next->start, TINY_SIZE_MAX * 16);
@@ -160,9 +160,9 @@ char	ft_get_type(int size)
 {
 	if (size < TINY_SIZE)
 		return ('T');
-	if (size >= SMALL_SIZE && size < LARGE_SIZE)
+	if (size >= TINY_SIZE && size < SMALL_SIZE)
 		return ('S');
-	if (size >= LARGE_SIZE)
+	if (size >= SMALL_SIZE)
 		return ('L');
 	return ('W');
 }
@@ -172,6 +172,7 @@ void	*get_malloc(int size)
 	t_page	*page;
 	void	*ptr;
 	char	type;
+	static int		i = 0;
 
 	type = ft_get_type(size);
 	if (!g_env.page)
@@ -186,6 +187,7 @@ void	*get_malloc(int size)
 	}
 	ptr = block_init(page->start, size);
 	page->size += size + 16;
-	printf("total size = %i\n", page->size);
+	i += size + 16;
+	printf("total size = %i\n", i);
 	return (ptr);
 }

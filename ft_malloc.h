@@ -17,6 +17,7 @@
 #include <sys/mman.h>
 #include "libft.h"
 #include <stdio.h> // PRINTF A RETIRER
+#include <errno.h>
 
 # define TINY 84
 # define SMALL 83
@@ -28,11 +29,11 @@
 
 #define TINY_SIZE	512
 #define SMALL_SIZE	10240
-#define LARGE_SIZE	200000
+#define LARGE_SIZE	200 + 16 * PAGE_SIZE
 
-#define TINY_SIZE_MAX TINY_SIZE *  PAGE_SIZE
+#define TINY_SIZE_MAX TINY_SIZE * PAGE_SIZE
 #define SMALL_SIZE_MAX SMALL_SIZE * PAGE_SIZE
-#define LARGE_SIZE_MAX LARGE_SIZE * PAGE_SIZE
+#define LARGE_SIZE_MAX LARGE_SIZE
 
 typedef struct			s_page
 {
