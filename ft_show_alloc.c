@@ -12,13 +12,6 @@
 
 #include "ft_malloc.h"
 
-int		is_free(void **ptr_head)
-{
-	int	*free_mem;
-
-	free_mem = (int *)(ptr_head + 12);
-	return (free_mem[0]);
-}
 
 void	print_mem(void *ptr)
 {

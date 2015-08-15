@@ -88,9 +88,9 @@ int main(int ac, char **av)
 	j = 0;	
 	while (i++ < 10)
 	{
-		j = 5000;
-		while (j < 100000)
-			ft_malloc(j = j + 1000);
+		j = 500;
+		while (j < 1000)
+			ft_malloc(j = j + 50);
 	}
 
 	show_alloc_mem();

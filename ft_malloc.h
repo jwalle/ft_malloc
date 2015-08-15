@@ -29,15 +29,16 @@
 
 #define TINY_SIZE	512
 #define SMALL_SIZE	10240
-#define LARGE_SIZE	200 + 16 * PAGE_SIZE
+#define LARGE_SIZE	200 * PAGE_SIZE
 
 #define TINY_SIZE_MAX TINY_SIZE * PAGE_SIZE
 #define SMALL_SIZE_MAX SMALL_SIZE * PAGE_SIZE
-#define LARGE_SIZE_MAX LARGE_SIZE
+#define LARGE_SIZE_MAX LARGE_SIZE + 1
 
 typedef struct			s_page
 {
 	int					size;
+	int					full;
 	void				**start;
 	char				type;
 	struct s_page		*next;
@@ -54,6 +55,7 @@ typedef struct			s_env
 extern t_env			g_env;
 
 void					get_limit();
+t_page					*page_push(t_page *first, char type);
 void					*ft_malloc(size_t size);
 void					ft_atoi_hex(void *ptr);
 void					show_alloc_mem(void);
@@ -66,4 +68,9 @@ void					*get_ptr(void *ptr);
 void					*find_last(void *ptr, int size);
 void					free_tiny(void *ptr);
 void					*ft_realloc(void *ptr, size_t size);
+int						get_max_size(char type);
+void					print_error(char *str);
+char					ft_get_type(int size);
+int						is_free(void **ptr_head);
+
 #endif
