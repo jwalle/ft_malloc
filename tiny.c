@@ -19,9 +19,9 @@ void	free(void *ptr)
 	int		*free_mem;
 
 	printf("FREE\n");
-	ptr_head = (void *)(ptr);
-	ptr_head[0] = (void *)(ptr) - 16;
+	ptr_head = (void *)(ptr) - 16;
 	size = get_mem_size((ptr_head));
+	printf("size = %d\n", size);
 	free_mem = (int *)(ptr_head) + 12;
 	free_mem[0] = 1;
 	//ft_bzero(ptr, size);
