@@ -16,8 +16,8 @@ void	*smaller_realloc(int size, int size_mem, void *ptr, void **ptr_head)
 {
 	int *size_head;
 
-	ft_bzero(ptr + size, size_mem - size);
-	size_head = (int *)(ptr_head + 8);
+	ft_bzero((void *)(ptr) + size, size_mem - size);
+	size_head = (int *)(ptr_head) + 8;
 	size_head[0] = size;
 	return (ptr);
 }
@@ -32,7 +32,7 @@ void	*realloc(void *ptr, size_t size)
 		return (get_malloc(16));
 	if (!ptr)
 		return (get_malloc(size));
-	ptr_head = (ptr - 16 * 8);
+	ptr_head = (void *)(ptr) - 16;
 	size_mem = get_mem_size(ptr_head);
 	if ((int)size == size_mem)
 		return (ptr);

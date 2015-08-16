@@ -66,13 +66,14 @@ void	show_alloc_mem(void)
 			print_type_name(page->type);
 			ft_putstr(" : ");
 			ft_atoi_hex(page->start);
+			ft_putstr("       					");
 			print_mem(page->start);
 			ft_putchar('\n');
 			ptr_head = page->start;
 			while (get_mem_size(ptr_head))
 			{
 				if (!is_free(ptr_head))
-					print_stuff((void *)(ptr_head + 16),
+					print_stuff((void *)(ptr_head) + 16,
 								get_mem_size(ptr_head));
 				ptr_head = *ptr_head;
 			}

@@ -80,7 +80,7 @@ int main(int ac, char **av)
 	
 	strcpy(str3[2], "FREEEEEE");
 
-	free(str3[2]);
+	//free(str3[2]);
 
 	printf("after free %s\n", str3[2]);
 
@@ -110,13 +110,10 @@ int main(int ac, char **av)
 	printf("real 2 = %s\n", real);
 
 	show_alloc_mem();
-
-
-
 	
 	//printf("test string = %s\n",str3[179]);
-	free(str3);
 
+	free(str3);
 
 	return (0);
 }
