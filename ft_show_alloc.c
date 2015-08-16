@@ -19,7 +19,7 @@ void	print_mem(void *ptr)
 
 	i = 0;
 	str = (char *)ptr;
-	while (i < 16)
+	while (i < 50)
 	{
 		if ((str[i]) > 33 && (int)(str[i]) < 127)
 			ft_putchar(str[i]);
@@ -66,6 +66,7 @@ void	show_alloc_mem(void)
 			print_type_name(page->type);
 			ft_putstr(" : ");
 			ft_atoi_hex(page->start);
+			print_mem(page->start);
 			ft_putchar('\n');
 			ptr_head = page->start;
 			while (get_mem_size(ptr_head))

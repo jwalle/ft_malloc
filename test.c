@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 22:13:03 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/16 16:10:56 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main(int ac, char **av)
 	(void)ac;
 	nb = atoi(av[2]);
 	c = av[1][0];
-	str = (char*)ft_malloc(nb);
+	str = (char*)malloc(nb);
 	i = 0;
 	while (i < nb)
 	{
@@ -44,7 +44,7 @@ int main(int ac, char **av)
 	//show_alloc_mem();
 
 
-	str2 = (char*)ft_malloc(nb);
+	str2 = (char*)malloc(nb);
 	i = 0;
 	while (i < nb)
 	{
@@ -58,7 +58,7 @@ int main(int ac, char **av)
 	get_limit();
 	while (i < 10)
 	{
-		str3[i] = (char*)ft_malloc((rand() % 200) + 100);
+		str3[i] = (char*)malloc((rand() % 200) + 100);
 		i++;
 	}
 	i = 0;
@@ -80,7 +80,7 @@ int main(int ac, char **av)
 	
 	strcpy(str3[2], "FREEEEEE");
 
-	free_tiny(str3[2]);
+	free(str3[2]);
 
 	printf("after free %s\n", str3[2]);
 
@@ -95,8 +95,8 @@ int main(int ac, char **av)
 
 	char *real;
 
-	real = ft_malloc(10);
-	ft_malloc(10);
+	real = malloc(10);
+	malloc(10);
 
 	ft_strcpy(real, "COUCOUCOU");
 
@@ -105,7 +105,7 @@ int main(int ac, char **av)
 	show_alloc_mem();
 
 
-	ft_realloc(real, 5);
+	realloc(real, 5);
 
 	printf("real 2 = %s\n", real);
 

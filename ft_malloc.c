@@ -36,5 +36,7 @@ void	*malloc(size_t size)
 {
 	if (g_env.plop != 42)
 		init_global();
+	printf("size_t = %zu, int = %d, sizeof(int) = %lu, sizeof(size_t) = %lu\n", size, (int)size, sizeof(int), sizeof(size_t));
+	printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	return (get_malloc((int)size));
 }

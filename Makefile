@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/15 22:50:29 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/16 16:09:55 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -82,8 +82,11 @@ fclean: clean
 re: fclean all
 
 test: re
-	gcc $(CFLAGS) -o test2 test2.c $(LINK) $(NAME) $(INC) -g
-	./test X 400
+	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
+
+lemin: re
+	cp $(NAME) ../lemin2/
+	
 
 valtest: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
