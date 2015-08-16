@@ -27,6 +27,7 @@ int main(int ac, char **av)
 	char *str;
 	char *str2;
 	char **str3;
+	char *str4;
 	srand(time(NULL));
 
 	(void)ac;
@@ -53,7 +54,7 @@ int main(int ac, char **av)
 	}
 	str2[i] = 0;
 
-	str3 = malloc(1000);
+	str3 = malloc(100000);
 	i = 0;
 	get_limit();
 	while (i < 10)
@@ -102,6 +103,9 @@ int main(int ac, char **av)
 
 	printf("real 1 = %s\n", real);
 
+	str4 = malloc(100000);
+	ft_strcpy(str4, "PLOP LARGE PLOP");
+
 	show_alloc_mem();
 
 
@@ -113,7 +117,7 @@ int main(int ac, char **av)
 	
 	//printf("test string = %s\n",str3[179]);
 
-	free(str3);
+	//free(str3);
 
 	return (0);
 }

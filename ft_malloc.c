@@ -36,6 +36,7 @@ void	*malloc(size_t size)
 {
 	if (g_env.plop != 42)
 		init_global();
-	printf("COUCOUC JE RENTRE DANS MALLOC\n");
+	show_alloc_mem();
+	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	return (get_malloc((int)size));
 }

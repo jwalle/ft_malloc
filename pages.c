@@ -15,7 +15,10 @@
 t_page	*set_page(t_page *page, char type)
 {
 	page->size = 0;
-	page->full = 0;
+	if (type == 'L')
+		page->full = 1;
+	else
+		page->full = 0;
 	page->type = type;
 	page->next = NULL;
 	return (page);
@@ -25,10 +28,11 @@ t_page	*page_push(t_page *first, char type)
 {
 	t_page	*tmp;
 
+	printf("NEW PAGE\n");
 	if (!first)
 	{
 		first = mmap(0, sizeof(t_page) + 1, FLAGS);
-		first->start = (void *)mmap(0, get_max_size(type) + 1, FLAGS);
+		first->start = (void *)mmap(0, get_max_size(type), FLAGS);
 		if (first->start == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		ft_bzero(first->start, get_max_size(type));
@@ -40,7 +44,7 @@ t_page	*page_push(t_page *first, char type)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = mmap(0, sizeof(t_page) + 1, FLAGS);
-		tmp->next->start = (void *)mmap(0, get_max_size(type) + 1, FLAGS);
+		tmp->next->start = (void *)mmap(0, get_max_size(type), FLAGS);
 		if (tmp->next->start == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		ft_bzero(tmp->next->start, get_max_size(type));

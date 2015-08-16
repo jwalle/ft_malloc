@@ -24,8 +24,8 @@ void	free(void *ptr)
 	free_mem = (int *)(ptr_head) + 12;
 	free_mem[0] = 1;
 	//ft_bzero(ptr, size);
-	munmap(ptr, size);
-	ptr = NULL;
+	//munmap(ptr, size);
+	//ptr = NULL;
 }
 
 void	*block_init(void **ptr, int size)

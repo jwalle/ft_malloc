@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/16 17:31:03 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/16 23:14:33 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -87,6 +87,7 @@ test: re
 
 lemin: re
 	cp $(NAME) ../lemin2/
+	make -C ../lemin2/ re
 	
 
 valtest: re
