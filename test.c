@@ -68,7 +68,7 @@ int main(int ac, char **av)
 		j = 0;
 		while (j < 16)
 		{
-			r = (rand() % 100) + 1;
+			r = (rand() % 126) + 1;
 			str3[i][j] = r;
 			j++;
 		}

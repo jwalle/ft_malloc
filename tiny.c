@@ -36,10 +36,10 @@ void	*block_init(void **ptr, int size)
 	while (get_mem_size(ptr))
 		ptr = *ptr;
 	ptr_mem = (void *)ptr;
-	ptr_mem[0] = ptr + ((size) / 8);
-	size_mem = (int *)(ptr + 4);
+	ptr_mem[0] = (void *)(ptr + (size + 16) / 8);
+	size_mem = (int *)(ptr + 8);
 	size_mem[0] = size;
-	free_mem = (int *)(ptr + 8);
+	free_mem = (int *)(ptr + 12);
 	free_mem[0] = 0;
 	return ((void *)(ptr + 16));
 }
