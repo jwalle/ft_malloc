@@ -18,14 +18,15 @@ void	free(void *ptr)
 	int		size;
 	int		*free_mem;
 
+	printf("FREE\n");
 	ptr_head = (void *)(ptr);
 	ptr_head[0] = (void *)(ptr) - 16;
 	size = get_mem_size((ptr_head));
 	free_mem = (int *)(ptr_head) + 12;
 	free_mem[0] = 1;
 	//ft_bzero(ptr, size);
-	//munmap(ptr, size);
-	//ptr = NULL;
+	munmap(ptr, size);
+	ptr = NULL;
 }
 
 void	*block_init(void **ptr, int size)
