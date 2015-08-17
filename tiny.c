@@ -14,20 +14,20 @@
 
 void	free(void *ptr)
 {
-	//void	**ptr_head;
-	//int		size;
-	//int		*free_mem;
+	void	**ptr_head;
+	int		size;
+	int		*free_mem;
 
-	(void)ptr;
-	// printf("FREE\n");
-	//ptr_head = (void *)(ptr) - 16;
+	 printf("FREE\n");
+	ptr_head = (void *)(ptr) - 16;
 	//size = get_mem_size((ptr_head));
-	//printf("size = %d\n", size);
-	//free_mem = (int *)(ptr_head) + 12;
-	//free_mem[0] = 1;
-	//ft_bzero(ptr, size);
-	//munmap(ptr, size);
-	//ptr = NULL;
+	size = get_mem_size((ptr));
+	//size = (int)(ptr_head) + 8;
+	printf("size = %d\n", size);
+	free_mem = (int *)(ptr_head) + 12;
+	free_mem[0] = 1;
+	munmap(ptr, size);
+	ptr = NULL;
 }
 
 void	*block_init(void **ptr, int size)
@@ -36,13 +36,12 @@ void	*block_init(void **ptr, int size)
 	int		*free_mem;
 	void	**ptr_mem;
 
-	// printf("block_init size %d\n", size);
-	while (get_mem_size(ptr))
+	while ((get_mem_size(ptr)))
 		ptr = *ptr;
 	ptr_mem = (void *)ptr;
-	ptr_mem[0] = (void *)(ptr) + size + 16 + (4 - ((size + 16) % 4));
+	ptr_mem[0] = (void *)(ptr) + size + 16;
 	size_mem = (int *)(ptr) + 8;
-	size_mem[0] = size + (4 - ((size + 16) % 4));
+	size_mem[0] = size;
 	free_mem = (int *)(ptr) + 12;
 	free_mem[0] = 0;
 	return ((void *)(ptr) + 16);
@@ -52,7 +51,6 @@ void	*get_malloc(int size)
 {
 	t_page	*page;
 
-	// printf("get_malloc\n");
 	if (!g_env.page)
 		g_env.page = page_push(g_env.page, ft_get_type(size));
 	page = g_env.page;
@@ -74,6 +72,8 @@ void	*get_malloc(int size)
 		g_env.page = page_push(g_env.page, ft_get_type(size));
 		page = page->next;
 	}
+	while ((size) % 16 != 0)
+		size++;
 	page->size += size + 16;
 	return (block_init(page->start, size));
 }

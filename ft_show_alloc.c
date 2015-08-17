@@ -12,7 +12,7 @@
 
 #include "ft_malloc.h"
 
-void	print_mem(void *ptr)
+void	print_mem(void *ptr, int size)
 {
 	int		i;
 	char	*str;
@@ -20,10 +20,12 @@ void	print_mem(void *ptr)
 	// printf("print_mem\n");
 	i = 0;
 	str = (char *)ptr;
-	while (i < 20)
+	while (i < size && i < 50)
 	{
 		if ((str[i]) > 33 && (int)(str[i]) < 127)
 			ft_putchar(str[i]);
+		else if (str[i] == 0)
+			ft_putchar('0');
 		else
 			ft_putchar('.');
 		ft_putchar(' ');
@@ -42,7 +44,7 @@ void	print_stuff(void *ptr, int size)
 	ft_putnbr(size);
 	ft_putstr(" octets");
 	ft_putstr("       ");
-	print_mem(ptr);
+	print_mem(ptr, size);
 	ft_putchar('\n');
 }
 
@@ -62,6 +64,7 @@ void	show_alloc_mem(void)
 {
 	void	**ptr_head;
 	t_page	*page;
+	int		x = 0;
 
 	// printf("show_alloc_mem\n");
 	if (g_env.page)
@@ -72,11 +75,11 @@ void	show_alloc_mem(void)
 			print_type_name(page->type);
 			ft_putstr(" : ");
 			ft_atoi_hex(page->start);
-			ft_putstr("       					");
-			print_mem(page->start);
+			//ft_putstr("       					");
+			//print_mem(page->start);
 			ft_putchar('\n');
 			ptr_head = page->start;
-			while (get_mem_size(ptr_head))
+			while ((x = get_mem_size(ptr_head)))
 			{
 				if (!is_free(ptr_head))
 					print_stuff((void *)(ptr_head) + 16,

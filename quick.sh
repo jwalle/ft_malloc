@@ -1,1 +1,1 @@
-git add -A ; git commit -m "bordel" ; git push origin master
+git add -A ; git commit -m "header to struct" ; git push origin master

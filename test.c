@@ -20,20 +20,22 @@
 int main(int ac, char **av)
 {
 	int nb;
-	int i;
-	int j;
+	//int i;
+	//int j;
 	char c;
-	int r;
-	char *str;
-	char *str2;
-	char **str3;
-	char *str4;
+	//int r;
+	//char *str;
+	//char *str2;
+	//char **str3;
+	//char *str4;
 	srand(time(NULL));
 
 	(void)ac;
+	
 	nb = atoi(av[2]);
+	
 	c = av[1][0];
-	str = (char*)malloc(nb);
+	/*str = (char*)malloc(nb);
 	i = 0;
 	while (i < nb)
 	{
@@ -42,7 +44,7 @@ int main(int ac, char **av)
 	}
 	str[i] = 0;
 
-	//show_alloc_mem();
+	show_alloc_mem();
 
 
 	str2 = (char*)malloc(nb);
@@ -59,7 +61,7 @@ int main(int ac, char **av)
 	get_limit();
 	while (i < 10)
 	{
-		str3[i] = (char*)malloc((rand() % 200) + 100);
+		str3[i] = (char*)malloc((rand() % 100) + 16);
 		i++;
 	}
 	i = 0;
@@ -75,15 +77,15 @@ int main(int ac, char **av)
 		}
 		i++;
 	}
-
+	*/
 	//printf("test string = %s\n",str3[179]);
-	show_alloc_mem();
+	//show_alloc_mem();
 	
-	strcpy(str3[2], "FREEEEEE");
+	//strcpy(str3[2], "FREEEEEE");
 
 	//free(str3[2]);
 
-	printf("after free %s\n", str3[2]);
+	//printf("after free %s\n", str3[2]);
 
 	/*i = 0;
 	j = 0;	
@@ -94,30 +96,40 @@ int main(int ac, char **av)
 			ft_malloc(j = j + 50);
 	}*/
 
-	char *real;
+	// char *real;
 
-	real = malloc(10);
-	malloc(10);
+	// real = malloc(10);
+	
+	// malloc(10);
 
-	ft_strcpy(real, "COUCOUCOU");
+	// malloc(1);
 
-	printf("real 1 = %s\n", real);
+	// ft_strcpy(real, "COUCOUCOU");
 
-	str4 = malloc(100000);
-	ft_strcpy(str4, "PLOP LARGE PLOP");
+	// printf("real 1 = %s\n", real);
 
-	show_alloc_mem();
+	// printf("MEGA MALLOC\n");
+	// str4 = malloc(100000);
+	
+	// ft_strcpy(str4, "PLOP LARGE PLOP");
+
+	// show_alloc_mem();
 
 
-	realloc(real, 5);
+	//realloc(real, 5);
 
-	printf("real 2 = %s\n", real);
+	//printf("real 2 = %s\n", real);
 
-	show_alloc_mem();
+	//show_alloc_mem();
 	
 	//printf("test string = %s\n",str3[179]);
 
 	//free(str3);
 
+
+	int i = 0;
+	while (i++ < 10)
+		malloc(nb);
+	show_alloc_mem();
 	return (0);
 }
