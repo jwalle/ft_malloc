@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/17 13:54:29 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/17 15:07:48 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -89,6 +89,9 @@ lemin: re
 	cp $(NAME) ../lemin2/
 	make -C ../lemin2/ re
 	
+gnl	: re
+	cp $(NAME) ../gnl/
+	make -C ../gnl/ re
 
 fdf: re
 	cp $(NAME) ../fdf/
