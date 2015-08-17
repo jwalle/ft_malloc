@@ -33,8 +33,9 @@ int		get_mem_size(void **ptr)
 {
 	int		*size_mem;
 
-	if (!ptr || !ptr[0])
-		return (0);
+	//printf("get_mem_size\n");
+//	if (!ptr || !ptr[0])
+//		return (0);
 	size_mem = (int *)(ptr) + 8;
 	if (size_mem)
 		return (size_mem[0]);
@@ -56,6 +57,7 @@ int		is_free(void **ptr_head)
 {
 	int	*free_mem;
 
+	//printf("is_free\n");
 	free_mem = (int *)(ptr_head) + 12;
 	return (free_mem[0]);
 }

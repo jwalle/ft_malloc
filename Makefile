@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/16 23:14:33 by jwalle           ###   ########.fr        #
+#    Updated: 2015/08/17 13:54:29 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -90,6 +90,10 @@ lemin: re
 	make -C ../lemin2/ re
 	
 
+fdf: re
+	cp $(NAME) ../fdf/
+	make -C ../fdf/ re
+	
 valtest: re
 	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
 	valgrind ./test X 420

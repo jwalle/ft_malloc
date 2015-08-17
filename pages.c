@@ -14,6 +14,7 @@
 
 t_page	*set_page(t_page *page, char type)
 {
+	printf("set_page\n");
 	page->size = 0;
 	if (type == 'L')
 		page->full = 1;
