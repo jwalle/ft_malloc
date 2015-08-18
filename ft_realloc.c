@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
-
+/*
 void	*smaller_realloc(int size, int size_mem, void *ptr, void **ptr_head)
 {
 	int *size_head;
@@ -50,3 +50,4 @@ void	*realloc(void *ptr, size_t size)
 		return (ft_memcpy(get_malloc(size), ptr, size));
 	return (ptr);
 }
+*/

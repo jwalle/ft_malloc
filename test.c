@@ -126,7 +126,6 @@ int main(int ac, char **av)
 
 	//free(str3);
 
-
 	int i = 0;
 	while (i++ < 10)
 		malloc(nb);

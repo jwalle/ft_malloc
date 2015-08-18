@@ -20,7 +20,7 @@ void	print_mem(void *ptr, int size)
 	// printf("print_mem\n");
 	i = 0;
 	str = (char *)ptr;
-	while (i < size && i < 50)
+	while (i < size && i < 256)
 	{
 		if ((str[i]) > 33 && (int)(str[i]) < 127)
 			ft_putchar(str[i]);
@@ -62,9 +62,8 @@ void	print_type_name(char type)
 
 void	show_alloc_mem(void)
 {
-	t_header	header;
+	t_header	*header;
 	t_page		*page;
-	int			x = 0;
 
 	if (g_env.page)
 	{
@@ -74,15 +73,15 @@ void	show_alloc_mem(void)
 			print_type_name(page->type);
 			ft_putstr(" : ");
 			ft_atoi_hex(page->start);
-			//ft_putstr("       					");
-			//print_mem(page->start);
+			ft_putstr("       					");
+			print_mem(page->start, 256);
 			ft_putchar('\n');
-			header = (t_header)page->start;
+			header = (t_header *)page->start;
 			while (header)
 			{
-				if (!is_free(ptr_head))
-					print_stuff((void *)(ptr_head) + 16,
-							get_mem_size(ptr_head));
+				if (!header->free)
+					print_stuff(header + sizeof(t_header),
+							header->size);
 				header = header->next;
 			}
 			page = page->next;
