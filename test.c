@@ -127,7 +127,7 @@ int main(int ac, char **av)
 
 	//free(str3);
 
-//	int i = 0;
+	int i = 0;
 	//char **str;
 	//str = malloc(100);
 	char *str;
@@ -135,13 +135,19 @@ int main(int ac, char **av)
 
 	str = malloc(10);
 	//str2 = malloc(10);
-	ft_strcpy(str + 10, "COUCOU");
-	//while (i++ < 8)
-//{
-	//	malloc(nb);
+	ft_strcpy(str, "COUCOU");
+	
+	puts(str);
+	while (i++ < 8)
+{
+		malloc(nb);
 		//str2[i] = malloc(10);
 		//ft_strcpy(str2[i], "COUCOUC");
-	//}
+	}
 	show_alloc_mem();
+	free(str);
+	show_alloc_mem();
+	puts(str);
+
 	return (0);
 }

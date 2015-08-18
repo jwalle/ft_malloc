@@ -16,25 +16,29 @@ void	free(void *ptr)
 {
 	t_header	*header;
 
-	header = ptr - 16;
+	header = (t_header*)ptr - 1;
 	header->free = 1;
 	//munmap(ptr, header->size);
-	ptr = NULL;
+	//ptr = NULL;
 }
 
 void	*block_init(void *ptr, int size)
 {
 	t_header	*header;
+	char		*next;
 
 	header = ptr;
 	while (header->next)
 			header = header->next;
-	header->next = (void *)header + header->size + 16;
+
+	next = (char *)(header) +  (char *)(16 + header->size);
+
+	header->next = (void*)next;
 	header = header->next;
-	header->next = NULL;
+	header->next = NULL;	
 	header->size = size;
 	header->free = 0;
-	return ((void *)header + 16);
+	return (header + 1);
 }
 
 void	*get_malloc(int size)
@@ -55,8 +59,7 @@ void	*get_malloc(int size)
 		g_env.page = page_push(g_env.page, ft_get_type(size));
 		page = page->next;
 	}
-	else if ((page->size + size + 16 > get_max_size(ft_get_type(size)))
-		|| (ft_get_type(size) == 'L'))
+	else if ((page->size + size + 16 > get_max_size(ft_get_type(size))) || (ft_get_type(size) == 'L'))
 	{
 		page->full = 1;
 		g_env.page = page_push(g_env.page, ft_get_type(size));
@@ -65,5 +68,6 @@ void	*get_malloc(int size)
 	//while ((size) % 16 != 0)
 	//	size++;
 	page->size += size + 16;
+	printf("page->size = %d\n", page->size);
 	return (block_init(page->start, size));
 }

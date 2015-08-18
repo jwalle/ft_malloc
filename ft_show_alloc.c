@@ -17,7 +17,7 @@ void	print_mem(void *ptr, int size)
 	int		i;
 	char	*str;
 
-	// printf("print_mem\n");
+	//printf("print_mem\n");
 	i = 0;
 	str = (char *)ptr;
 	while (i < size && i < 25)
@@ -80,7 +80,7 @@ void	show_alloc_mem(void)
 			while (header)
 			{
 				if (!header->free)
-					print_stuff(header + 16, header->size);
+					print_stuff(header + 1, header->size);
 				header = header->next;
 			}
 			page = page->next;
