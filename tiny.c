@@ -11,38 +11,30 @@
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
-/*
+
 void	free(void *ptr)
 {
-	void	**ptr_head;
-	int		size;
-	int		*free_mem;
+	t_header	*header;
 
-	printf("FREE\n");
-	ptr_head = (void *)(ptr) - 16;
-	printf("size = %d\n", size);
-	free_mem = (int *)(ptr_head) + 12;
-	free_mem[0] = 1;
-	munmap(ptr, size);
+	header = ptr;
+	header->free = 1;
+	//munmap(ptr, header->size);
 	ptr = NULL;
 }
-
-*/
 
 void	*block_init(void *ptr, int size)
 {
 	t_header	*header;
 
-
-	header = (t_header *)ptr;
-	while (header->next != NULL)
-		header = header->next;
-	header->next = (char *)(header) + (size + 16);
+	header = ptr;
+	while (header->next)
+			header = header->next;
+	header->next = (void *)(header) + sizeof(t_header) + header->size;
 	header = header->next;
 	header->next = NULL;
 	header->size = size;
 	header->free = 0;
-	return ((char *)(header) + (char)16);
+	return ((void *)header + sizeof(t_header));
 }
 
 void	*get_malloc(int size)

@@ -47,9 +47,9 @@ typedef struct			s_page
 
 typedef struct			s_header
 {
-	void				*next;
 	int					size;
 	int					free;
+	void				*next;
 }						t_header;
 
 typedef struct			s_env
