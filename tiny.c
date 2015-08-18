@@ -16,7 +16,7 @@ void	free(void *ptr)
 {
 	t_header	*header;
 
-	header = ptr;
+	header = ptr - 16;
 	header->free = 1;
 	//munmap(ptr, header->size);
 	ptr = NULL;
@@ -29,12 +29,12 @@ void	*block_init(void *ptr, int size)
 	header = ptr;
 	while (header->next)
 			header = header->next;
-	header->next = (void *)(header) + sizeof(t_header) + header->size;
+	header->next = (void *)header + header->size + 16;
 	header = header->next;
 	header->next = NULL;
 	header->size = size;
 	header->free = 0;
-	return ((void *)header + sizeof(t_header));
+	return ((void *)header + 16);
 }
 
 void	*get_malloc(int size)
