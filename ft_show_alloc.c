@@ -62,11 +62,10 @@ void	print_type_name(char type)
 
 void	show_alloc_mem(void)
 {
-	void	**ptr_head;
-	t_page	*page;
-	int		x = 0;
+	t_header	header;
+	t_page		*page;
+	int			x = 0;
 
-	// printf("show_alloc_mem\n");
 	if (g_env.page)
 	{
 		page = g_env.page;
@@ -78,13 +77,13 @@ void	show_alloc_mem(void)
 			//ft_putstr("       					");
 			//print_mem(page->start);
 			ft_putchar('\n');
-			ptr_head = page->start;
-			while ((x = get_mem_size(ptr_head)))
+			header = (t_header)page->start;
+			while (header)
 			{
 				if (!is_free(ptr_head))
 					print_stuff((void *)(ptr_head) + 16,
 							get_mem_size(ptr_head));
-				ptr_head = *ptr_head;
+				header = header->next;
 			}
 			page = page->next;
 		}

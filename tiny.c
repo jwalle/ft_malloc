@@ -32,19 +32,17 @@ void	free(void *ptr)
 
 void	*block_init(void **ptr, int size)
 {
-	int		*size_mem;
-	int		*free_mem;
-	void	**ptr_mem;
+	t_header	header;
 
-	while ((get_mem_size(ptr)))
-		ptr = *ptr;
-	ptr_mem = (void *)ptr;
-	ptr_mem[0] = (void *)(ptr) + size + 16;
-	size_mem = (int *)(ptr) + 8;
-	size_mem[0] = size;
-	free_mem = (int *)(ptr) + 12;
-	free_mem[0] = 0;
-	return ((void *)(ptr) + 16);
+	header = (t_header)ptr;
+	while (header->next)
+		header = header->next;
+	header->next = size + sizeof(t_header);
+	header = header->next;
+	header->next = NULL;
+	header->size = size;
+	header->free = 0;
+	return (header + sizeof(t_header));
 }
 
 void	*get_malloc(int size)

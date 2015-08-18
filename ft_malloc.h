@@ -45,6 +45,13 @@ typedef struct			s_page
 	struct s_page		*next;
 }						t_page;
 
+typedef struct			s_header
+{
+	void				*next;
+	int					size;
+	int					free;
+}						t_header;
+
 typedef struct			s_env
 {
 	t_page				*page;
