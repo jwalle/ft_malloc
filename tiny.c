@@ -19,10 +19,14 @@ void	*block_init(void *ptr, int size)
 
 	header = ptr;
 	while (header->next)
+	{
+		printf("PLOP 1\n");
 			header = header->next;
+	}
 	if (!header->size)
 	{
-		printf("PLOP\n");
+		printf("size = %d\n", size);
+		printf("PLOP 2\n");
 	}
 	else
 	{
