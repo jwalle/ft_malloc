@@ -136,12 +136,12 @@ int main(int ac, char **av)
 	//str = malloc(10);
 	//ft_strcpy(str, "COUCOU");
 
-	str2 = malloc(100);
+	str2 = malloc(100000);
 	
 	while (i++ < 6)
 	{
 		//malloc(nb);
-		str2[i] = malloc(20);
+		str2[i] = malloc(420);
 		ft_strcpy(str2[i], "COUCOUC");
 	}
 	show_alloc_mem();

@@ -16,27 +16,19 @@ void	*block_init(void *ptr, int size)
 {
 	t_header	*header;
 	char		*next;
-	int			i;
 
-	i = 0;
 	header = ptr;
 	while (header->next)
-	{
-			i++;
 			header = header->next;
-	}
-	if (i < 1)
+	if (!ptr)
 	{
-		printf("lpop\n");
-		next = (char *)(header) + 16;
-		header->next = (void *)next;
+		printf("PLOP\n");
 	}
 	else
 	{
 		next = (char *)(header) + header->size + 16;
 		header->next = (void *)next;
 		header = header->next;
-		return (header + 1);
 	}
 	header->next = NULL;
 	header->size = size;
