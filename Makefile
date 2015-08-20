@@ -37,6 +37,7 @@ SRC =	ft_malloc.c \
 		misc.c \
 		pages.c \
 		ft_realloc.c \
+		free.c \
 
 OBJ = $(SRC:.c=.o)
 OBJS = $(addprefix $(ODIR), $(OBJ))

@@ -130,23 +130,31 @@ int main(int ac, char **av)
 	int i = 0;
 	//char **str;
 	//str = malloc(100);
-	char *str;
-	// char **str2;
+	//char *str;
+	char **str2;
 
-	str = malloc(10);
-	//str2 = malloc(10);
-	ft_strcpy(str, "COUCOU");
+	//str = malloc(10);
+	//ft_strcpy(str, "COUCOU");
+
+	str2 = malloc(100);
 	
-	puts(str);
-	while (i++ < 8 )
-{
-		malloc(nb);
-		//str2[i] = malloc(10);
-		//ft_strcpy(str2[i], "COUCOUC");
+	while (i++ < 6)
+	{
+		//malloc(nb);
+		str2[i] = malloc(20);
+		ft_strcpy(str2[i], "COUCOUC");
 	}
 	show_alloc_mem();
-	free(str);
+	i = 0;
+	while (i++ < 6)
+	{
+		//malloc(nb);
+		free(str2[i]);
+	}
+	free(str2);
 	show_alloc_mem();
+	//free(str);
+	//show_alloc_mem();
 	//puts(str);
 
 	return (0);
