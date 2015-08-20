@@ -20,7 +20,7 @@ void	*block_init(void *ptr, int size)
 	header = ptr;
 	while (header->next)
 			header = header->next;
-	if (!ptr)
+	if (!header->size)
 	{
 		printf("PLOP\n");
 	}
