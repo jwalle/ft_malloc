@@ -136,7 +136,7 @@ int main(int ac, char **av)
 	//str = malloc(10);
 	//ft_strcpy(str, "COUCOU");
 
-	str2 = malloc(10000);
+	str2 = malloc(100000);
 	
 	while (i++ < 100)
 	{
