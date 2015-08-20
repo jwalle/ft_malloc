@@ -12,14 +12,53 @@
 
 #include "ft_malloc.h"
 
-void	free(void *ptr)
+
+
+int		page_is_empty(t_page *page)
 {
 	t_header	*header;
 
+
+	if (page)
+	{
+		header = page->start;
+		while (header)
+		{
+			if (header->free == 0)
+				return (0);
+			header = header->next;
+		}
+	}
+	return (1);
+}
+
+t_page	*find_ptr_in_page(void *ptr)
+{
+	char	*needle;
+
+	if (g_env.page)
+	{
+		page = g_env.page;
+		while (page)
+		{
+			if (needle + 16 == ptr)
+				return(page);
+			page = page->next;
+		}
+	}
+	return (NULL);
+}
+
+void	free(void *ptr)
+{
+	t_header	*header;
+	t_page		*page;
+
 	header = (t_header*)ptr - 1;
 	header->free = 1;
-	//munmap(ptr, header->size);
-	//ptr = NULL;
+	page = find_ptr_in_page(ptr);
+	if (page_is_empty(page))
+		free_page(page);
 }
 
 void	*block_init(void *ptr, int size)
@@ -31,11 +70,11 @@ void	*block_init(void *ptr, int size)
 	while (header->next)
 			header = header->next;
 
-	next = (char *)(header) +  (char *)(16 + header->size);
+	next = (char *)(header) +  16 + header->size;
 
 	header->next = (void*)next;
 	header = header->next;
-	header->next = NULL;	
+	header->next = NULL;
 	header->size = size;
 	header->free = 0;
 	return (header + 1);
