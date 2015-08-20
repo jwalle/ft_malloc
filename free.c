@@ -53,7 +53,7 @@ int		page_is_empty(t_page *page)
 
 	if (page)
 	{
-		printf("is page\n");
+		//printf("is page\n");
 		header = page->start;
 		while (header)
 		{

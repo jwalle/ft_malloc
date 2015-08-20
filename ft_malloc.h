@@ -30,11 +30,9 @@
 
 # define TINY_SIZE	512
 # define SMALL_SIZE	10234
-# define LARGE_SIZE	200 * PAGE_SIZE
 
-# define TINY_SIZE_MAX 10 * PAGE_SIZE
-# define SMALL_SIZE_MAX 100 * PAGE_SIZE
-# define LARGE_SIZE_MAX LARGE_SIZE + PAGE_SIZE
+# define TINY_SIZE_MAX 15 * PAGE_SIZE
+# define SMALL_SIZE_MAX 300 * PAGE_SIZE
 
 typedef struct			s_page
 {
@@ -75,7 +73,7 @@ void					*get_ptr(void *ptr);
 void					*find_last(void *ptr, int size);
 void					free_tiny(void *ptr);
 void					*realloc(void *ptr, size_t size);
-int						get_max_size(char type);
+int						get_max_size(int size);
 void					print_error(char *str);
 char					ft_get_type(int size);
 

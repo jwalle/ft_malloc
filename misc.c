@@ -12,14 +12,17 @@
 
 #include "ft_malloc.h"
 
-int		get_max_size(char type)
+int		get_max_size(int size)
 {
+	char	type;
+
+	type = ft_get_type(size);
 	if (type == TINY)
 		return (TINY_SIZE_MAX);
-	if (type == SMALL)
+	else if (type == SMALL)
 		return (SMALL_SIZE_MAX);
-	if (type == LARGE)
-		return (LARGE_SIZE_MAX);
+	else if (type == LARGE)
+		return (size);
 	return (0);
 }
 

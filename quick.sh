@@ -1,1 +1,1 @@
-git add -A ; git commit -m "header to struct" ; git push origin master
+git add -A ; git commit -m "page init rebuild" ; git push origin master

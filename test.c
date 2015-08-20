@@ -138,21 +138,22 @@ int main(int ac, char **av)
 
 	str2 = malloc(10000);
 	
-	while (i++ < 80)
+	while (i++ < 800)
 	{
 		//malloc(nb);
-		str2[i] = malloc(500);
+		str2[i] = malloc(1000);
 		ft_strcpy(str2[i], "COUCOUC");
 	}
 	show_alloc_mem();
-	i = 0;
-	while (i++ < 80)
-	{
+	//i = 0;
+	//while (i++ < 8)
+	//{
 		//malloc(nb);
-		free(str2[i]);
-	}
-	free(str2);
-	show_alloc_mem();
+	//	free(str2[i]);
+//}
+//	free(str2);
+	
+	//show_alloc_mem();
 	//free(str);
 	//show_alloc_mem();
 	//puts(str);
