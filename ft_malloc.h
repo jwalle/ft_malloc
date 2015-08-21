@@ -32,7 +32,7 @@
 # define SMALL_SIZE	PAGE_SIZE
 
 # define TINY_SIZE_MAX 15 * PAGE_SIZE
-# define SMALL_SIZE_MAX 20 * PAGE_SIZE
+# define SMALL_SIZE_MAX 200 * PAGE_SIZE
 
 typedef struct			s_page
 {

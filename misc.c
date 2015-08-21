@@ -12,6 +12,13 @@
 
 #include "ft_malloc.h"
 
+
+void	print_error(char *str)
+{
+	ft_putendl_fd(str, 2);
+	exit(1);
+}
+
 int		get_max_size(int size)
 {
 	char	type;
@@ -21,15 +28,8 @@ int		get_max_size(int size)
 		return (TINY_SIZE_MAX);
 	else if (type == SMALL)
 		return (SMALL_SIZE_MAX);
-	else if (type == LARGE)
-		return (size);
+	print_error("Error max size");
 	return (0);
-}
-
-void	print_error(char *str)
-{
-	ft_putendl(str);
-	exit(1);
 }
 
 char	ft_get_type(int size)
@@ -40,5 +40,6 @@ char	ft_get_type(int size)
 		return ('S');
 	if (size >= SMALL_SIZE)
 		return ('L');
-	return ('W');
+	print_error("Wrong type");
+	return (0);
 }

@@ -69,6 +69,7 @@ t_page	*find_page(int size)
 			if ((page->size + size + 16) > get_max_size(size))
 			{
 				page->full = 1;
+				printf("FULLLL\n");
 				return (NULL);
 			}
 			else
@@ -90,8 +91,9 @@ void	*get_malloc(int size)
 		return (malloc_large(size));
 	else if (!g_env.page)
 		return (first_page(size));
-	else if ((page = find_page(size)))
+	else if ((page = find_page(size)) != NULL)
 		return(block_init(page->start, size));
+	printf("[plk[kl]]\n");
 	page = page_push(g_env.page, ft_get_type(size));
 	page->size += size + 16;
 	return (block_init(page->start, size));
