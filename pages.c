@@ -46,6 +46,7 @@ t_page	*page_push(t_page *first, char type)
 		if (tmp->next->start == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		tmp->next = set_page(tmp->next, type);
+		return (tmp->next);
 	}
 	return (first);
 }

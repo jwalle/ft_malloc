@@ -138,7 +138,7 @@ int main(int ac, char **av)
 
 	str2 = malloc(100000);
 	
-	while (i++ < 100)
+	while (i++ < 101)
 	{
 		//malloc(nb);
 		str2[i] = malloc(1000);

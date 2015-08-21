@@ -24,7 +24,7 @@ void	*block_init(void *ptr, int size)
 	{
 		next = (char *)(header) + header->size + 16;
 		header->next = (void *)next;
-		header = header->next;
+			header = header->next;
 	}
 	header->next = NULL;
 	header->size = size;
@@ -53,33 +53,42 @@ void	*first_page(int size)
 	return (block_init(page->start, size));
 }
 
+t_page	*find_page(int size)
+{
+	char	type;
+	t_page	*page;
+
+	type = ft_get_type(size);
+	page = g_env.page;
+	while (page->next)
+	{
+		if (page->type == type && !page->full)
+		{
+			if ((page->size + size + 16) > get_max_size(size))
+
+				page->full = 1;
+			else
+			{
+				page->size += size + 16;
+				return (page);
+			}
+		}
+		page = page->next;
+	}
+	return (NULL);
+}
+
 void	*get_malloc(int size)
 {
 	t_page	*page;
 
 	if (ft_get_type(size) == 'L')
 		return (malloc_large(size));
-	if (!g_env.page)
+	else if (!g_env.page)
 		return (first_page(size));
-	page = g_env.page;
-	while (page->next)
-	{
-		if (page->type == ft_get_type(size) && !page->full)
-		{
-			if ((page->size + size + 16) > get_max_size(size))
-				page->full = 1;
-			else
-			{
-				page->size += size + 16;
-				return (block_init(page->start, size));
-			}
-		}
-		page = page->next;
-	}
-	g_env.page = page_push(g_env.page, ft_get_type(size));
-	page = g_env.page;
-	while (page->next)
-		page = page->next;
+	else if ((page = find_page(size)))
+		return(block_init(page->start, size));
+	page = page_push(g_env.page, ft_get_type(size));
 	page->size += size + 16;
 	return (block_init(page->start, size));
 }
