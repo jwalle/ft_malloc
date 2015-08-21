@@ -19,15 +19,14 @@ void	print_error(char *str)
 	exit(1);
 }
 
-int		get_max_size(int size)
+int		get_max_size(char type, int size)
 {
-	char	type;
-
-	type = ft_get_type(size);
 	if (type == TINY)
 		return (TINY_SIZE_MAX);
 	else if (type == SMALL)
 		return (SMALL_SIZE_MAX);
+	else if (type == LARGE)
+		return (size);
 	print_error("Error max size");
 	return (0);
 }

@@ -29,10 +29,10 @@
 # define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
 
 # define TINY_SIZE	512
-# define SMALL_SIZE	PAGE_SIZE
+# define SMALL_SIZE	8192
 
 # define TINY_SIZE_MAX 15 * PAGE_SIZE
-# define SMALL_SIZE_MAX 200 * PAGE_SIZE
+# define SMALL_SIZE_MAX 100 * PAGE_SIZE
 
 typedef struct			s_page
 {
@@ -61,7 +61,7 @@ typedef struct			s_env
 extern t_env			g_env;
 
 void					get_limit();
-t_page					*page_push(t_page *first, char type);
+t_page					*page_push(t_page *first, int size);
 void					*ft_malloc(size_t size);
 void					ft_atoi_hex(void *ptr);
 void					show_alloc_mem(void);
@@ -73,7 +73,7 @@ void					*get_ptr(void *ptr);
 void					*find_last(void *ptr, int size);
 void					free_tiny(void *ptr);
 void					*realloc(void *ptr, size_t size);
-int						get_max_size(int size);
+int						get_max_size(char type, int size);
 void					print_error(char *str);
 char					ft_get_type(int size);
 

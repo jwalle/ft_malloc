@@ -16,7 +16,6 @@ void	free_page(t_page *page)
 {
 	t_page	*find;
 
-	//printf("start f4ree page\n");
 	if (g_env.page)
 	{
 		find = g_env.page;
@@ -24,9 +23,8 @@ void	free_page(t_page *page)
 		{
 			if (find == page)
 			{
-				//printf("PLOP\n");
 				g_env.page = page->next;
-				munmap(page->start, get_max_size(page->type) + 1);
+				munmap(page->start, get_max_size(page->type, page->size) + 1);
 				munmap(page, sizeof(t_page));
 				page->start = NULL;
 				page = NULL;
@@ -34,9 +32,8 @@ void	free_page(t_page *page)
 			}
 			else if (find->next == page)
 			{
-				//printf("PLOP2\n");
 				find->next = page->next;
-				munmap(page->start, get_max_size(page->type) + 1);
+				munmap(page->start, get_max_size(page->type, page->size) + 1);
 				munmap(page, sizeof(t_page));
 				page->start = NULL;
 				page = NULL;
@@ -53,11 +50,9 @@ int		page_is_empty(t_page *page)
 
 	if (page)
 	{
-		//printf("is page\n");
 		header = page->start;
 		while (header)
 		{
-		//	printf("is header\n");
 			if (header->free == 0)
 				return (0);
 			header = header->next;

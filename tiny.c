@@ -24,7 +24,7 @@ void	*block_init(void *ptr, int size)
 	{
 		next = (char *)(header) + header->size + 16;
 		header->next = (void *)next;
-			header = header->next;
+		header = header->next;
 	}
 	header->next = NULL;
 	header->size = size;
@@ -36,10 +36,13 @@ void	*malloc_large(int size)
 {
 	t_page *page;
 
-	g_env.page = page_push(g_env.page, ft_get_type(size));
+	g_env.page = page_push(g_env.page, size);
 	page = g_env.page;
-	while (page->next)
-		page = page->next;
+	if (page->next)
+	{
+		while (page->next)
+			page = page->next;
+	}
 	return (block_init(page->start, size));
 }
 
@@ -47,7 +50,7 @@ void	*first_page(int size)
 {
 	t_page	*page;
 
-	g_env.page = page_push(g_env.page, ft_get_type(size));
+	g_env.page = page_push(g_env.page, size);
 	page = g_env.page;
 	page->size += size + 16;
 	return (block_init(page->start, size));
@@ -64,12 +67,9 @@ t_page	*find_page(int size)
 	{
 		if (page->type == type && !page->full)
 		{
-			printf("PLOP\n");
-			printf("%i\n", (page->size + size + 16));
-			if ((page->size + size + 16) > get_max_size(size))
+			if ((page->size + size + 16) > get_max_size(type, size))
 			{
 				page->full = 1;
-				printf("FULLLL\n");
 				return (NULL);
 			}
 			else
@@ -93,8 +93,7 @@ void	*get_malloc(int size)
 		return (first_page(size));
 	else if ((page = find_page(size)) != NULL)
 		return(block_init(page->start, size));
-	printf("[plk[kl]]\n");
-	page = page_push(g_env.page, ft_get_type(size));
+	page = page_push(g_env.page, size);
 	page->size += size + 16;
 	return (block_init(page->start, size));
 }

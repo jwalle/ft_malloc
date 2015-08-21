@@ -131,17 +131,21 @@ int main(int ac, char **av)
 	//char **str;
 	//str = malloc(100);
 	//char *str;
-	char *str2[100];
+	char *str1[150];
+	char *str2[150];
+	char *str3[150];
 
 	//str = malloc(10);
 	//ft_strcpy(str, "COUCOU");
 
 	//str2 = malloc(100000);
 
-	while (i++ < 77)
+	while (i++ < 50)
 	{
 		//malloc(nb);
-		str2[i] = malloc(800);
+		str1[i] = malloc(500);
+		str2[i] = malloc(5800);
+		str3[i] = malloc(100000);
 		//ft_strcpy(str2[i], "COUCOU");
 		// ft_strcpy(str2[i] + 7, ft_itoa(i));
 	}
