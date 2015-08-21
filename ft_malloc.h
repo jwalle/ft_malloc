@@ -29,10 +29,10 @@
 # define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
 
 # define TINY_SIZE	512
-# define SMALL_SIZE	10234
+# define SMALL_SIZE	PAGE_SIZE
 
 # define TINY_SIZE_MAX 15 * PAGE_SIZE
-# define SMALL_SIZE_MAX 300 * PAGE_SIZE
+# define SMALL_SIZE_MAX 200 * PAGE_SIZE
 
 typedef struct			s_page
 {

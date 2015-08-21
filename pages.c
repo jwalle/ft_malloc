@@ -15,10 +15,7 @@
 t_page	*set_page(t_page *page, char type)
 {
 	page->size = 0;
-	if (type == 'L')
-		page->full = 1;
-	else
-		page->full = 0;
+	page->full = 0;
 	page->type = type;
 	page->next = NULL;
 	return (page);

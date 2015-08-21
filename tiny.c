@@ -60,13 +60,17 @@ t_page	*find_page(int size)
 
 	type = ft_get_type(size);
 	page = g_env.page;
-	while (page->next)
+	while (page)
 	{
 		if (page->type == type && !page->full)
 		{
+			printf("PLOP\n");
+			printf("%i\n", (page->size + size + 16));
 			if ((page->size + size + 16) > get_max_size(size))
-
+			{
 				page->full = 1;
+				return (NULL);
+			}
 			else
 			{
 				page->size += size + 16;

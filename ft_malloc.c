@@ -34,10 +34,13 @@ void	init_global(void)
 
 void	*malloc(size_t size)
 {
+	static int i = 0;
 	if (g_env.plop != 42)
 		init_global();
 
 	//show_alloc_mem();
 	printf("COUCOUC JE RENTRE DANS MALLOC\n");
+	i += size + 16;
+	printf("total alloc = %i\n", i);
 	return (get_malloc((int)size));
 }

@@ -17,7 +17,6 @@ void	print_mem(void *ptr, int size)
 	int		i;
 	char	*str;
 
-	//printf("print_mem\n");
 	i = 0;
 	str = (char *)ptr;
 	while (i < size && i < 25)
@@ -35,8 +34,6 @@ void	print_mem(void *ptr, int size)
 
 void	print_stuff(void *ptr, int size)
 {
-	// printf("print_stuff\n");
-
 	ft_atoi_hex(ptr);
 	ft_putstr(" - ");
 	ft_atoi_hex(ptr + size);
@@ -50,8 +47,6 @@ void	print_stuff(void *ptr, int size)
 
 void	print_type_name(char type)
 {
-	// printf("print_type\n");
-
 	if (type == TINY)
 		ft_putstr("TINY");
 	if (type == SMALL)
@@ -73,8 +68,6 @@ void	show_alloc_mem(void)
 			print_type_name(page->type);
 			ft_putstr(" : ");
 			ft_atoi_hex(page->start);
-			//ft_putstr("       					");
-			//print_mem(page->start, 256);
 			ft_putchar('\n');
 			header = page->start;
 			while (header)
