@@ -131,23 +131,23 @@ int main(int ac, char **av)
 	//char **str;
 	//str = malloc(100);
 	//char *str;
-	char *str1[150];
-	char *str2[150];
-	char *str3[150];
+	char *str1[15];
+	char *str2[15];
+	char *str3[15];
 
 	//str = malloc(10);
 	//ft_strcpy(str, "COUCOU");
 
 	//str2 = malloc(100000);
 
-	while (i++ < 50)
+	while (i++ < 10)
 	{
 		//malloc(nb);
-		str1[i] = malloc(500);
+		str1[i] = malloc(10);
 		str2[i] = malloc(5800);
 		str3[i] = malloc(100000);
-		//ft_strcpy(str2[i], "COUCOU");
-		// ft_strcpy(str2[i] + 7, ft_itoa(i));
+		ft_strcpy(str2[i], "COUCOU");
+		ft_strcpy(str2[i] + 7, ft_itoa(i));
 	}
 	show_alloc_mem();
 	//i = 0;
