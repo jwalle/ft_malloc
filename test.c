@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/16 16:10:56 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/08/25 16:11:02 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ int main(int ac, char **av)
 	while (i++ < 10)
 	{
 		//malloc(nb);
-		str1[i] = malloc(10);
-		str2[i] = malloc(5800);
+		str1[i] = malloc(500);
+		str2[i] = malloc(4000);
 		str3[i] = malloc(100000);
 		ft_strcpy(str2[i], "COUCOU");
 		ft_strcpy(str2[i] + 7, ft_itoa(i));
