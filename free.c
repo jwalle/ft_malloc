@@ -16,13 +16,14 @@ void	free_page(t_page *page)
 {
 	t_page	*find;
 
+	printf("TEST\n");
 	find = g_env.page;
 	if (g_env.page)
 	{
 		if (page == g_env.page)
 		{
 			g_env.page = page->next;
-			//munmap(page->start, get_max_size(page->type, page->size) + 1);
+			munmap(page->start, get_max_size(page->type, page->size) + 1);
 			munmap(page, sizeof(t_page));
 			//page->start = NULL;
 			//page = NULL;
@@ -35,7 +36,7 @@ void	free_page(t_page *page)
 				if (find->next == page)
 				{
 					find->next = page->next;
-					//munmap(page->start, get_max_size(page->type, page->size) + 1);
+					munmap(page->start, get_max_size(page->type, page->size) + 1);
 					munmap(page, sizeof(t_page));
 					//page->start = NULL;
 					//page = NULL;
@@ -45,25 +46,27 @@ void	free_page(t_page *page)
 			}
 		}
 	}
-	g_env.total_free = 0;
 }
 
 int		page_is_empty(t_page *page)
 {
 	t_header	*header;
+	int			i;
 
+	i = 0;
 	if (page)
 	{
 		header = page->start;
 		while (header)
 		{
 			if (header->free == 0)
-				return (0);
+				i++;
+				//return (0);
 			header = header->next;
 		}
-		return (1);
+		//return (1);
 	}
-	return (0);
+	return (i);
 }
 
 t_page	*find_ptr_in_page(void *ptr)
@@ -96,10 +99,8 @@ void	free(void *ptr)
 
 	header = (t_header*)ptr - 1;
 	header->free = 1;
-	g_env.total_free++;
-	munmap(ptr, header->size);
 	//ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
-	if (page_is_empty(page) && g_env.total_free > 10)
+	if (!page_is_empty(page))
 		free_page(page);
 }
