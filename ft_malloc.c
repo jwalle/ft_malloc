@@ -26,6 +26,7 @@ void	get_limit(void)
 	printf("pagesize = %d\n", PAGE_SIZE);
 }
 */
+
 void	init_global(void)
 {
 	g_env.page = NULL;

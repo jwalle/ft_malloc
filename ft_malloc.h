@@ -16,7 +16,7 @@
 # include <sys/resource.h>
 # include <sys/mman.h>
 # include "libft.h"
-//# include <stdio.h> // PRINTF A RETIRER
+# include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
 
 # define TINY 84
@@ -28,7 +28,7 @@
 # define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 # define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
 
-# define TINY_SIZE	2048
+# define TINY_SIZE	4096
 # define SMALL_SIZE	20480
 
 # define TINY_SIZE_MAX 409600

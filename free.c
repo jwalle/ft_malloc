@@ -24,8 +24,6 @@ void	free_page(t_page *page)
 			g_env.page = page->next;
 			munmap(page->start, get_max_size(page->type, page->size));
 			munmap(page, sizeof(t_page));
-			//page->start = NULL;
-			//page = NULL;
 			return ;	
 		}
 		else
@@ -37,8 +35,6 @@ void	free_page(t_page *page)
 					find->next = page->next;
 					munmap(page->start, get_max_size(page->type, page->size));
 					munmap(page, sizeof(t_page));
-					//page->start = NULL;
-					//page = NULL;
 					return ;
 				}
 				find = find->next;

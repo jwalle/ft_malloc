@@ -12,34 +12,33 @@
 
 #include "ft_malloc.h"
 
-/*
-void	*smaller_realloc(int size, int size_mem, void *ptr, void **ptr_head)
-{
-	int *size_head;
 
-	ft_bzero((void *)(ptr) + size, size_mem - size);
-	size_head = (int *)(ptr_head) + 8;
-	size_head[0] = size;
+void	*smaller_realloc(int size, t_header	*header, void *ptr)
+{
+	ptr = get_malloc(size);
+	ft_memcpy(ptr, (void *)header + 1, size);
 	return (ptr);
 }
 
+
+
 void	*realloc(void *ptr, size_t size)
 {
-	void	**ptr_head;
-	void	*tmp;
-	int		size_mem;
+	t_header	*header;
+	void		*tmp;
+	int			size_mem;
 
 	if (!size && ptr)
-		return (get_malloc(16));
+		return (ptr = get_malloc(16));
 	if (!ptr)
 		return (get_malloc(size));
-	ptr_head = (void *)(ptr) - 16;
-	size_mem = get_mem_size(ptr_head);
+	header = (t_header *)ptr - 1;
+	size_mem = header->size;
 	if ((int)size == size_mem)
 		return (ptr);
 	if ((int)size < size_mem)
-		return (smaller_realloc((int)size, size_mem, ptr, ptr_head));
-	else if (get_mem_size(*ptr_head))
+		return (ptr = smaller_realloc((int)size, header, ptr));
+	else if (header)
 	{
 		tmp = get_malloc(size);
 		ft_memcpy(tmp, ptr, size_mem);
@@ -51,4 +50,4 @@ void	*realloc(void *ptr, size_t size)
 		return (ft_memcpy(get_malloc(size), ptr, size));
 	return (ptr);
 }
-*/
+
