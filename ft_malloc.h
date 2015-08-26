@@ -31,7 +31,7 @@
 # define TINY_SIZE	2048
 # define SMALL_SIZE	20480
 
-# define TINY_SIZE_MAX 409600
+# define TINY_SIZE_MAX 40960
 # define SMALL_SIZE_MAX 4096000
 
 typedef struct			s_page
