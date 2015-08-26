@@ -22,7 +22,7 @@ void	free_page(t_page *page)
 		if (page == g_env.page)
 		{
 			g_env.page = page->next;
-			munmap(page->start, get_max_size(page->type, page->size) + 1);
+			//munmap(page->start, get_max_size(page->type, page->size) + 1);
 			munmap(page, sizeof(t_page));
 			//page->start = NULL;
 			//page = NULL;
@@ -35,7 +35,7 @@ void	free_page(t_page *page)
 				if (find->next == page)
 				{
 					find->next = page->next;
-					munmap(page->start, get_max_size(page->type, page->size) + 1);
+					//munmap(page->start, get_max_size(page->type, page->size) + 1);
 					munmap(page, sizeof(t_page));
 					//page->start = NULL;
 					//page = NULL;
@@ -97,6 +97,7 @@ void	free(void *ptr)
 	header = (t_header*)ptr - 1;
 	header->free = 1;
 	g_env.total_free++;
+	munmap(ptr, header->size);
 	//ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
 	if (page_is_empty(page) && g_env.total_free > 10)
