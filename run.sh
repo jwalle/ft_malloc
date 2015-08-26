@@ -35,7 +35,7 @@ function title()
 	echo "\033[1m\033[8;"$start"HAppuyer sur Enter pour faire défiler les test\033[0m"
 }
 export DYLD_LIBRARY_PATH=.
-export DYLD_INSERT_LIBRARIES="libft_malloc.so"
+#export DYLD_INSERT_LIBRARIES="libft_malloc.so"
 export DYLD_FORCE_FLAT_NAMESPACE=1
 if [ $1 = "all" ]
 then
