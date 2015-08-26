@@ -30,6 +30,8 @@ void	init_global(void)
 {
 	g_env.page = NULL;
 	g_env.plop = 42;
+	g_env.total_free = 0;
+
 }
 
 void	*malloc(size_t size)

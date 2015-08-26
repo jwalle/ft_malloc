@@ -53,6 +53,7 @@ typedef struct			s_header
 typedef struct			s_env
 {
 	t_page				*page;
+	int					total_free;
 	int					plop;
 	char				*jkaptekedal;
 	long long unsigned	total;
