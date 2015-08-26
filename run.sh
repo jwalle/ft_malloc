@@ -34,12 +34,30 @@ function title()
 	start=$(((cols / 2) - 22))
 	echo "\033[1m\033[8;"$start"HAppuyer sur Enter pour faire défiler les test\033[0m"
 }
-export DYLD_LIBRARY_PATH=.
+
+function	set_env()
+{
+	echo "\033[1;4;44;32mSET_ENV\033[0m"
+	export DYLD_LIBRARY_PATH=.
+	export DYLD_INSERT_LIBRARIES="libft_malloc.so"
+	export DYLD_FORCE_FLAT_NAMESPACE=1
+}
+
+function	unset_env()
+{
+	echo "\033[1;5;42;32mUNSET_ENV\033[0m"
+	unset DYLD_LIBRARY_PATH
+	unset DYLD_INSERT_LIBRARIES
+	unset DYLD_FORCE_FLAT_NAMESPACE
+}
+
+#export DYLD_LIBRARY_PATH=.
 #export DYLD_INSERT_LIBRARIES="libft_malloc.so"
-export DYLD_FORCE_FLAT_NAMESPACE=1
+#export DYLD_FORCE_FLAT_NAMESPACE=1
+set_env
 if [ $1 = "all" ]
 then
-	title
+	title	
 	tput civis
 	read -s tmp
 	echo ""
