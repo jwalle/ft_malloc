@@ -19,7 +19,15 @@ void	*block_init(void *ptr, int size)
 
 	header = ptr;
 	while (header->next)
-			header = header->next;
+	{
+		if (header->free && header->size <= size)
+		{
+			header->size = size;
+			header->free = 0;
+			return (header + 1);
+		}
+		header = header->next;
+	}
 	if (header->size)
 	{
 		next = (char *)(header) + header->size + 16;

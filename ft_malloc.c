@@ -29,17 +29,18 @@ void	get_limit(void)
 void	init_global(void)
 {
 	g_env.page = NULL;
-	g_env.plop = 42;
-	g_env.total_free = 0;
+	g_env.set = 42;
 
 }
 
 void	*malloc(size_t size)
 {
-	if (g_env.plop != 42)
+	if (g_env.set != 42)
 		init_global();
 
 	printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
+
+
 	return (get_malloc((int)size));
 }

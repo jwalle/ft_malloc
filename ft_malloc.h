@@ -31,7 +31,7 @@
 # define TINY_SIZE	2048
 # define SMALL_SIZE	20480
 
-# define TINY_SIZE_MAX 40960
+# define TINY_SIZE_MAX 409600
 # define SMALL_SIZE_MAX 4096000
 
 typedef struct			s_page
@@ -53,10 +53,7 @@ typedef struct			s_header
 typedef struct			s_env
 {
 	t_page				*page;
-	int					total_free;
-	int					plop;
-	char				*jkaptekedal;
-	long long unsigned	total;
+	int					set;
 }						t_env;
 
 extern t_env			g_env;

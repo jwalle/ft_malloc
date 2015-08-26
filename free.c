@@ -16,14 +16,14 @@ void	free_page(t_page *page)
 {
 	t_page	*find;
 
-	printf("TEST\n");
 	find = g_env.page;
 	if (g_env.page)
 	{
 		if (page == g_env.page)
 		{
+			printf("TEST\n");
 			g_env.page = page->next;
-			munmap(page->start, get_max_size(page->type, page->size) + 1);
+			munmap(page->start, get_max_size(page->type, page->size));
 			munmap(page, sizeof(t_page));
 			//page->start = NULL;
 			//page = NULL;
@@ -36,7 +36,7 @@ void	free_page(t_page *page)
 				if (find->next == page)
 				{
 					find->next = page->next;
-					munmap(page->start, get_max_size(page->type, page->size) + 1);
+					munmap(page->start, get_max_size(page->type, page->size));
 					munmap(page, sizeof(t_page));
 					//page->start = NULL;
 					//page = NULL;
@@ -61,10 +61,8 @@ int		page_is_empty(t_page *page)
 		{
 			if (header->free == 0)
 				i++;
-				//return (0);
 			header = header->next;
 		}
-		//return (1);
 	}
 	return (i);
 }
@@ -101,6 +99,8 @@ void	free(void *ptr)
 	header->free = 1;
 	ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
-	if (!page_is_empty(page))
-		free_page(page);
+	page->size -= header->size + 16;
+	printf("sizeof t_page = %zu\n", sizeof(t_page));
+	//if (!page_is_empty(page))
+	//	free_page(page);
 }
