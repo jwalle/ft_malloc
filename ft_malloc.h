@@ -16,7 +16,7 @@
 # include <sys/resource.h>
 # include <sys/mman.h>
 # include "libft.h"
-# include <stdio.h> // PRINTF A RETIRER
+//# include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
 
 # define TINY 84
@@ -40,7 +40,7 @@ typedef struct			s_page
 	int					full;
 	void				*start;
 	char				type;
-	struct s_page		*next;
+	void				*next;
 }						t_page;
 
 typedef struct			s_header

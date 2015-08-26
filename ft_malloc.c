@@ -13,7 +13,7 @@
 #include "ft_malloc.h"
 
 t_env		g_env;
-
+/*
 void	get_limit(void)
 {
 	struct rlimit	rlp;
@@ -25,22 +25,18 @@ void	get_limit(void)
 	printf("curren hard is = %d\n", (int)rlp.rlim_max);
 	printf("pagesize = %d\n", PAGE_SIZE);
 }
-
+*/
 void	init_global(void)
 {
 	g_env.page = NULL;
 	g_env.set = 42;
-
 }
 
 void	*malloc(size_t size)
 {
 	if (g_env.set != 42)
 		init_global();
-
-	printf("COUCOUC JE RENTRE DANS MALLOC\n");
+	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
-
-
 	return (get_malloc((int)size));
 }

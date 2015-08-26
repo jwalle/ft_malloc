@@ -21,7 +21,6 @@ void	free_page(t_page *page)
 	{
 		if (page == g_env.page)
 		{
-			printf("TEST\n");
 			g_env.page = page->next;
 			munmap(page->start, get_max_size(page->type, page->size));
 			munmap(page, sizeof(t_page));
@@ -100,7 +99,6 @@ void	free(void *ptr)
 	ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
 	page->size -= header->size + 16;
-	printf("sizeof t_page = %zu\n", sizeof(t_page));
 	//if (!page_is_empty(page))
 	//	free_page(page);
 }

@@ -26,26 +26,28 @@ t_page	*page_push(t_page *first, int size)
 	t_page	*tmp;
 	char	type;
 
+
 	type = ft_get_type(size);
 	if (!first)
 	{
-		first = mmap(0, sizeof(t_page), FLAGS);
-		first->start = (void *)mmap(0, get_max_size(type, size), FLAGS);
-		if (first->start == MAP_FAILED)
+		first = (void *)mmap(0, get_max_size(type, size) + 32, FLAGS);
+		if (first == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		first = set_page(first, type);
+		first->start = first + 1;
 	}
 	else
 	{
 		tmp = first;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = mmap(0, sizeof(t_page), FLAGS);
-		tmp->next->start = (void *)mmap(0, get_max_size(type, size), FLAGS);
-		if (tmp->next->start == MAP_FAILED)
+		tmp->next = (void *)mmap(0, get_max_size(type, size) + 32, FLAGS);
+		if (tmp->next == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		tmp->next = set_page(tmp->next, type);
-		return (tmp->next);
+		tmp = tmp->next;
+		tmp->start = tmp + 1;
+		return (tmp);
 	}
 	return (first);
 }

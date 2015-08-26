@@ -13,6 +13,7 @@
 #include "ft_malloc.h"
 #include <time.h>
 #include <limits.h>
+#include <stdio.h>
 
 // av[1] = le char
 // av[2] = le nombre
@@ -131,21 +132,21 @@ int main(int ac, char **av)
 	//char **str;
 	//str = malloc(100);
 	//char *str;
-	char *str1[15];
-	char *str2[15];
-	char *str3[15];
+	//char *str1[15];
+	char *str2[230];
+	//char *str3[15];
 
 	//str = malloc(10);
 	//ft_strcpy(str, "COUCOU");
 
 	//str2 = malloc(100000);
 
-	while (i++ < 10)
+	while (i++ < 220)
 	{
 		//malloc(nb);
-		str1[i] = malloc(500);
-		str2[i] = malloc(4000);
-		str3[i] = malloc(100000);
+		//str1[i] = malloc(500);
+		str2[i] = malloc(20000);
+		//str3[i] = malloc(100000);
 		ft_strcpy(str2[i], "COUCOU");
 		ft_strcpy(str2[i] + 7, ft_itoa(i));
 	}
