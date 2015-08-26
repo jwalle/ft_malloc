@@ -20,8 +20,28 @@ void	*smaller_realloc(int size, t_header	*header, void *ptr)
 	return (ptr);
 }
 
+void	*realloc(void *ptr, size_t size)
+{
+	t_header	*header;
+	void		*tmp;
+
+	header = (t_header *)ptr - 1;
+	if (header->next == NULL)
+	{
+		header->size += size;
+		return (ptr);
+	}
+	else
+	{
+		tmp = get_malloc(size);
+		return (ft_memcpy(tmp, ptr, header->size));
+	}
+
+	return (NULL);
+}
 
 
+/*
 void	*realloc(void *ptr, size_t size)
 {
 	t_header	*header;
@@ -51,3 +71,4 @@ void	*realloc(void *ptr, size_t size)
 	return (ptr);
 }
 
+*/
