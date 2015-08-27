@@ -75,7 +75,7 @@ t_page	*find_ptr_in_page(void *ptr)
 			needle = page->start;			
 			while (needle)
 			{
-				if (needle + 1 == ptr)
+				if ((void *)needle + 1 == ptr)
 					return(page);
 				needle = needle->next;
 			}
