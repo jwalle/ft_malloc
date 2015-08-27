@@ -12,7 +12,7 @@
 
 #include "ft_malloc.h"
 
-void	*block_init(void *ptr, int size)
+void	*block_init(void *ptr, size_t size)
 {
 	t_header	*header;
 	char		*next;
@@ -30,7 +30,7 @@ void	*block_init(void *ptr, int size)
 	}
 	if (header->size)
 	{
-		next = (char *)(header) + header->size + 16;
+		next = (char *)(header) + header->size + 24;
 		header->next = (void *)next;
 		header = header->next;
 	}
@@ -40,7 +40,7 @@ void	*block_init(void *ptr, int size)
 	return (header + 1);
 }
 
-void	*malloc_large(int size)
+void	*malloc_large(size_t size)
 {
 	t_page *page;
 
@@ -48,17 +48,17 @@ void	*malloc_large(int size)
 	return (block_init(page->start, size));
 }
 
-void	*first_page(int size)
+void	*first_page(size_t size)
 {
 	t_page	*page;
 
 	g_env.page = page_push(g_env.page, size);
 	page = g_env.page;
-	page->size += size + 16;
+	page->size += size + 24;
 	return (block_init(page->start, size));
 }
 
-t_page	*find_page(int size)
+t_page	*find_page(size_t size)
 {
 	char	type;
 	t_page	*page;
@@ -69,14 +69,14 @@ t_page	*find_page(int size)
 	{
 		if (page->type == type && !page->full)
 		{
-			if ((page->size + size + 16) > get_max_size(type, size))
+			if ((page->size + size + 24) > get_max_size(type, size))
 			{
 				page->full = 1;
 				return (NULL);
 			}
 			else
 			{
-				page->size += size + 16;
+				page->size += size + 24;
 				return (page);
 			}
 		}
@@ -85,7 +85,7 @@ t_page	*find_page(int size)
 	return (NULL);
 }
 
-void	*get_malloc(int size)
+void	*get_malloc(size_t size)
 {
 	t_page	*page;
 
@@ -96,6 +96,6 @@ void	*get_malloc(int size)
 	else if ((page = find_page(size)) != NULL)
 		return(block_init(page->start, size));
 	page = page_push(g_env.page, size);
-	page->size += size + 16;
+	page->size += size + 24;
 	return (block_init(page->start, size));
 }

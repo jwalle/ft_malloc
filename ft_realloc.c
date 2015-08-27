@@ -27,18 +27,11 @@ void	*realloc(void *ptr, size_t size)
 	void		*tmp;
 
 	header = (t_header *)ptr - 1;
-	printf(" HEADER size = %i\n", header->size);
 	page = find_ptr_in_page(ptr);
-
-	if (page->type == LARGE)
-	{
-		printf("LARGE\n");
-		// get_malloc()
-	}
-	if (header->next == NULL && (page->size + (int)size + 16) >
+	if (header->next == NULL && (page->size + size + 16) >
 		get_max_size(page->type, size))
 	{
-		header->size = (int)size;
+		header->size = size;
 		return (ptr);
 	}
 	else

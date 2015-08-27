@@ -19,7 +19,7 @@ void	print_error(char *str)
 	exit(1);
 }
 
-int		get_max_size(char type, int size)
+size_t	get_max_size(char type, size_t size)
 {
 	if (type == TINY)
 		return (TINY_SIZE_MAX);
@@ -31,7 +31,7 @@ int		get_max_size(char type, int size)
 	return (0);
 }
 
-char	ft_get_type(int size)
+char	ft_get_type(size_t size)
 {
 	if (size < TINY_SIZE)
 		return ('T');

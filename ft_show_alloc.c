@@ -12,9 +12,9 @@
 
 #include "ft_malloc.h"
 
-void	print_mem(void *ptr, int size)
+void	print_mem(void *ptr, size_t size)
 {
-	int		i;
+	size_t	i;
 	char	*str;
 
 	i = 0;
@@ -32,7 +32,7 @@ void	print_mem(void *ptr, int size)
 	}
 }
 
-void	print_stuff(void *ptr, int size)
+void	print_stuff(void *ptr, size_t size)
 {	
 	ft_atoi_hex(ptr);
 	ft_putstr(" - ");

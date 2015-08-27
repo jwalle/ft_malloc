@@ -39,5 +39,5 @@ void	*malloc(size_t size)
 		init_global();
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
-	return (get_malloc((int)size));
+	return (get_malloc(size));
 }

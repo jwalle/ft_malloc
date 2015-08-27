@@ -36,7 +36,7 @@
 
 typedef struct			s_page
 {
-	int					size;
+	size_t				size;
 	int					full;
 	void				*start;
 	char				type;
@@ -45,7 +45,7 @@ typedef struct			s_page
 
 typedef struct			s_header
 {
-	int					size;
+	size_t				size;
 	int					free;
 	void				*next;
 }						t_header;
@@ -59,21 +59,21 @@ typedef struct			s_env
 extern t_env			g_env;
 
 void					get_limit();
-t_page					*page_push(t_page *first, int size);
+t_page					*page_push(t_page *first, size_t size);
 void					*ft_malloc(size_t size);
 void					ft_atoi_hex(void *ptr);
 void					show_alloc_mem(void);
-void					*get_malloc(int size);
+void					*get_malloc(size_t size);
 t_page					*tiny_init(void);
 void					free(void *ptr);
 void					*get_next(void *ptr);
 void					*get_ptr(void *ptr);
-void					*find_last(void *ptr, int size);
+void					*find_last(void *ptr, size_t size);
 void					free_tiny(void *ptr);
 void					*realloc(void *ptr, size_t size);
-int						get_max_size(char type, int size);
+size_t					get_max_size(char type, size_t size);
 void					print_error(char *str);
-char					ft_get_type(int size);
+char					ft_get_type(size_t size);
 t_page					*find_ptr_in_page(void *ptr);
 
 

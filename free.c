@@ -94,7 +94,7 @@ void	free(void *ptr)
 	header->free = 1;
 	ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
-	page->size -= header->size + 16;
+	page->size -= header->size + 24;
 	//if (!page_is_empty(page))
 	//	free_page(page);
 }

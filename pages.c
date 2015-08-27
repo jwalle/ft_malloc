@@ -21,7 +21,7 @@ t_page	*set_page(t_page *page, char type)
 	return (page);
 }
 
-t_page	*page_push(t_page *first, int size)
+t_page	*page_push(t_page *first, size_t size)
 {
 	t_page	*tmp;
 	char	type;
