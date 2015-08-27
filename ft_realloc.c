@@ -12,6 +12,14 @@
 
 #include "ft_malloc.h"
 
+void	*calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = get_malloc(count * size);
+	ft_bzero(ptr, count * size);
+	return (ptr);
+}
 
 void	*smaller_realloc(size_t size, void *ptr)
 {
@@ -46,51 +54,24 @@ void	*realloc(void *ptr, size_t size)
 {
 	t_header	*header;
 	t_page		*page;
-	void		*tmp;
 
+	if (!ptr)
+		return (get_malloc(size));
+	if (!size && ptr)
+	{
+		free(ptr);
+		return (get_malloc(TINY_SIZE));
+	}
 	header = (t_header *)ptr - 1;
+	if (!header->size)
+		print_error("can't realloc this either");
 	page = find_ptr_in_page(ptr);
 	if (size > header->size)
 		return (bigger_realloc(size, header, page, ptr));
 	else if (size < header->size)
 		return(smaller_realloc(size, ptr));
 	else
-	{
-		tmp = get_malloc(size);
-		return (ft_memcpy(tmp, ptr, header->size));
-	}
+		return (ptr);
+	print_error("realloc error");
 	return (NULL);
 }
-
-
-/*
-void	*realloc(void *ptr, size_t size)
-{
-	t_header	*header;
-	void		*tmp;
-	int			size_mem;
-
-	if (!size && ptr)
-		return (ptr = get_malloc(16));
-	if (!ptr)
-		return (get_malloc(size));
-	header = (t_header *)ptr - 1;
-	size_mem = header->size;
-	if ((int)size == size_mem)
-		return (ptr);
-	if ((int)size < size_mem)
-		return (ptr = smaller_realloc((int)size, header, ptr));
-	else if (header)
-	{
-		tmp = get_malloc(size);
-		ft_memcpy(tmp, ptr, size_mem);
-		ft_bzero(ptr, size);
-		ptr = ft_memcpy(ptr, tmp, size_mem);
-		return (ptr);
-	}
-	else
-		return (ft_memcpy(get_malloc(size), ptr, size));
-	return (ptr);
-}
-
-*/

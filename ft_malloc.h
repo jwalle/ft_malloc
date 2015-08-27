@@ -16,7 +16,7 @@
 # include <sys/resource.h>
 # include <sys/mman.h>
 # include "libft.h"
-# include <stdio.h> // PRINTF A RETIRER
+//# include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
 
 # define TINY 84
@@ -28,11 +28,11 @@
 # define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 # define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
 
-# define TINY_SIZE	4096
-# define SMALL_SIZE	20480
+# define TINY_SIZE	(size_t)(PAGE_SIZE * 2)
+# define SMALL_SIZE	(size_t)(PAGE_SIZE * 20)
 
-# define TINY_SIZE_MAX 409600
-# define SMALL_SIZE_MAX 4096000
+# define TINY_SIZE_MAX TINY_SIZE * 110
+# define SMALL_SIZE_MAX SMALL_SIZE * 110
 
 typedef struct			s_page
 {

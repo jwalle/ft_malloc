@@ -18,6 +18,7 @@ t_page	*set_page(t_page *page, char type)
 	page->full = 0;
 	page->type = type;
 	page->next = NULL;
+	page->start = page + 1;
 	return (page);
 }
 
@@ -26,7 +27,6 @@ t_page	*page_push(t_page *first, size_t size)
 	t_page	*tmp;
 	char	type;
 
-
 	type = ft_get_type(size);
 	if (!first)
 	{
@@ -34,7 +34,6 @@ t_page	*page_push(t_page *first, size_t size)
 		if (first == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		first = set_page(first, type);
-		first->start = first + 1;
 	}
 	else
 	{
@@ -46,7 +45,6 @@ t_page	*page_push(t_page *first, size_t size)
 			print_error("MAPPING FAILED");
 		tmp->next = set_page(tmp->next, type);
 		tmp = tmp->next;
-		tmp->start = tmp + 1;
 		return (tmp);
 	}
 	return (first);

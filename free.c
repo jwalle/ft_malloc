@@ -90,12 +90,15 @@ void	free(void *ptr)
 	t_header	*header;
 	t_page		*page;
 
+	if (!ptr)
+		print_error("can't free this");
 	header = (t_header*)ptr - 1;
+	if (!header->size)
+		print_error("can't free this either");
 	header->free = 1;
 	ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
-	if (page == NULL)
-	page->size -= header->size + 24;
+	page->size -= header->size;
 	//if (!page_is_empty(page))
 	//	free_page(page);
 }
