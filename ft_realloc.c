@@ -23,12 +23,22 @@ void	*smaller_realloc(int size, t_header	*header, void *ptr)
 void	*realloc(void *ptr, size_t size)
 {
 	t_header	*header;
+	t_page		*page;
 	void		*tmp;
 
 	header = (t_header *)ptr - 1;
-	if (header->next == NULL)
+	printf(" HEADER size = %i\n", header->size);
+	page = find_ptr_in_page(ptr);
+
+	if (page->type == LARGE)
 	{
-		header->size += size;
+		printf("LARGE\n");
+		// get_malloc()
+	}
+	if (header->next == NULL && (page->size + (int)size + 16) >
+		get_max_size(page->type, size))
+	{
+		header->size = (int)size;
 		return (ptr);
 	}
 	else
