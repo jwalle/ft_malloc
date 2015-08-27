@@ -49,6 +49,8 @@ void	*realloc(void *ptr, size_t size)
 	header = (t_header *)ptr - 1;
 	printf("llppzx == %zu\n", header->size);
 	page = find_ptr_in_page(ptr);
+	if (page == NULL)
+		printf("NUUUUUULLLLLL\n");
 	printf("page == %c\n", page->type);
 	if (size > header->size)
 		return (bigger_realloc(size, header, page, ptr));
