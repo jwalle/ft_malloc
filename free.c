@@ -75,7 +75,7 @@ t_page	*find_ptr_in_page(void *ptr)
 			needle = page->start;			
 			while (needle)
 			{
-				if ((void *)needle + 1 == ptr)
+				if (needle + 1 == ptr)
 					return(page);
 				needle = needle->next;
 			}
@@ -94,6 +94,7 @@ void	free(void *ptr)
 	header->free = 1;
 	ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
+	if (page == NULL)
 	page->size -= header->size + 24;
 	//if (!page_is_empty(page))
 	//	free_page(page);

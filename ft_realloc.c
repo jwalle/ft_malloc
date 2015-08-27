@@ -13,10 +13,12 @@
 #include "ft_malloc.h"
 
 
-void	*smaller_realloc(size_t size, t_header *header, void *ptr)
+void	*smaller_realloc(size_t size, void *ptr)
 {
-	ptr = get_malloc(size);
-	ft_memcpy(ptr, (void *)header + 1, size);
+	void	*tmp;
+
+	tmp = get_malloc(size);
+	ptr = ft_memcpy(tmp, ptr, size);
 	return (ptr);
 }
 
@@ -47,20 +49,16 @@ void	*realloc(void *ptr, size_t size)
 	void		*tmp;
 
 	header = (t_header *)ptr - 1;
-	printf("llppzx == %zu\n", header->size);
 	page = find_ptr_in_page(ptr);
-	if (page == NULL)
-		printf("NUUUUUULLLLLL\n");
-	printf("page == %c\n", page->type);
 	if (size > header->size)
 		return (bigger_realloc(size, header, page, ptr));
+	else if (size < header->size)
+		return(smaller_realloc(size, ptr));
 	else
 	{
-		printf("2\n");
 		tmp = get_malloc(size);
 		return (ft_memcpy(tmp, ptr, header->size));
 	}
-
 	return (NULL);
 }
 

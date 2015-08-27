@@ -45,6 +45,9 @@ void	*malloc_large(size_t size)
 	t_page *page;
 
 	page = page_push(g_env.page, size);
+	if (!g_env.page)
+		g_env.page = page;
+	page->size = size;
 	return (block_init(page->start, size));
 }
 
