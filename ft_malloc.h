@@ -28,7 +28,7 @@
 # define FLAGS_MAP MAP_ANON | MAP_PRIVATE
 # define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
 
-# define TINY_SIZE	(size_t)(PAGE_SIZE * 2)
+# define TINY_SIZE	(size_t)(PAGE_SIZE)
 # define SMALL_SIZE	(size_t)(PAGE_SIZE * 20)
 
 # define TINY_SIZE_MAX TINY_SIZE * 110
