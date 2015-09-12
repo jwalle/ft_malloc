@@ -35,10 +35,7 @@ void	*block_init(void *ptr, size_t size)
 		header->next = (void *)next;
 		header = header->next;
 	}
-	header->time = time(NULL);
-	header->next = NULL;
-	header->size = size;
-	header->free = 0;
+	set_header(size, header);
 	return (header + 1);
 }
 
@@ -99,7 +96,7 @@ void	*get_malloc(size_t size)
 	else if (!g_env.page)
 		return (first_page(size));
 	else if ((page = find_page(size)) != NULL)
-		return(block_init(page->start, size));
+		return (block_init(page->start, size));
 	page = page_push(g_env.page, size);
 	page->size += size + 24;
 	return (block_init(page->start, size));

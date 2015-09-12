@@ -12,6 +12,14 @@
 
 #include "ft_malloc.h"
 
+void	set_header(size_t size, t_header *header)
+{
+	header->time = time(NULL);
+	header->next = NULL;
+	header->size = size;
+	header->free = 0;
+}
+
 t_page	*set_page(t_page *page, char type)
 {
 	page->size = 0;

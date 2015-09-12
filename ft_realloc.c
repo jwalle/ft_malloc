@@ -69,7 +69,7 @@ void	*realloc(void *ptr, size_t size)
 	if (size > header->size)
 		return (bigger_realloc(size, header, page, ptr));
 	else if (size < header->size)
-		return(smaller_realloc(size, ptr));
+		return (smaller_realloc(size, ptr));
 	else
 		return (ptr);
 	print_error("realloc error");

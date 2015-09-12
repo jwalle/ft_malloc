@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   show_alloc_mem_ex.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jwalle <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/09/12 18:45:09 by jwalle            #+#    #+#             */
+/*   Updated: 2015/09/12 18:45:12 by jwalle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_malloc.h"
 
 void	print_time(time_t time)
 {
 	char		buffer[80];
 	struct tm	*info;
-	info = localtime(&time);
 
+	info = localtime(&time);
 	strftime(buffer, 80, "%x - %I:%M:%S%p", info);
 	ft_putstr(buffer);
 }
 
 void	align_size(char *str, size_t size)
 {
-	int	i;
+	int		i;
 	size_t	temp;
 
 	i = 0;
@@ -30,25 +42,16 @@ void	align_size(char *str, size_t size)
 	ft_putstr(str);
 }
 
-
 void	print_size(size_t size)
 {
 	if (size > M * M * M)
-	{
 		align_size("Go", size / (M * M * M));
-	}
 	else if (size > M * M)
-	{
 		align_size("Mo", size / (M * M));
-	}
 	else if (size > M)
-	{
 		align_size("Ko", size / M);
-	}
 	else
-	{
 		align_size("o", size);
-	}
 }
 
 void	ft_putstr_b(char *str)
@@ -59,7 +62,7 @@ void	ft_putstr_b(char *str)
 }
 
 void	print_stuff_two(void *ptr, size_t size, time_t time)
-{	
+{
 	ft_atoi_hex(ptr);
 	ft_putstr(" - ");
 	ft_atoi_hex(ptr + size);

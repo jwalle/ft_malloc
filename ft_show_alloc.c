@@ -33,7 +33,7 @@ void	print_mem(void *ptr, size_t size)
 }
 
 void	print_stuff(void *ptr, size_t size)
-{	
+{
 	ft_atoi_hex(ptr);
 	ft_putstr(" - ");
 	ft_atoi_hex(ptr + size);

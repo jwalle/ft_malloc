@@ -15,7 +15,6 @@
 t_env			g_env;
 pthread_mutex_t	g_lock;
 
-
 void	get_limit(size_t size)
 {
 	struct rlimit	rlp;
@@ -25,9 +24,8 @@ void	get_limit(size_t size)
 	limit = getrlimit(RLIMIT_AS, &rlp);
 	total = rlp.rlim_cur;
 	if (total < size)
-		print_error("Not enough space available");
+		print_error("Not enough space available.");
 }
-
 
 void	init_global(void)
 {

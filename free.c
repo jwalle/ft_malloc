@@ -23,8 +23,7 @@ void	free_page(t_page *page)
 		{
 			g_env.page = page->next;
 			munmap(page->start, get_max_size(page->type, page->size));
-			munmap(page, sizeof(t_page));
-			return ;	
+			return ;
 		}
 		else
 		{
@@ -34,7 +33,6 @@ void	free_page(t_page *page)
 				{
 					find->next = page->next;
 					munmap(page->start, get_max_size(page->type, page->size));
-					munmap(page, sizeof(t_page));
 					return ;
 				}
 				find = find->next;
@@ -72,11 +70,11 @@ t_page	*find_ptr_in_page(void *ptr)
 		page = g_env.page;
 		while (page)
 		{
-			needle = page->start;			
+			needle = page->start;
 			while (needle)
 			{
 				if (needle + 1 == ptr)
-					return(page);
+					return (page);
 				needle = needle->next;
 			}
 			page = page->next;

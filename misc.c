@@ -12,7 +12,6 @@
 
 #include "ft_malloc.h"
 
-
 void	print_error(char *str)
 {
 	ft_putendl_fd(str, 2);
