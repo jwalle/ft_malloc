@@ -20,9 +20,13 @@
 # include <errno.h>
 # include <time.h>
 
+# define RESET "\033[0m"
+# define BOLD "\033[1m"
+# define UNDERLINE "\033[4m"
 # define TINY 84
 # define SMALL 83
 # define LARGE 76
+# define M (size_t)1000
 # define PAGE_SIZE getpagesize()
 
 # define FLAGS_PROT PROT_READ | PROT_WRITE
