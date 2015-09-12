@@ -13,7 +13,6 @@
 #include "ft_malloc.h"
 
 t_env			g_env;
-int				g_counter;
 pthread_mutex_t	g_lock;
 
 /*
@@ -47,9 +46,7 @@ void	*malloc(size_t size)
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
 	pthread_mutex_lock(&g_lock);
-	g_counter = 1;
 	ptr = get_malloc(size);
 	pthread_mutex_unlock(&g_lock);
-	g_counter = 0;
 	return (ptr);
 }
