@@ -65,7 +65,7 @@ typedef struct			s_env
 
 extern t_env			g_env;
 
-void					set_header(size_t size, t_header *header);
+void					set_header(size_t size, t_header *header, void *next);
 void					print_stuff_two(void *ptr, size_t size, time_t time);
 void					print_time(time_t time);
 void					print_mem(void *ptr, size_t size);

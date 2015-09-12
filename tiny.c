@@ -25,6 +25,7 @@ void	*block_init(void *ptr, size_t size)
 			header->time = time(NULL);
 			header->size = size;
 			header->free = 0;
+			set_header(size, header, header->next);
 			return (header + 1);
 		}
 		header = header->next;
@@ -35,7 +36,7 @@ void	*block_init(void *ptr, size_t size)
 		header->next = (void *)next;
 		header = header->next;
 	}
-	set_header(size, header);
+	set_header(size, header, NULL);
 	return (header + 1);
 }
 

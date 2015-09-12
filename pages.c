@@ -12,10 +12,10 @@
 
 #include "ft_malloc.h"
 
-void	set_header(size_t size, t_header *header)
+void	set_header(size_t size, t_header *header, void *next)
 {
 	header->time = time(NULL);
-	header->next = NULL;
+	header->next = next;
 	header->size = size;
 	header->free = 0;
 }
