@@ -22,9 +22,6 @@ void	*block_init(void *ptr, size_t size)
 	{
 		if (header->free && header->size <= size)
 		{
-			header->time = time(NULL);
-			header->size = size;
-			header->free = 0;
 			set_header(size, header, header->next);
 			return (header + 1);
 		}
