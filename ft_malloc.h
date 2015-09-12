@@ -16,8 +16,9 @@
 # include <sys/resource.h>
 # include <sys/mman.h>
 # include "libft.h"
-//# include <stdio.h> // PRINTF A RETIRER
+# include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
+# include <time.h>
 
 # define TINY 84
 # define SMALL 83
@@ -47,6 +48,7 @@ typedef struct			s_header
 {
 	size_t				size;
 	int					free;
+	time_t				time;
 	void				*next;
 }						t_header;
 
@@ -54,6 +56,7 @@ typedef struct			s_env
 {
 	t_page				*page;
 	int					set;
+	int					mutex;
 }						t_env;
 
 extern t_env			g_env;

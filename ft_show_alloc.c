@@ -32,7 +32,16 @@ void	print_mem(void *ptr, size_t size)
 	}
 }
 
-void	print_stuff(void *ptr, size_t size)
+void	print_time(time_t time)
+{
+	char		buffer[80];
+	struct tm	*info;
+	info = localtime(&time);
+	strftime(buffer, 80, "%x - %I:%M%p", info);
+	ft_putstr(buffer);
+}
+
+void	print_stuff(void *ptr, size_t size, time_t time)
 {	
 	ft_atoi_hex(ptr);
 	ft_putstr(" - ");
@@ -41,6 +50,7 @@ void	print_stuff(void *ptr, size_t size)
 	ft_putnbr(size);
 	ft_putstr(" octets");
 	ft_putstr("       ");
+	print_time(time);
 	print_mem(ptr, size);
 	ft_putchar('\n');
 }
@@ -73,7 +83,7 @@ void	show_alloc_mem(void)
 			while (header)
 			{
 				if (!header->free)
-					print_stuff(header + 1, header->size);
+					print_stuff(header + 1, header->size, header->time);
 				header = header->next;
 			}
 			page = page->next;

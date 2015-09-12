@@ -22,6 +22,7 @@ void	*block_init(void *ptr, size_t size)
 	{
 		if (header->free && header->size <= size)
 		{
+			header->time = time(NULL);
 			header->size = size;
 			header->free = 0;
 			return (header + 1);
@@ -34,6 +35,7 @@ void	*block_init(void *ptr, size_t size)
 		header->next = (void *)next;
 		header = header->next;
 	}
+	header->time = time(NULL);
 	header->next = NULL;
 	header->size = size;
 	header->free = 0;

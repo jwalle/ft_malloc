@@ -31,13 +31,24 @@ void	init_global(void)
 {
 	g_env.page = NULL;
 	g_env.set = 42;
+	g_env.mutex = 0;
 }
 
 void	*malloc(size_t size)
 {
+	void	*ptr;
+
 	if (g_env.set != 42)
 		init_global();
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
-	return (get_malloc(size));
+	while (1)
+	{
+		if (g_env.mutex == 0)
+			break ;
+	}
+	g_env.mutex = 1;
+	ptr = get_malloc(size);
+	g_env.mutex = 0;
+	return (ptr);
 }
