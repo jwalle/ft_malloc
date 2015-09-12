@@ -15,19 +15,19 @@
 t_env			g_env;
 pthread_mutex_t	g_lock;
 
-/*
-void	get_limit(void)
+
+void	get_limit(size_t size)
 {
 	struct rlimit	rlp;
 	int				limit;
+	size_t			total;
 
 	limit = getrlimit(RLIMIT_AS, &rlp);
-	printf("limit = %d\n", limit);
-	printf("current max is = %d\n", (int)rlp.rlim_cur);
-	printf("curren hard is = %d\n", (int)rlp.rlim_max);
-	printf("pagesize = %d\n", PAGE_SIZE);
+	total = rlp.rlim_cur;
+	if (total < size)
+		print_error("Not enough space available");
 }
-*/
+
 
 void	init_global(void)
 {
@@ -43,6 +43,7 @@ void	*malloc(size_t size)
 
 	if (g_env.set != 42)
 		init_global();
+	get_limit(size);
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
 	pthread_mutex_lock(&g_lock);
