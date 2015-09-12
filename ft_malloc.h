@@ -19,6 +19,7 @@
 # include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
 # include <time.h>
+# include <pthread.h>
 
 # define RESET "\033[0m"
 # define BOLD "\033[1m"
@@ -60,11 +61,13 @@ typedef struct			s_env
 {
 	t_page				*page;
 	int					set;
-	int					mutex;
 }						t_env;
 
 extern t_env			g_env;
 
+void					print_stuff_two(void *ptr, size_t size, time_t time);
+void					print_time(time_t time);
+void					print_mem(void *ptr, size_t size);
 void					get_limit();
 t_page					*page_push(t_page *first, size_t size);
 void					*ft_malloc(size_t size);

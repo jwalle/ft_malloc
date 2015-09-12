@@ -33,6 +33,7 @@ RESET = tput sgr 0
 SRC =	ft_malloc.c \
 		ft_atoi_hex.c \
 		ft_show_alloc.c \
+		show_alloc_mem_ex.c \
 		tiny.c \
 		misc.c \
 		pages.c \

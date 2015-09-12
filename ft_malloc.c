@@ -12,7 +12,9 @@
 
 #include "ft_malloc.h"
 
-t_env		g_env;
+t_env			g_env;
+pthread_mutex_t	g_lock;
+
 /*
 void	get_limit(void)
 {
@@ -31,7 +33,8 @@ void	init_global(void)
 {
 	g_env.page = NULL;
 	g_env.set = 42;
-	g_env.mutex = 0;
+	if (pthread_mutex_init(&g_lock, NULL) != 0)
+		print_error("error mutex init.");
 }
 
 void	*malloc(size_t size)
@@ -42,13 +45,8 @@ void	*malloc(size_t size)
 		init_global();
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
-	while (1)
-	{
-		if (g_env.mutex == 0)
-			break ;
-	}
-	g_env.mutex = 1;
+	pthread_mutex_lock(&g_lock);
 	ptr = get_malloc(size);
-	g_env.mutex = 0;
+	pthread_mutex_unlock(&g_lock);
 	return (ptr);
 }
