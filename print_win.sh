@@ -1,13 +1,10 @@
 #/bin/bash
-#for ((x = 0; x < 20; x++)); do
-#printf %s -
-
 line1=" ___  ___  ___   _      _      _____  _____  "
-line2=" |  \/  | / _ \ | |    | |    |  _  |/  __ \\ "
+line2="\e[45mMagenta |  \/  | / _ \ | |    | |    |  _  |/  __ \\ "
 line3=" | .  . |/ /_\ \| |    | |    | | | || /  \/ "
 line4=" | |\/| ||  _  || |    | |    | | | || |     "
 line5=" | |  | || | | || |____| |____\ \_/ /| \__/\\ "
-line6=" \_|  |_/\_| |_/\_____/\_____/ \___/  \____/		 by jwalle"
+line6=" \_|  |_/\_| |_/\_____/\_____/ \___/  \____/     by jwalle "
 cols=$(tput cols)
 let evencheck="(($cols)%2)"
 if [ $evencheck -eq 0 ]
@@ -17,7 +14,7 @@ if [ $evencheck -eq 0 ]
 		let first=$(((cols / 2) - 23))
 fi
 second=$(((cols / 2) - 23))
-third=$(((cols / 2) - 44))
+third=$(((cols / 2) - 37))
 printf '%*s\n' "$cols" '' |  tr ' ' -
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line1" "$second" " " "|"
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line2" "$second" " " "|"
