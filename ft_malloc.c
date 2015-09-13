@@ -44,7 +44,6 @@ void	*malloc(size_t size)
 	get_limit(size);
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();
-	printf("sizof = %zu\n", sizeof(t_header));
 	pthread_mutex_lock(&g_lock);
 	ptr = get_malloc(size);
 	pthread_mutex_unlock(&g_lock);

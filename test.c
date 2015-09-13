@@ -10,14 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
-#include <time.h>
-#include <limits.h>
-#include <stdio.h>
+# include "ft_malloc.h"
+# include <time.h>
+# include <limits.h>
+# include <stdio.h>
+#define SHELLSCRIPT "\
+#/bin/bash \n \
+echo \"hello\" \
+"
 
 void	print_windows(void)
 {
-	
+
 }
 
 int test1(void)
@@ -47,8 +51,9 @@ int test0(void)
 	return (0);
 }
 
-int main(int ac, char **av)
+int main(void)
 {
-	print_windows();
+	system("./print_win.sh");
+	test1();
 	return (0);
 }
