@@ -7,7 +7,7 @@ line2=" |  \/  | / _ \ | |    | |    |  _  |/  __ \\ "
 line3=" | .  . |/ /_\ \| |    | |    | | | || /  \/ "
 line4=" | |\/| ||  _  || |    | |    | | | || |     "
 line5=" | |  | || | | || |____| |____\ \_/ /| \__/\\ "
-line6=" \_|  |_/\_| |_/\_____/\_____/ \___/  \____/ "
+line6=" \_|  |_/\_| |_/\_____/\_____/ \___/  \____/		 by jwalle"
 cols=$(tput cols)
 let evencheck="(($cols)%2)"
 if [ $evencheck -eq 0 ]
@@ -17,13 +17,14 @@ if [ $evencheck -eq 0 ]
 		let first=$(((cols / 2) - 23))
 fi
 second=$(((cols / 2) - 23))
+third=$(((cols / 2) - 44))
 printf '%*s\n' "$cols" '' |  tr ' ' -
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line1" "$second" " " "|"
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line2" "$second" " " "|"
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line3" "$second" " " "|"
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line4" "$second" " " "|"
 printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line5" "$second" " " "|"
-printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line6" "$second" " " "|"
+printf '%s%*s%s%*s%s\n' "|" "$first" " " "$line6" "$third" " " "|"
 for ((x = 0; x < 1; x++)); do
 	printf '%s%*s%s\n' "|" "$((cols - 1))" "|"
 done
