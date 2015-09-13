@@ -29,7 +29,7 @@ void	*block_init(void *ptr, size_t size)
 	}
 	if (header->size)
 	{
-		next = (char *)(header) + header->size + 24;
+		next = (char *)(header) + header->size + 32;
 		header->next = (void *)next;
 		header = header->next;
 	}
@@ -54,7 +54,7 @@ void	*first_page(size_t size)
 
 	g_env.page = page_push(g_env.page, size);
 	page = g_env.page;
-	page->size += size + 24;
+	page->size += size + 32;
 	return (block_init(page->start, size));
 }
 
@@ -69,14 +69,14 @@ t_page	*find_page(size_t size)
 	{
 		if (page->type == type && !page->full)
 		{
-			if ((page->size + size + 24) > get_max_size(type, size))
+			if ((page->size + size + 32) > get_max_size(type, size))
 			{
 				page->full = 1;
 				return (NULL);
 			}
 			else
 			{
-				page->size += size + 24;
+				page->size += size + 32;
 				return (page);
 			}
 		}
@@ -96,6 +96,6 @@ void	*get_malloc(size_t size)
 	else if ((page = find_page(size)) != NULL)
 		return (block_init(page->start, size));
 	page = page_push(g_env.page, size);
-	page->size += size + 24;
+	page->size += size + 32;
 	return (block_init(page->start, size));
 }
