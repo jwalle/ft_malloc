@@ -15,6 +15,8 @@
 # include <limits.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 # define Mo (1024 * 1024)
 
 void	print(char *s)
@@ -139,18 +141,22 @@ int main(int ac, char **av)
 	}
 	else
 	{
-		//char str[2048];
-		//int fd;
+		char str[2048];
+		int fd;
 
 		system("./print_win.sh");
 		printf("Press a key to start the test.\n");
 		getchar();
 		printf("test 0 : \n");
 		system("/usr/bin/time -l ./test test0 2> ./test0.txt");
-		//fd = open("./test0.txt", O_RDONLY);
+		fd = open("./test0.txt", O_RDONLY);
+		while (read(fd, str, 48))
+			puts(str);
+		//	if (strstr(str, "reclaims"))
+
 		//dprintf(fd, "%s", str);
 		//scanf("%s", str);
-		//puts(str);
+		
 		getchar();
 		printf("test 1 : \n");
 		system("/usr/bin/time -l ./test test1");
