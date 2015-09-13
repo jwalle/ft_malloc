@@ -14,14 +14,21 @@
 # include <time.h>
 # include <limits.h>
 # include <stdio.h>
-#define SHELLSCRIPT "\
-#/bin/bash \n \
-echo \"hello\" \
-"
 
-void	print_windows(void)
+int test2(void)
 {
+	char	*addr;
+	int		i;
 
+	i = 0;
+	while (i < 1024)
+	{
+		addr = (char*)malloc(1024);
+		addr[0] = 42;
+		free(addr);
+		i++;
+	}
+	return (0);
 }
 
 int test1(void)
@@ -51,9 +58,23 @@ int test0(void)
 	return (0);
 }
 
-int main(void)
+int main(int ac, char **av)
 {
-	system("./print_win.sh");
-	test1();
+	if (ac == 2)
+	{
+		if (!strcmp(av[1], "test0"))
+			test0();
+	}
+	else
+	{
+		system("./print_win.sh");
+		printf("Press a key to start the test.\n");
+		getchar();
+		printf("test 0 : \n");
+		getchar();
+		system("/usr/bin/time -l ./test test0");
+	}
+
+
 	return (0);
 }
