@@ -65,7 +65,7 @@ void	*realloc(void *ptr, size_t size)
 	header = (t_header *)ptr - 1;
 	if (!header->size)
 		print_error("can't realloc this either");
-	page = find_ptr_in_page(ptr);
+	page = find_ptr_in_page(header);
 	if (size > header->size)
 		return (bigger_realloc(size, header, page, ptr));
 	else if (size < header->size)

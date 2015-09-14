@@ -85,7 +85,7 @@ void					*realloc(void *ptr, size_t size);
 size_t					get_max_size(char type, size_t size);
 void					print_error(char *str);
 char					ft_get_type(size_t size);
-t_page					*find_ptr_in_page(void *ptr);
+t_page					*find_ptr_in_page(t_header *header);
 
 
 #endif

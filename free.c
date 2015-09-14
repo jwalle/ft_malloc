@@ -22,9 +22,7 @@ int	free_page(t_page *page)
 		if (page == g_env.page)
 		{
 			g_env.page = page->next;
-			page->start = NULL;
-			return (munmap((void *)page,
-				page->size + 40) != 0);
+			return (munmap((void *)page, page->size + 40));
 		}
 		else
 		{
@@ -33,8 +31,7 @@ int	free_page(t_page *page)
 				if (find->next == page)
 				{
 					find->next = page->next;
-					return (munmap((void *)page,
-						get_max_size(page->type, page->size) + 40) != 0);
+					return (munmap((void *)page, page->size + 40));
 				}
 				find = find->next;
 			}
@@ -62,7 +59,7 @@ int		page_is_empty(t_page *page)
 	return (i);
 }
 
-t_page	*find_ptr_in_page(void *ptr)
+t_page	*find_ptr_in_page(t_header *header)
 {
 	t_header	*needle;
 	t_page		*page;
@@ -72,10 +69,12 @@ t_page	*find_ptr_in_page(void *ptr)
 		page = g_env.page;
 		while (page)
 		{
+		printf("BORDEL\n");
+
 			needle = page->start;
 			while (needle)
 			{
-				if (needle + 1 == ptr)
+				if (needle == header)
 					return (page);
 				needle = needle->next;
 			}
@@ -96,9 +95,12 @@ void	free(void *ptr)
 	if (!header->size)
 		print_error("can't free this either");
 	header->free = 1;
-	ft_bzero(ptr, header->size);
-	page = find_ptr_in_page(ptr);
-	page->size -= header->size;
+	//ft_bzero(ptr, header->size);
+	//page = find_ptr_in_page(ptr);
+	page = find_ptr_in_page(header);
+	printf("DDDDD\n");
+	printf("page size = %zu\n", page->size);
+	//page->size -= header->size;
 	if (page->type == LARGE)
 	{
 		if (free_page(page) != 0)
