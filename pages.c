@@ -38,6 +38,7 @@ t_page	*page_push(t_page *first, size_t size)
 	type = ft_get_type(size);
 	if (!first)
 	{
+		// printf("%zu\n", get_max_size(type, size) + 40);
 		first = (void *)mmap(0, get_max_size(type, size) + 40, FLAGS);
 		if (first == MAP_FAILED)
 			print_error("MAPPING FAILED");

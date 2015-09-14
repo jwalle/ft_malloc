@@ -92,16 +92,6 @@ int test2(void)
 		free(addr);
 		i++;
 	}
-	/*i = 0;
-	while (i < 1024)
-	{
-		printf("PLPOPo\n");
-		//addr = mmap(0, 1024, FLAGS);
-		//munmap(addr, 1024);
-		free(addr[i]);
-		i++;
-	}
-	free(addr);*/
 	return (0);
 }
 
@@ -132,6 +122,14 @@ int test0(void)
 	return (0);
 }
 
+int	page_reclaim(char *str)
+{
+	puts(str);
+	if (strstr(str, "page reclaims") != NULL)
+		return (1);
+	return (0);
+}
+
 int main(int ac, char **av)
 {
 	if (ac == 2)
@@ -154,21 +152,38 @@ int main(int ac, char **av)
 	else
 	{
 		char str[2048];
-		int fd;
+		//int fd;
+		//int t[3];
+		char second[512];
+		char number[512];
+		FILE *file;
 
 		system("./print_win.sh");
 		printf("Press a key to start the test.\n");
 		getchar();
 		printf("test 0 : \n");
-		system("/usr/bin/time -l ./test test0 2> ./test0.txt");
-		fd = open("./test0.txt", O_RDONLY);
-		while (read(fd, str, 2048))
-			puts(str);
-		//	if (strstr(str, "reclaims"))
-
-		//dprintf(fd, "%s", str);
-		//scanf("%s", str);
+		system("/usr/bin/time -l ./test test0 > test0.txt");
 		
+		file = fopen("test0.txt", "r+");
+		fgets(str, 2048, file);
+		
+			printf("PLPOPO\n");
+			puts(str);
+			sscanf(str, "%s %s", number, second);
+			if (!strcmp(second, "page reclaim"))
+				printf("number = %s\n", number);
+		
+
+
+
+
+		/*fd = open("./test0.txt", O_RDONLY);
+		while (read(fd, str, 2048))
+		{
+			fscanf(s);
+			t[0] = page_reclaim(str);
+		}*/
+		//printf("%i\n", t[0]);
 		getchar();
 		printf("test 1 : \n");
 		system("/usr/bin/time -l ./test test1");
