@@ -40,6 +40,7 @@ t_page	*page_push(t_page *first, size_t size)
 	if (!first)
 	{
 		first = (void *)mmap(0, get_max_size(type, size) + 40, FLAGS);
+		printf("pointer = %p\n", first);
 		if (first == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		first = set_page(first, type);

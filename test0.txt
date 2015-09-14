@@ -1,9 +1,9 @@
         0.00 real         0.00 user         0.00 sys
-    561152  maximum resident set size
+    552960  maximum resident set size
          0  average shared memory size
          0  average unshared data size
          0  average unshared stack size
-       145  page reclaims
+       143  page reclaims
          0  page faults
          0  swaps
          0  block input operations

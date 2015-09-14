@@ -150,7 +150,7 @@ int main(int ac, char **av)
 		printf("test 0 : \n");
 		system("/usr/bin/time -l ./test test0 2> ./test0.txt");
 		fd = open("./test0.txt", O_RDONLY);
-		while (read(fd, str, 48))
+		while (read(fd, str, 2048))
 			puts(str);
 		//	if (strstr(str, "reclaims"))
 
