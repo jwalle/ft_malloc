@@ -69,8 +69,6 @@ t_page	*find_ptr_in_page(t_header *header)
 		page = g_env.page;
 		while (page)
 		{
-		printf("BORDEL\n");
-
 			needle = page->start;
 			while (needle)
 			{
@@ -95,13 +93,9 @@ void	free(void *ptr)
 	if (!header->size)
 		print_error("can't free this either");
 	header->free = 1;
-	//ft_bzero(ptr, header->size);
-	//page = find_ptr_in_page(ptr);
+	ptr = NULL;
 	page = find_ptr_in_page(header);
-	printf("DDDDD\n");
-	printf("page size = %zu\n", page->size);
-	//page->size -= header->size;
-	if (page->type == LARGE)
+	if (page_is_empty(page))
 	{
 		if (free_page(page) != 0)
 			print_error("free error");

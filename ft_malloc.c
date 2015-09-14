@@ -41,6 +41,7 @@ void	*malloc(size_t size)
 
 	if (g_env.set != 42)
 		init_global();
+	//size = TINY_SIZE;
 	get_limit(size);
 	//printf("COUCOUC JE RENTRE DANS MALLOC\n");
 	//show_alloc_mem();

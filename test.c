@@ -79,21 +79,20 @@ int		test3(void)
 
 int test2(void)
 {
-	char	**addr;
+	char	*addr;
 	int		i;
 
 	i = 0;
-	addr = (char **)malloc(1024);
 	while (i < 1024)
 	{
 		//addr = mmap(0, 1024, FLAGS);
-		addr[i] = (char*)malloc(1024);
-		addr[i][0] = 42;
+		addr = (char*)malloc(1024);
+		addr[0] = 42;
 		//munmap(addr, 1024);
-		//free(addr);
+		free(addr);
 		i++;
 	}
-	i = 0;
+	/*i = 0;
 	while (i < 1024)
 	{
 		printf("PLPOPo\n");
@@ -102,7 +101,7 @@ int test2(void)
 		free(addr[i]);
 		i++;
 	}
-	free(addr);
+	free(addr);*/
 	return (0);
 }
 
