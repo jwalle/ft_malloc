@@ -38,7 +38,7 @@ t_page	*page_push(t_page *first, size_t size)
 	type = ft_get_type(size);
 	if (!first)
 	{
-		first = (void *)mmap(0, get_max_size(type, size) + 32, FLAGS);
+		first = (void *)mmap(0, get_max_size(type, size) + 40, FLAGS);
 		if (first == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		first = set_page(first, type);
@@ -48,7 +48,7 @@ t_page	*page_push(t_page *first, size_t size)
 		tmp = first;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = (void *)mmap(0, get_max_size(type, size) + 32, FLAGS);
+		tmp->next = (void *)mmap(0, get_max_size(type, size) + 40, FLAGS);
 		if (tmp->next == MAP_FAILED)
 			print_error("MAPPING FAILED");
 		tmp->next = set_page(tmp->next, type);

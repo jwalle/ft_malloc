@@ -3,7 +3,7 @@
          0  average shared memory size
          0  average unshared data size
          0  average unshared stack size
-       144  page reclaims
+       143  page reclaims
          0  page faults
          0  swaps
          0  block input operations
