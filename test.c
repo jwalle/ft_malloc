@@ -83,7 +83,7 @@ int test2(void)
 	int		i;
 
 	i = 0;
-	while (i < 512)
+	while (i < 1)
 	{
 		addr = (char*)malloc(1024);
 		addr[0] = 42;
