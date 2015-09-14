@@ -23,7 +23,7 @@ void	free_page(t_page *page)
 		if (page == g_env.page)
 		{
 			g_env.page = page->next;
-			printf("size free = %zu\n", get_max_size(page->type, page->size) + 40);
+			// printf("size free = %zu\n", get_max_size(page->type, page->size) + 40);
 			munmap((void *)page, get_max_size(page->type, page->size) + 40);
 			page = NULL;
 			return ;
