@@ -85,8 +85,10 @@ int test2(void)
 	i = 0;
 	while (i < 1024)
 	{
+		//addr = mmap(0, 1024, FLAGS);
 		addr = (char*)malloc(1024);
 		addr[0] = 42;
+		//munmap(addr, 1024);
 		free(addr);
 		i++;
 	}

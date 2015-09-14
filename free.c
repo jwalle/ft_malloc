@@ -24,7 +24,7 @@ int	free_page(t_page *page)
 			g_env.page = page->next;
 			page->start = NULL;
 			return (munmap((void *)page,
-				get_max_size(page->type,page->size) + 40) != 0);
+				page->size + 40) != 0);
 		}
 		else
 		{
@@ -99,7 +99,7 @@ void	free(void *ptr)
 	ft_bzero(ptr, header->size);
 	page = find_ptr_in_page(ptr);
 	page->size -= header->size;
-	if (!page_is_empty(page))
+	if (page->type == LARGE)
 	{
 		if (free_page(page) != 0)
 			print_error("free error");
