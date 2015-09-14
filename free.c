@@ -13,20 +13,17 @@
 #include "ft_malloc.h"
 
 
-void	free_page(t_page *page)
+int	free_page(t_page *page)
 {
 	t_page	*find;
 
-	find = g_env.page;
-	if (g_env.page)
+	if ((find = g_env.page))
 	{
 		if (page == g_env.page)
 		{
 			g_env.page = page->next;
-			// printf("size free = %zu\n", get_max_size(page->type, page->size) + 40);
-			munmap((void *)page, get_max_size(page->type, page->size) + 40);
-			page = NULL;
-			return ;
+			return (munmap((void *)page,
+				get_max_size(page->type,page->size) + 40) != 0);
 		}
 		else
 		{
@@ -35,14 +32,14 @@ void	free_page(t_page *page)
 				if (find->next == page)
 				{
 					find->next = page->next;
-					munmap(page, get_max_size(page->type, page->size) + 40);
-					return ;
+					return (munmap((void *)page,
+						get_max_size(page->type, page->size) + 40) != 0);
 				}
 				find = find->next;
 			}
 		}
 	}
-
+	return (1);
 }
 
 int		page_is_empty(t_page *page)
@@ -102,5 +99,8 @@ void	free(void *ptr)
 	page = find_ptr_in_page(ptr);
 	page->size -= header->size;
 	if (!page_is_empty(page))
-		free_page(page);
+	{
+		if (free_page(page) != 0)
+			print_error("free error");
+	}
 }
