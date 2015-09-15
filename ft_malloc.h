@@ -16,7 +16,7 @@
 # include <sys/resource.h>
 # include <sys/mman.h>
 # include "libft.h"
-# include <stdio.h> // PRINTF A RETIRER
+//# include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
 # include <time.h>
 # include <pthread.h>
@@ -37,8 +37,8 @@
 # define TINY_SIZE	(size_t)(PAGE_SIZE)
 # define SMALL_SIZE	(size_t)(PAGE_SIZE * 20)
 
-# define TINY_SIZE_MAX TINY_SIZE * 110
-# define SMALL_SIZE_MAX SMALL_SIZE * 110
+# define TINY_SIZE_MAX TINY_SIZE * 101
+# define SMALL_SIZE_MAX SMALL_SIZE * 101
 
 typedef struct			s_page
 {

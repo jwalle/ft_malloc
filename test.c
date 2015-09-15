@@ -85,10 +85,10 @@ int test2(void)
 	i = 0;
 	while (i < 1024)
 	{
-		//addr = mmap(0, 1024, FLAGS);
+		// addr = mmap(0, 1024, FLAGS);
 		addr = (char*)malloc(1024);
 		addr[0] = 42;
-		//munmap(addr, 1024);
+		// munmap(addr, 1024);
 		free(addr);
 		i++;
 	}
@@ -164,37 +164,37 @@ int main(int ac, char **av)
 		system("tput civis");
 		print("Press a key to start the test.\n");
 		getchar();
-		print("test 0 : \n");
+		print("test 0 :\n");
 		system("/usr/bin/time -l ./test test0 2> test0.txt");
 		system("cat test0.txt");
 		FILE *pipe0 = popen("cat test0.txt | grep \"page reclaims\" | cut -d 'p' -f 1", "r");	
 		t[0] = page_reclaim(pipe0);
 		getchar();
-		print("test 1 : \n");
+		print("test 1 :\n");
 		system("/usr/bin/time -l ./test test1 2> test1.txt");
 		system("cat test1.txt");
 		FILE *pipe1 = popen("cat test1.txt | grep \"page reclaims\" | cut -d 'p' -f 1", "r");	
 		t[1] = page_reclaim(pipe1);
 		getchar();
-		print("test 2 : \n");
+		print("test 2 :\n");
 		system("/usr/bin/time -l ./test test2 2> test2.txt");
 		system("cat test2.txt");
 		FILE *pipe2 = popen("cat test2.txt | grep \"page reclaims\" | cut -d 'p' -f 1", "r");	
 		t[2] = page_reclaim(pipe2);
 		getchar();
 		printf("Difference of page reclaims between test0 and test1 : %i\n\n", t[1] - t[0]);
-		printf("Difference of page reclaims between test0 and test2 : %i\n", t[2] - t[0]);
+		printf("Difference of page reclaims between test0 and test2 : %i\n\n", t[2] - t[0]);
 		getchar();
-		print("test 3 : \n");	
+		print("test 3 :\n");	
 		system("./test test3");
 		getchar();
-		print("test 3bis : \n");
+		print("test 3bis :\n");
 		system("./test test3bis");
 		getchar();
-		print("test 4 : \n");
+		print("test 4 :\n");
 		system("./test test4");
 		getchar();
-		print("test 5 : \n");
+		print("test 5 :\n");
 		system("./test test5");
 		system("tput cnorm");
 	}

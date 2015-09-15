@@ -16,7 +16,7 @@ void	*calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
-	ptr = get_malloc(count * size);
+	ptr = malloc(count * size);
 	ft_bzero(ptr, count * size);
 	return (ptr);
 }
@@ -25,7 +25,7 @@ void	*smaller_realloc(size_t size, void *ptr)
 {
 	void	*tmp;
 
-	tmp = get_malloc(size);
+	tmp = malloc(size);
 	ptr = ft_memcpy(tmp, ptr, size);
 	return (ptr);
 }
@@ -45,7 +45,7 @@ void	*bigger_realloc(size_t size, t_header *header, t_page *page, void *ptr)
 			}
 		}
 	}
-	tmp = get_malloc(size);
+	tmp = malloc(size);
 	ptr = ft_memcpy(tmp, ptr, header->size);
 	return (ptr);
 }
@@ -56,11 +56,11 @@ void	*realloc(void *ptr, size_t size)
 	t_page		*page;
 
 	if (!ptr)
-		return (get_malloc(size));
+		return (malloc(size));
 	if (!size && ptr)
 	{
 		free(ptr);
-		return (get_malloc(TINY_SIZE));
+		return (malloc(TINY_SIZE));
 	}
 	header = (t_header *)ptr - 1;
 	if (!header->size)
