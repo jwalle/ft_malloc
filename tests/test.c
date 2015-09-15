@@ -6,11 +6,11 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/25 16:11:02 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/09/15 17:20:54 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../ft_malloc.h"
+# include "../includes/ft_malloc.h"
 # include <time.h>
 # include <limits.h>
 # include <stdio.h>	

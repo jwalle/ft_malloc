@@ -6,7 +6,7 @@
 #    By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/05 11:39:59 by jwalle            #+#    #+#              #
-#    Updated: 2015/08/17 15:07:48 by jwalle           ###   ########.fr        #
+#    Updated: 2015/09/15 17:18:54 by jwalle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 	
@@ -19,7 +19,7 @@ LS = libft_malloc.so
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-SRCDIR = ./
+SRCDIR = ./srcs/
 SRCO = $(SRC:.c=.o)
 ODIR = ./objs/
 LIB = ./libft/libft.a
