@@ -63,6 +63,7 @@ typedef struct			s_env
 }						t_env;
 
 extern t_env			g_env;
+pthread_mutex_t			g_lock;
 
 void					set_header(size_t size, t_header *header, void *next);
 void					print_stuff_two(void *ptr, size_t size, time_t time);

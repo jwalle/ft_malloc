@@ -58,6 +58,7 @@ void	swho_alloc_mem_ex(void)
 	t_header	*header;
 	t_page		*page;
 
+	pthread_mutex_lock(&g_lock);
 	if (g_env.page)
 	{
 		page = g_env.page;
@@ -77,6 +78,7 @@ void	swho_alloc_mem_ex(void)
 			page = page->next;
 		}
 	}
+	pthread_mutex_unlock(&g_lock);
 }
 
 void	show_alloc_mem(void)
@@ -84,6 +86,7 @@ void	show_alloc_mem(void)
 	t_header	*header;
 	t_page		*page;
 
+	pthread_mutex_lock(&g_lock);
 	if (g_env.page)
 	{
 		page = g_env.page;
@@ -97,10 +100,11 @@ void	show_alloc_mem(void)
 			while (header)
 			{
 				if (!header->free)
-					print_stuff_two(header + 1, header->size, header->time);
+					print_stuff(header + 1, header->size);
 				header = header->next;
 			}
 			page = page->next;
 		}
 	}
+	pthread_mutex_unlock(&g_lock);
 }

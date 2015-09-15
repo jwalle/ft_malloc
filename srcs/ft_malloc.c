@@ -13,7 +13,7 @@
 #include "ft_malloc.h"
 
 t_env			g_env;
-pthread_mutex_t	g_lock;
+pthread_mutex_t	g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 void	get_limit(size_t size)
 {
@@ -41,8 +41,8 @@ void	*malloc(size_t size)
 
 	if (g_env.set != 42)
 		init_global();
-	get_limit(size);
 	pthread_mutex_lock(&g_lock);
+	get_limit(size);
 	ptr = get_malloc(size);
 	pthread_mutex_unlock(&g_lock);
 	return (ptr);

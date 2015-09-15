@@ -88,9 +88,10 @@ void	free(void *ptr)
 
 	if (!ptr)
 		print_error("can't free this");
+	pthread_mutex_lock(&g_lock);
 	header = (t_header*)ptr - 1;
 	if (!header->size)
-		print_error("can't free this either");
+		print_error("can't free a pointer that wasn't malloced");
 	header->free = 1;
 	ptr = NULL;
 	page = find_ptr_in_page(header);
@@ -100,4 +101,5 @@ void	free(void *ptr)
 			print_error("free error");
 		page = NULL;
 	}
+	pthread_mutex_unlock(&g_lock);
 }
