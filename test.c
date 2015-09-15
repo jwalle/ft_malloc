@@ -153,7 +153,7 @@ int main(int ac, char **av)
 	{
 		char str[2048];
 		//int fd;
-		//int t[3];
+		int t[3];
 		char second[512];
 		char number[512];
 		FILE *file;
@@ -162,21 +162,26 @@ int main(int ac, char **av)
 		printf("Press a key to start the test.\n");
 		getchar();
 		printf("test 0 : \n");
-		system("/usr/bin/time -l ./test test0 > test0.txt");
-		
-		file = fopen("test0.txt", "r+");
+		system("/usr/bin/time -l ./test test0 2> test0.txt");
+		system("cat test0.txt");
+		t[1] = 
+
+
+
+
+		/*file = fopen("test0.txt", "r+");
 		fgets(str, 2048, file);
 		
-			printf("PLPOPO\n");
-			puts(str);
-			sscanf(str, "%s %s", number, second);
-			if (!strcmp(second, "page reclaim"))
-				printf("number = %s\n", number);
+		printf("PLPOPO\n");
+		puts(str);
+		sscanf(str, "%s %s", number, second);
+		if (!strcmp(second, "page reclaim"))
+			printf("number = %s\n", number);
 		
 
 
 
-
+*/
 		/*fd = open("./test0.txt", O_RDONLY);
 		while (read(fd, str, 2048))
 		{
