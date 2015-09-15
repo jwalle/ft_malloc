@@ -12,8 +12,7 @@
 
 #include "ft_malloc.h"
 
-
-int	free_page(t_page *page)
+int		free_page(t_page *page)
 {
 	t_page	*find;
 

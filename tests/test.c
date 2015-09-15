@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_malloc.h"
+# include "../ft_malloc.h"
 # include <time.h>
 # include <limits.h>
 # include <stdio.h>	
@@ -160,7 +160,7 @@ int main(int ac, char **av)
 	{
 		int t[3];
 
-		system("./print_win.sh");
+		system("./tests/print_win.sh");
 		system("tput civis");
 		print("Press a key to start the test.\n");
 		getchar();

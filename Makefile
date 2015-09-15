@@ -84,7 +84,7 @@ fclean: clean
 re: fclean all
 
 test: re
-	gcc $(CFLAGS) -o test test.c $(LINK) $(NAME) $(INC) -g
+	gcc $(CFLAGS) -o test ./tests/test.c $(LINK) $(NAME) $(INC) -g
 	#./test X 10
 
 lemin: re
