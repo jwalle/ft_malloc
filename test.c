@@ -162,7 +162,7 @@ int main(int ac, char **av)
 
 		system("./print_win.sh");
 		system("tput civis");
-		printf("Press a key to start the test.\n");
+		print("Press a key to start the test.\n");
 		getchar();
 		printf("test 0 : \n");
 		system("/usr/bin/time -l ./test test0 2> test0.txt");
