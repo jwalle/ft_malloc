@@ -196,6 +196,7 @@ int main(int ac, char **av)
 		getchar();
 		print("test 5 :\n");
 		system("./test test5");
+		system("rm -rf test0.txt test1.txt test2.txt");
 		system("tput cnorm");
 	}
 	return (0);
