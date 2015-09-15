@@ -34,66 +34,48 @@ function title()
 	start=$(((cols / 2) - 22))
 	echo "\033[1m\033[8;"$start"HAppuyer sur Enter pour faire défiler les test\033[0m"
 }
-
-function	set_env()
-{
-	echo "\033[1;4;44;32mSET_ENV\033[0m"
-	export DYLD_LIBRARY_PATH=.
-	export DYLD_INSERT_LIBRARIES="libft_malloc.so"
-	export DYLD_FORCE_FLAT_NAMESPACE=1
-}
-
-function	unset_env()
-{
-	echo "\033[1;5;42;32mUNSET_ENV\033[0m"
-	unset DYLD_LIBRARY_PATH
-	unset DYLD_INSERT_LIBRARIES
-	unset DYLD_FORCE_FLAT_NAMESPACE
-}
-
-#export DYLD_LIBRARY_PATH=.
-#export DYLD_INSERT_LIBRARIES="libft_malloc.so"
-#export DYLD_FORCE_FLAT_NAMESPACE=1
-#set_env
+export DYLD_LIBRARY_PATH=.
+export DYLD_INSERT_LIBRARIES="libft_malloc.so"
+export DYLD_FORCE_FLAT_NAMESPACE=1
 if [ $1 = "all" ]
 then
-	title	
+	title
 	tput civis
 	read -s tmp
 	echo ""
 	echo "\033[1;4;44;32mTest 0:\033[0m"
 	/usr/bin/time -l ./test0 2> /tmp/tmp
-	#unset DYLD_FORCE_FLAT_NAMESPACE
+	unset DYLD_FORCE_FLAT_NAMESPACE
 	cat /tmp/tmp
 	VAL1=$(cat /tmp/tmp | grep "page reclaims" | cut -d 'p' -f 1 | bc)
-	#export DYLD_FORCE_FLAT_NAMESPACE=1
+	export DYLD_FORCE_FLAT_NAMESPACE=1
 	read -s tmp
 	echo ""
 	echo "\033[1;4;44;32mTest 1:\033[0m"
 	/usr/bin/time -l ./test1 2> /tmp/tmp
-	#unset DYLD_FORCE_FLAT_NAMESPACE
+	unset DYLD_FORCE_FLAT_NAMESPACE
 	cat /tmp/tmp
 	VAL2=$(cat /tmp/tmp | grep "page reclaims" | cut -d 'p' -f 1 | bc)
-	#export DYLD_FORCE_FLAT_NAMESPACE=1
+	export DYLD_FORCE_FLAT_NAMESPACE=1
 	read -s tmp
 	echo ""
 	echo "\033[1;4;44;32mTest 2:\033[0m"
 	/usr/bin/time -l ./test2 2> /tmp/tmp
-	#unset DYLD_FORCE_FLAT_NAMESPACE
+	unset DYLD_FORCE_FLAT_NAMESPACE
 	cat /tmp/tmp
 	VAL3=$(cat /tmp/tmp | grep "page reclaims" | cut -d 'p' -f 1 | bc)
-	#export DYLD_FORCE_FLAT_NAMESPACE=1
+	export DYLD_FORCE_FLAT_NAMESPACE=1
 	read -s tmp
 	echo ""
 	echo "\033[1;4;44;32mBILAN Test0, Test1, Test2:\033[0m"
 	echo "-> Différence entre le nombre de page reclaims entre Test0 et Test1"
-	#unset DYLD_FORCE_FLAT_NAMESPACE
+	unset DYLD_FORCE_FLAT_NAMESPACE
 	VAL4=$(echo $VAL2 "-" $VAL1 | bc)
 	echo "\t" $VAL4
 	echo "-> Différence entre le nombre de page reclaims entre Test0 et Test2"
 	VAL4=$(echo $VAL3 "-" $VAL1 | bc)
 	echo "\t" $VAL4
-	#export DYLD_FORCE_FLAT_NAMESPACE=1
+	export DYLD_FORCE_FLAT_NAMESPACE=1
 	read -s tmp
 	title
 	echo ""
@@ -108,7 +90,7 @@ then
 	echo "\033[1;4;44;32mTest 4:\033[0m"
 	./test4
 	read -s tmp
-	#unset DYLD_FORCE_FLAT_NAMESPACE
+	unset DYLD_FORCE_FLAT_NAMESPACE
 	title
 	echo ""
 	echo "\033[1;4;44;32mTest 5:\033[0m"
