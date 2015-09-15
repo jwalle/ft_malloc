@@ -151,12 +151,12 @@ int main(int ac, char **av)
 	}
 	else
 	{
-		char str[2048];
+	//	char str[2048];
 		//int fd;
-		int t[3];
-		char second[512];
-		char number[512];
-		FILE *file;
+	//	int t[3];
+	//	char second[512];
+//		char number[512];
+	//	FILE *file;
 
 		system("./print_win.sh");
 		printf("Press a key to start the test.\n");
@@ -164,10 +164,19 @@ int main(int ac, char **av)
 		printf("test 0 : \n");
 		system("/usr/bin/time -l ./test test0 2> test0.txt");
 		system("cat test0.txt");
-		t[1] = 
+		//t[1] = scanf("%i", )
 
+		FILE *pipe = popen("cat test0.txt | grep \"page reclaims\"", "r");
+		char buffer[128];
 
-
+		if (pipe)
+		{
+			while (!feof(pipe))
+				if (fgets(buffer, 128, pipe) != NULL) {}
+		}
+		pclose(pipe);
+		buffer[strlen(buffer) - 1] = 0;
+		puts(buffer);
 
 		/*file = fopen("test0.txt", "r+");
 		fgets(str, 2048, file);
