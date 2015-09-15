@@ -16,7 +16,6 @@
 # include <sys/resource.h>
 # include <sys/mman.h>
 # include "libft.h"
-//# include <stdio.h> // PRINTF A RETIRER
 # include <errno.h>
 # include <time.h>
 # include <pthread.h>
