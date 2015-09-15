@@ -122,12 +122,19 @@ int test0(void)
 	return (0);
 }
 
-int	page_reclaim(char *str)
+int	page_reclaim(FILE *pipe)
 {
-	puts(str);
-	if (strstr(str, "page reclaims") != NULL)
-		return (1);
-	return (0);
+	char buffer[128];
+
+	if (pipe)
+	{
+		while (!feof(pipe))
+			if (fgets(buffer, 128, pipe) != NULL) {}
+	}
+	pclose(pipe);
+	buffer[strlen(buffer) - 1] = 0;
+
+	return (atoi(buffer));
 }
 
 int main(int ac, char **av)
@@ -151,59 +158,32 @@ int main(int ac, char **av)
 	}
 	else
 	{
-	//	char str[2048];
-		//int fd;
-	//	int t[3];
-	//	char second[512];
-//		char number[512];
-	//	FILE *file;
+		int t[3];
 
 		system("./print_win.sh");
+		system("tput civis");
 		printf("Press a key to start the test.\n");
 		getchar();
 		printf("test 0 : \n");
 		system("/usr/bin/time -l ./test test0 2> test0.txt");
 		system("cat test0.txt");
-		//t[1] = scanf("%i", )
-
-		FILE *pipe = popen("cat test0.txt | grep \"page reclaims\"", "r");
-		char buffer[128];
-
-		if (pipe)
-		{
-			while (!feof(pipe))
-				if (fgets(buffer, 128, pipe) != NULL) {}
-		}
-		pclose(pipe);
-		buffer[strlen(buffer) - 1] = 0;
-		puts(buffer);
-
-		/*file = fopen("test0.txt", "r+");
-		fgets(str, 2048, file);
-		
-		printf("PLPOPO\n");
-		puts(str);
-		sscanf(str, "%s %s", number, second);
-		if (!strcmp(second, "page reclaim"))
-			printf("number = %s\n", number);
-		
-
-
-
-*/
-		/*fd = open("./test0.txt", O_RDONLY);
-		while (read(fd, str, 2048))
-		{
-			fscanf(s);
-			t[0] = page_reclaim(str);
-		}*/
-		//printf("%i\n", t[0]);
+		FILE *pipe0 = popen("cat test0.txt | grep \"page reclaims\" | cut -d 'p' -f 1", "r");	
+		t[0] = page_reclaim(pipe0);
 		getchar();
 		printf("test 1 : \n");
-		system("/usr/bin/time -l ./test test1");
+		system("/usr/bin/time -l ./test test1 2> test1.txt");
+		system("cat test1.txt");
+		FILE *pipe1 = popen("cat test1.txt | grep \"page reclaims\" | cut -d 'p' -f 1", "r");	
+		t[1] = page_reclaim(pipe1);
 		getchar();
 		printf("test 2 : \n");
-		system("/usr/bin/time -l ./test test2");
+		system("/usr/bin/time -l ./test test2 2> test2.txt");
+		system("cat test2.txt");
+		FILE *pipe2 = popen("cat test2.txt | grep \"page reclaims\" | cut -d 'p' -f 1", "r");	
+		t[2] = page_reclaim(pipe2);
+		getchar();
+		printf("Difference of page reclaims between test0 and test1 : %i\n\n", t[1] - t[0]);
+		printf("Difference of page reclaims between test0 and test2 : %i\n", t[2] - t[0]);
 		getchar();
 		printf("test 3 : \n");	
 		system("./test test3");
@@ -216,6 +196,7 @@ int main(int ac, char **av)
 		getchar();
 		printf("test 5 : \n");
 		system("./test test5");
+		system("tput cnorm");
 	}
 	return (0);
 }
