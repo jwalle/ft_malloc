@@ -104,6 +104,7 @@ void		free(void *ptr)
 		return ;
 	if ((header = find_header(ptr, page)) == NULL)
 		return ;
+	printf("page type = %c, header size = %zu\n", page->type, header->size);
 	pthread_mutex_lock(&g_lock);
 	if (page->type == LARGE && free_page(page) != 0)
 	{
