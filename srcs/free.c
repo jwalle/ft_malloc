@@ -112,7 +112,10 @@ void	free(void *ptr)
 	if (page->type == LARGE)
 	{
 		if (free_page(page) != 0)
+		{
+			pthread_mutex_unlock(&g_lock);
 			return ;
+		}
 		page = NULL;
 	}
 	header->free = 1;
