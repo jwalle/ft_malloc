@@ -58,31 +58,6 @@ int		page_is_empty(t_page *page)
 	return (i);
 }
 
-// t_page	*find_ptr_in_page(t_header *header)
-// {
-// 	t_header	*needle;
-// 	t_page		*page;
-
-// 	if ((page = g_env.page))
-// 	{
-// 		while (page)
-// 		{
-// 			needle = page->start;
-// 			while (needle)
-// 			{
-// 				if (needle == header)
-// 				{
-// 					printf("2\n");
-// 					return (page);
-// 				}
-// 				needle = needle->next;
-// 			}
-// 			page = page->next;
-// 		}
-// 	}
-// 	return (NULL);
-// }
-
 t_page	*find_ptr_in_page(void *ptr)
 {
 	t_page		*page;
@@ -92,10 +67,7 @@ t_page	*find_ptr_in_page(void *ptr)
 		while (page)
 		{
 			if (ptr > (void *)page->start && ptr < (void *)page->start + page->size)
-			{
-				//printf("2\n");
 				return (page);
-			}
 			page = page->next;
 		}
 	}
@@ -116,10 +88,7 @@ t_header	*find_header(void *ptr)
 			while (needle)
 			{
 				if ((needle = ptr - sizeof(t_header)) != NULL)
-				{
-					//printf("header size = %zu\n", needle->size);
 					return (needle);
-				}
 				needle = needle->next;
 			}
 			page = page->next;
@@ -134,12 +103,8 @@ void	free(void *ptr)
 	t_page		*page;
 
 	if (!ptr)
-		//print_error("This is not a pointer");
 		return ;
-	//header = (t_header*)ptr - 1;
-
 	if ((header = find_header(ptr)) == NULL)
-		//print_error("can't free a pointer that wasn't malloced");
 		return ;
 	if ((page = find_ptr_in_page(header)) == NULL)
 		return ;
@@ -147,7 +112,7 @@ void	free(void *ptr)
 	if (page->type == LARGE)
 	{
 		if (free_page(page) != 0)
-			print_error("free error");
+			return ;
 		page = NULL;
 	}
 	header->free = 1;
