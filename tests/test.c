@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/09/15 17:20:54 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/09/19 15:46:47 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,34 @@
 void	print(char *s)
 {
 	write(1, s, strlen(s));
+}
+
+int test_ex(void)
+{
+	int i = 0;
+
+	while (i < 101)
+	{
+		malloc(1024 * 2);
+		i++;
+	}
+	malloc(1024);
+	malloc(1024);
+	malloc(1024);
+	malloc(1024 * 32);
+	malloc(1024 * 32);
+	malloc(1024 * 32);
+	malloc(1024 * 32);
+	malloc(1024 * 32);
+	malloc(1024 * 32);
+	malloc(1024 * 1024);
+	malloc(1024 * 1024);
+	malloc(1024 * 1024 * 1024);
+	malloc(1024 * 1024 * 128);
+	malloc(1024 * 1024 * 128);
+	malloc(1024 * 1024 * 128);
+	show_alloc_mem_ex();
+	return (0);
 }
 
 int test5(void)
@@ -155,6 +183,8 @@ int main(int ac, char **av)
 			test4();
 		if (!strcmp(av[1], "test5"))
 			test5();
+		if (!strcmp(av[1], "test_ex"))
+			test_ex();
 	}
 	else
 	{

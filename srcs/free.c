@@ -12,7 +12,7 @@
 
 #include "ft_malloc.h"
 
-int		free_page(t_page *page)
+int			free_page(t_page *page)
 {
 	t_page	*find;
 
@@ -39,7 +39,7 @@ int		free_page(t_page *page)
 	return (1);
 }
 
-int		page_is_empty(t_page *page)
+int			page_is_empty(t_page *page)
 {
 	t_header	*header;
 	int			i;
@@ -58,64 +58,64 @@ int		page_is_empty(t_page *page)
 	return (i);
 }
 
-t_page	*find_ptr_in_page(void *ptr)
+t_page		*find_ptr_in_page(void *ptr)
 {
-	t_page		*page;
+	t_page	*pg;
 
-	if ((page = g_env.page))
+	if (g_env.set != 42 || !g_env.page)
+		return (NULL);
+	if ((pg = g_env.page))
 	{
-		while (page)
+		while (pg)
 		{
-			if (ptr > (void *)page->start && ptr < (void *)page->start + page->size)
-				return (page);
-			page = page->next;
+			if (ptr >= (void *)pg->start && ptr < (void *)pg->start + pg->size)
+				return (pg);
+			pg = pg->next;
 		}
 	}
 	return (NULL);
 }
 
-t_header	*find_header(void *ptr)
+t_header	*find_header(void *ptr, t_page *page)
 {
-	t_page		*page;
 	t_header	*needle;
 
-	if ((page = g_env.page))
+	if (page)
 	{
-		while (page)
+		needle = page->start;
+		while (needle)
 		{
-			needle = page->start;
-
-			while (needle)
-			{
-				if ((needle = ptr - sizeof(t_header)) != NULL)
-					return (needle);
-				needle = needle->next;
-			}
-			page = page->next;
+			if (needle == (void *)ptr - sizeof(t_header))
+				return (needle);
+			needle = needle->next;
 		}
 	}
 	return (NULL);
 }
 
-void	free(void *ptr)
+void		free(void *ptr)
 {
 	t_header	*header;
 	t_page		*page;
 
 	if (!ptr)
 		return ;
-	if ((header = find_header(ptr)) == NULL)
+	if ((page = find_ptr_in_page(ptr)) == NULL)
 		return ;
-	if ((page = find_ptr_in_page(header)) == NULL)
+	printf("page type = %c\n", page->type);
+	if ((header = find_header(ptr, page)) == NULL)
 		return ;
+	printf("header size = %zu\n", header->size);
 	pthread_mutex_lock(&g_lock);
 	if (page->type == LARGE)
 	{
 		if (free_page(page) != 0)
+		{
+			pthread_mutex_unlock(&g_lock);
 			return ;
-		page = NULL;
+		}
 	}
-	header->free = 1;
+	//header->free = 1;
 	ptr = NULL;
 	pthread_mutex_unlock(&g_lock);
 }

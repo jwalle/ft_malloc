@@ -67,6 +67,7 @@ extern t_env			g_env;
 pthread_mutex_t			g_lock;
 
 void					set_header(size_t size, t_header *header, void *next);
+t_header				*find_header(void *ptr, t_page *page);
 void					print_stuff_two(void *ptr, size_t size, time_t time);
 void					print_time(time_t time);
 void					print_mem(void *ptr, size_t size);
@@ -75,6 +76,7 @@ t_page					*page_push(t_page *first, size_t size);
 void					*ft_malloc(size_t size);
 void					ft_atoi_hex(void *ptr);
 void					show_alloc_mem(void);
+void					show_alloc_mem_ex(void);
 void					*get_malloc(size_t size);
 t_page					*tiny_init(void);
 void					free(void *ptr);

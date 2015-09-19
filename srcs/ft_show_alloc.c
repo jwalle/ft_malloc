@@ -53,7 +53,7 @@ void	print_type_name(char type)
 		ft_putstr("LARGE");
 }
 
-void	swho_alloc_mem_ex(void)
+void	show_alloc_mem_ex(void)
 {
 	t_header	*header;
 	t_page		*page;

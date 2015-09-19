@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 11:50:30 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/12 22:14:25 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/09/19 18:54:34 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ void	*malloc(size_t size)
 {
 	void	*ptr;
 
+
 	if (g_env.set != 42)
 		init_global();
-	pthread_mutex_lock(&g_lock);
 	get_limit(size);
+	pthread_mutex_lock(&g_lock);
 	ptr = get_malloc(size);
+	ft_putnbr(size);
+	ft_putchar('\n');
 	pthread_mutex_unlock(&g_lock);
 	return (ptr);
 }
