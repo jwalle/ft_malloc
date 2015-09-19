@@ -39,14 +39,13 @@ void	*malloc(size_t size)
 {
 	void	*ptr;
 
-
 	if (g_env.set != 42)
 		init_global();
 	get_limit(size);
 	pthread_mutex_lock(&g_lock);
 	ptr = get_malloc(size);
-	ft_putnbr(size);
-	ft_putchar('\n');
+	//ft_putnbr(size);
+	//ft_putchar('\n');
 	pthread_mutex_unlock(&g_lock);
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 14:53:29 by jwalle            #+#    #+#             */
-/*   Updated: 2015/08/20 14:53:30 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/09/19 20:50:08 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,20 +102,15 @@ void		free(void *ptr)
 		return ;
 	if ((page = find_ptr_in_page(ptr)) == NULL)
 		return ;
-	printf("page type = %c\n", page->type);
 	if ((header = find_header(ptr, page)) == NULL)
 		return ;
-	printf("header size = %zu\n", header->size);
 	pthread_mutex_lock(&g_lock);
-	if (page->type == LARGE)
+	if (page->type == LARGE && free_page(page) != 0)
 	{
-		if (free_page(page) != 0)
-		{
-			pthread_mutex_unlock(&g_lock);
-			return ;
-		}
+		pthread_mutex_unlock(&g_lock);
+		return ;
 	}
-	//header->free = 1;
+	header->free = 1;
 	ptr = NULL;
 	pthread_mutex_unlock(&g_lock);
 }
