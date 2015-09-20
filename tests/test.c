@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2015/09/19 15:46:47 by jwalle           ###   ########.fr       */
+/*   Updated: 2015/09/20 19:34:13 by jwalle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int	page_reclaim(FILE *pipe)
 }
 
 int main(int ac, char **av)
-{
+{	
 	if (ac == 2)
 	{
 		if (!strcmp(av[1], "test0"))
@@ -190,6 +190,9 @@ int main(int ac, char **av)
 	{
 		int t[3];
 
+		system("export DYLD_FALLBACK_LIBRARY_PATH=.");
+		system("export DYLD_INSERT_LIBRARIES=\"libft_malloc.so\"");
+		system("export DYLD_FORCE_FLAT_NAMESPACE=1");
 		system("./tests/print_win.sh");
 		system("tput civis");
 		print("Press a key to start the test.\n");
