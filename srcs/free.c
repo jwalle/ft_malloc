@@ -65,7 +65,7 @@ t_page		*find_ptr_in_page(void *ptr)
 	if (g_env.set != 42 || !g_env.page)
 		return (NULL);
 	if ((pg = g_env.page))
-	{
+	{	
 		while (pg)
 		{
 			if (ptr >= (void *)pg->start && ptr < (void *)pg->start + pg->size)
@@ -104,7 +104,6 @@ void		free(void *ptr)
 		return ;
 	if ((header = find_header(ptr, page)) == NULL)
 		return ;
-	printf("page type = %c, header size = %zu\n", page->type, header->size);
 	pthread_mutex_lock(&g_lock);
 	if (page->type == LARGE)
 	{

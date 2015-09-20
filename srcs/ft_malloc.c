@@ -23,6 +23,7 @@ void	get_limit(size_t size)
 
 	limit = getrlimit(RLIMIT_AS, &rlp);
 	total = rlp.rlim_cur;
+	// printf("trlim = %llu\n", rlp.rlim_cur);
 	if (total < size)
 		print_error("Not enough space available.");
 }
@@ -44,8 +45,6 @@ void	*malloc(size_t size)
 	get_limit(size);
 	pthread_mutex_lock(&g_lock);
 	ptr = get_malloc(size);
-	//ft_putnbr(size);
-	//ft_putchar('\n');
 	pthread_mutex_unlock(&g_lock);
 	return (ptr);
 }
