@@ -19,7 +19,6 @@
 # include <errno.h>
 # include <time.h>
 # include <pthread.h>
-# include <stdio.h> // PRINTF !!!!
 
 # define RESET "\033[0m"
 # define BOLD "\033[1m"

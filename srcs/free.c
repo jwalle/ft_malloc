@@ -65,7 +65,7 @@ t_page		*find_ptr_in_page(void *ptr)
 	if (g_env.set != 42 || !g_env.page)
 		return (NULL);
 	if ((pg = g_env.page))
-	{	
+	{
 		while (pg)
 		{
 			if (ptr >= (void *)pg->start && ptr < (void *)pg->start + pg->size)

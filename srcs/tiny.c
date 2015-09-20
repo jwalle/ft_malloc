@@ -22,7 +22,6 @@ void	*block_init(void *ptr, size_t size)
 	{
 		if (header->free && header->size >= size)
 		{
-			// ft_bzero(header + 1, size);
 			set_header(size, header, header->next);
 			return (header + 1);
 		}

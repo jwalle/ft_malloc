@@ -23,7 +23,6 @@ void	get_limit(size_t size)
 
 	limit = getrlimit(RLIMIT_AS, &rlp);
 	total = rlp.rlim_cur;
-	// printf("trlim = %llu\n", rlp.rlim_cur);
 	if (total < size)
 		print_error("Not enough space available.");
 }
