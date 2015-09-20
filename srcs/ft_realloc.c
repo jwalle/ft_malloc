@@ -64,7 +64,7 @@ void	*realloc(void *ptr, size_t size)
 	}
 	if ((page = find_ptr_in_page(ptr)) == NULL)
 		print_error("Realloc error");
-		if ((header = find_header(ptr, page)) == NULL)
+	if ((header = find_header(ptr, page)) == NULL)
 		print_error("Realloc error");
 	if (size > header->size)
 		return (bigger_realloc(size, header, page, ptr));

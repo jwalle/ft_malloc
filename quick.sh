@@ -1,1 +1,1 @@
-git add -A ; git commit -m "test program" ; git push origin master
+git add -A ; git commit -m "free update" ; git push origin master

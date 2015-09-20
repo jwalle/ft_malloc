@@ -17,7 +17,7 @@ void	*block_init(void *ptr, size_t size)
 	t_header	*header;
 	char		*next;
 
-	header = ptr;
+	header = (t_header *)ptr;
 	while (header->next)
 	{
 		if (header->free && header->size <= size)
