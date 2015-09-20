@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <sys/resource.h>
 # include <sys/mman.h>
-# include "libft.h"
+# include "../libft/libft.h"
 # include <errno.h>
 # include <time.h>
 # include <pthread.h>
